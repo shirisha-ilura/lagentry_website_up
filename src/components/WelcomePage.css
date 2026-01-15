@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  background: #000000;
+  color: #ffffff;
+}
+
+.welcome-content {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 4rem;
+  text-align: center;
+}
+
+.tagline-banner {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 25px;
+  padding: 8px 20px;
+  margin-bottom: 2rem;
+  animation: slideInFromBottomLeft 0.8s ease-out;
+  text-align: center;
+}
+
+.tagline-banner span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.main-heading {
+  margin-bottom: 1rem;
+  animation: slideInFromBottomLeft 0.8s ease-out 0.2s both;
+  text-align: center;
+}
+
+.heading-line1 {
+  display: block;
+  font-family: 'Georgia', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.animated-text-container {
+  margin-bottom: 2rem;
+  text-align: center;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: slideInFromBottomLeft 0.8s ease-out 0.4s both;
+}
+
+.animated-text-line {
+  position: relative;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.animated-text-item {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  opacity: 0;
+  animation: textCycle 10s infinite;
+}
+
+.animated-text-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.animated-text-item:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.animated-text-item:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.animated-text-item:nth-child(4) {
+  animation-delay: 6s;
+}
+
+.animated-text-item:nth-child(5) {
+  animation-delay: 8s;
+}
+
+.description-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 3rem;
+  max-width: 500px;
+  animation: slideInFromBottomLeft 0.8s ease-out 0.6s both;
+  text-align: center;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideInFromBottomLeft 0.8s ease-out 0.8s both, ctaPulse 3s ease-in-out infinite;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: buttonShimmer 2s infinite;
+  opacity: 0.6;
+}
+
+.cta-button::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+.cta-button:hover::before {
+  opacity: 1;
+}
+
+.cta-button:hover::after {
+  opacity: 0.8;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%, #1a1a1a 100%);
+}
+
+@keyframes buttonShimmer {
+  0% {
+    left: -100%;
+    top: -100%;
+  }
+  100% {
+    left: 100%;
+    top: 100%;
+  }
+}
+
+@keyframes ctaPulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 6px 25px rgba(0, 0, 0, 0.7),
+      0 0 30px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow {
+  transform: translateX(4px);
+}
+
+.cta-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInFromBottomLeft 0.8s ease-out 0.8s both;
+}
+
+.animation-space {
+  flex: 1;
+  min-height: 500px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  padding: 80px;
+}
+
+.shader-reminder {
+  border: none !important;
+  border-radius: 0 !important;
+  animation: smoothFloat 25s ease-in-out infinite;
+  box-shadow: none !important;
+  outline: none !important;
+  margin: -100px !important;
+  padding: 0 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.shader-reminder canvas {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+@keyframes smoothFloat {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translate(40px, -30px) scale(1.02) rotate(1deg);
+  }
+  40% {
+    transform: translate(-30px, 40px) scale(0.98) rotate(-1deg);
+  }
+  60% {
+    transform: translate(50px, 20px) scale(1.01) rotate(0.5deg);
+  }
+  80% {
+    transform: translate(-20px, -40px) scale(0.99) rotate(-0.5deg);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottomLeft {
+  from {
+    opacity: 0;
+    transform: translate(-50px, 50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textCycle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(30px);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  30% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-30px);
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .welcome-content {
+    max-width: 100%;
+    padding-right: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .heading-line1 {
+    font-size: 2.5rem;
+  }
+  
+  .animated-text-item {
+    font-size: 2rem;
+  }
+  
+  .animated-text-container {
+    height: 2.5rem;
+  }
+  
+  .animated-text-line {
+    height: 2.5rem;
+  }
+  
+  .description-text {
+    font-size: 0.8rem;
+  }
+  
+  .cta-section {
+    justify-content: center;
+  }
+  
+  .animation-space {
+    min-height: 300px;
+  }
+}

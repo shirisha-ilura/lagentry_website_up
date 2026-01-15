@@ -1,0 +1,29 @@
+.gmail-section {
+  margin: 20px 0 4px;
+}
+
+.gmail-frame-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.gmail-video {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: none;
+  object-fit: cover;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.gmail-video:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 30px rgba(138, 43, 226, 0.36);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+

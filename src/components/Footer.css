@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.footer {
+  background: #000000;
+  color: #ffffff;
+  padding: 4rem 0 2rem;
+  margin-top: 1.25rem;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer * {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Ensure agents word is completely isolated from any parent effects */
+.footer-description .agents-word-clear,
+.footer-section .agents-word-clear {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none !important;
+}
+
+.footer-container {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer-container * {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo Section */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo-l {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: 0.25rem;
+  position: relative;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  box-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(255, 255, 255, 0.6),
+    0 0 24px rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  animation: underlineGlow 2s ease-in-out infinite;
+}
+
+.footer-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #cccccc;
+  margin-bottom: 2rem;
+  max-width: 300px;
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+.footer-description,
+.footer-description *,
+.footer-description *::before,
+.footer-description *::after {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Specific class for agents word - maximum clarity, NO GLOW */
+.agents-word-clear {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: none !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  color: #cccccc !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  font-variant: normal !important;
+  font-stretch: normal !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+  display: inline !important;
+  position: static !important;
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+  image-rendering: auto !important;
+  -webkit-text-stroke: 0 !important;
+  text-stroke: 0 !important;
+  outline: none !important;
+  -webkit-text-fill-color: #cccccc !important;
+  text-fill-color: #cccccc !important;
+}
+
+.agents-word-clear::before,
+.agents-word-clear::after {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.footer-section {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer-section *,
+.footer-section *::before,
+.footer-section *::after {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@keyframes underlineGlow {
+  0%, 100% {
+    opacity: 0.8;
+    box-shadow: 
+      0 0 8px rgba(255, 255, 255, 0.9),
+      0 0 16px rgba(255, 255, 255, 0.6),
+      0 0 24px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 0 12px rgba(255, 255, 255, 1),
+      0 0 24px rgba(255, 255, 255, 0.8),
+      0 0 36px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.social-icon:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-2px);
+}
+
+/* Footer Headings */
+.footer-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #333333;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.copyright {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #888888;
+  margin: 0;
+}
+
+/* Copyright under giant brand */
+.footer-bottom-end {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 2rem 0;
+  text-align: center;
+  border-top: none;
+}
+
+.footer-bottom-end .copyright {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #888888;
+  margin: 0;
+}
+
+/* Giant brand at the very end */
+.giant-brand {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  height: 35vh;
+  padding-bottom: 3vh; /* extra room so descenders (g,y) aren't clipped */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(10,10,10,0.9) 30%, #000 100%);
+  border-top: none;
+}
+
+.giant-brand-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 18vw; /* huge */
+  line-height: 1.05; /* slightly taller to avoid cutting descenders */
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.04);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+  user-select: none;
+  position: relative;
+  display: inline-block; /* allow padding to affect text box */
+  padding-bottom: 0.08em; /* safe space for descenders */
+}
+
+.giant-brand-text::before {
+  content: 'Lagentry';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 245, 200, 0.1) 0%,
+    rgba(255, 240, 180, 0.05) 40%,
+    transparent 70%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  transition: background 0.1s ease-out;
+  mix-blend-mode: screen;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 0 2rem;
+  }
+  
+  .footer-container {
+    padding: 0 1rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-description {
+    max-width: 100%;
+  }
+  
+  .logo-l,
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .social-icons {
+    justify-content: flex-start;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 1.5rem;
+  }
+  
+  .footer-content {
+    gap: 1.5rem;
+  }
+  
+  .logo-l,
+  .logo-text {
+    font-size: 1.8rem;
+  }
+  
+  .footer-description {
+    font-size: 0.9rem;
+  }
+}
