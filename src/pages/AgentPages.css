@@ -1,0 +1,176 @@
+.agent-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1033 0%, #05030c 45%, #000000 100%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.agent-hero {
+  padding: 7rem 8vw 4rem;
+}
+
+.agent-hero-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.agent-hero-eyebrow {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+}
+
+.agent-hero-title {
+  font-size: clamp(2.8rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  margin: 0 0 1.2rem;
+  font-weight: 700;
+}
+
+.agent-hero-overview {
+  max-width: 600px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.agent-video-section {
+  margin-top: -2rem;
+  padding: 0 6vw 3rem;
+}
+
+.agent-video-frame {
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, #3b0764 0%, #020617 55%);
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(148, 163, 184, 0.15);
+}
+
+.agent-video-element {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.agent-features-section {
+  padding: 3rem 8vw 5rem;
+}
+
+.agent-features-header {
+  max-width: 880px;
+  margin: 0 auto 2.25rem;
+}
+
+.agent-features-header h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.agent-features-header p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.agent-features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
+}
+
+.agent-feature-card {
+  background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.4), rgba(15, 23, 42, 0.95));
+  border-radius: 18px;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-feature-card::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at top, rgba(244, 244, 245, 0.08), transparent 60%);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.agent-feature-card:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.agent-feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #4c1d95, #0f172a);
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.agent-feature-title {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.agent-feature-description {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(209, 213, 219, 0.9);
+}
+
+@media (max-width: 768px) {
+  .agent-hero {
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  /* Keep hero text comfortably within the mobile viewport */
+  .agent-hero-inner {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .agent-hero-title {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    word-wrap: break-word;
+  }
+
+  .agent-hero-overview {
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .agent-video-section {
+    padding: 0 1.5rem 2.5rem;
+  }
+
+  .agent-features-section {
+    padding: 2.5rem 1.5rem 4rem;
+  }
+}
+
+

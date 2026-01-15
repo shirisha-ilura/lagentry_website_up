@@ -1,0 +1,246 @@
+.pricing-container { background:#07070a; min-height:100vh; padding:100px 16px 40px; color:#e6e9ef; display:flex; flex-direction:column; justify-content:center; }
+.pricing-title { text-align:center; margin:0 0 6px 0; }
+.pricing-subtitle { text-align:center; color:#9aa3b2; margin:0 0 20px 0; }
+.pricing-grid { max-width:1300px; margin:0 auto; display:grid; gap:20px; justify-content:center; padding-bottom:8px; }
+.pricing-grid-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+.card { width:100%; height:580px; background:radial-gradient(1200px 400px at -10% -10%, rgba(155,92,255,.08), transparent), #0e0f14; border:1px solid rgba(197,147,255,.9); border-radius:20px; overflow:hidden; position:relative; }
+.card::before { content:""; position:absolute; inset: -1px; border-radius:20px; padding:1px; background:linear-gradient(135deg,#9b5cff,#6a5acd); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; opacity:.9 }
+.card-halo { position:absolute; inset:-40px -20px auto auto; height:160px; width:160px; border-radius:50%; background:radial-gradient(closest-side, rgba(155,92,255,.35), transparent 70%); filter: blur(10px); pointer-events:none; z-index:0; }
+/* Stars overlay for first card */
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: 20px;
+}
+.stars-overlay::before,
+.stars-overlay::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+  box-shadow: 0 0 3px rgba(155,92,255,0.8);
+}
+.stars-overlay::before {
+  left: 0;
+  top: 0;
+  animation-delay: 0s;
+  box-shadow: 
+    /* Reduced number of stars - scattered naturally */
+    40px 50px 0 0 #9b5cff,
+    120px 30px 0 0 rgba(155,92,255,0.8),
+    200px 70px 0 0 rgba(106,90,205,0.9),
+    280px 45px 0 0 #6a5acd,
+    60px 130px 0 0 rgba(155,92,255,0.7),
+    150px 110px 0 0 rgba(106,90,205,0.8),
+    230px 140px 0 0 #9b5cff,
+    80px 200px 0 0 rgba(155,92,255,0.9),
+    170px 180px 0 0 rgba(106,90,205,0.7),
+    260px 210px 0 0 #6a5acd,
+    50px 280px 0 0 rgba(155,92,255,0.8),
+    140px 260px 0 0 rgba(106,90,205,0.9),
+    220px 290px 0 0 #9b5cff,
+    100px 350px 0 0 rgba(155,92,255,0.7),
+    190px 330px 0 0 rgba(106,90,205,0.8),
+    270px 360px 0 0 #6a5acd,
+    70px 420px 0 0 rgba(155,92,255,0.9),
+    160px 400px 0 0 rgba(106,90,205,0.8),
+    250px 430px 0 0 #9b5cff,
+    110px 480px 0 0 rgba(155,92,255,0.7),
+    200px 460px 0 0 rgba(106,90,205,0.9),
+    90px 530px 0 0 #6a5acd;
+}
+.stars-overlay::after {
+  left: 0;
+  top: 0;
+  animation-delay: 1.5s;
+  width: 1.5px;
+  height: 1.5px;
+  background: transparent;
+  box-shadow: 
+    /* Additional scattered stars - fewer in number */
+    70px 90px 0 0 rgba(155,92,255,0.8),
+    180px 65px 0 0 #9b5cff,
+    270px 95px 0 0 rgba(106,90,205,0.9),
+    90px 170px 0 0 rgba(155,92,255,0.7),
+    210px 150px 0 0 #6a5acd,
+    50px 240px 0 0 rgba(106,90,205,0.8),
+    240px 220px 0 0 rgba(155,92,255,0.9),
+    130px 310px 0 0 #9b5cff,
+    290px 290px 0 0 rgba(106,90,205,0.7),
+    100px 380px 0 0 rgba(155,92,255,0.8),
+    240px 360px 0 0 #6a5acd,
+    80px 450px 0 0 rgba(106,90,205,0.9),
+    220px 430px 0 0 rgba(155,92,255,0.8),
+    150px 510px 0 0 #9b5cff;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.card-inner { position:relative; z-index:1; padding:20px; transform:translateY(0); transition:transform .25s ease, box-shadow .25s ease; height:100%; display:flex; flex-direction:column; }
+/* Ensure text is visible on all cards with background image */
+.pricing-grid-4 .card:first-child .card-inner,
+.pricing-grid-4 .card:nth-child(2) .card-inner,
+.pricing-grid-4 .card:nth-child(3) .card-inner,
+.pricing-grid-4 .card:nth-child(4) .card-inner {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.pricing-grid-4 .card:first-child .plan-title,
+.pricing-grid-4 .card:first-child .price-main,
+.pricing-grid-4 .card:first-child .features-title,
+.pricing-grid-4 .card:first-child .features li,
+.pricing-grid-4 .card:nth-child(2) .plan-title,
+.pricing-grid-4 .card:nth-child(2) .price-main,
+.pricing-grid-4 .card:nth-child(2) .features-title,
+.pricing-grid-4 .card:nth-child(2) .features li,
+.pricing-grid-4 .card:nth-child(3) .plan-title,
+.pricing-grid-4 .card:nth-child(3) .features-title,
+.pricing-grid-4 .card:nth-child(3) .features li,
+.pricing-grid-4 .card:nth-child(4) .plan-title,
+.pricing-grid-4 .card:nth-child(4) .features-title,
+.pricing-grid-4 .card:nth-child(4) .features li {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.card:hover .card-inner { transform:translateY(-6px); box-shadow:0 20px 40px rgba(155,92,255,.2); }
+.plan-line { display:flex; align-items:center; gap:12px; }
+.plan-logo { display: block; object-fit: contain; }
+.plan-title { font-weight:700; }
+.plan-badge { margin-left:auto; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); }
+.plan-subtitle { color:#9aa3b2; margin:6px 0 12px 0; font-size:13px; }
+.plan-price { display:flex; align-items:baseline; gap:8px; margin:8px 0 12px 0; }
+.price-main { font-size:36px; font-weight:800; letter-spacing:.5px; color:#ffffff; }
+.price-per { color:#9aa3b2; }
+.card-cta { display:inline-block; width:100%; text-align:center; margin-top:4px; background:linear-gradient(135deg,#9b5cff,#6a5acd); color:#fff; text-decoration:none; padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px; }
+.card-cta.big { padding:12px 16px; }
+.divider { height:1px; width:85%; background:rgba(255,255,255,.2); margin:16px auto; }
+.features-title { color:#c4c9d6; font-size:13px; margin-bottom:4px }
+.features { padding-left:0; list-style:none; display:flex; flex-direction:column; gap:10px; overflow:visible; }
+.features li { color:#e7ebf3; display:grid; grid-template-columns:24px 1fr; align-items:center; gap:10px; font-size:14px; line-height:1.4; font-weight:500; }
+.features .check { display:block; width:24px; height:24px; min-width:24px; border-radius:50%; border:2px solid rgba(255,255,255,.8); box-shadow:inset 0 0 0 2px rgba(255,255,255,.05); position:relative; }
+.features .check::after { content:""; position:absolute; left:7px; top:6px; width:6px; height:10px; border-right:2px solid rgba(255,255,255,.95); border-bottom:2px solid rgba(255,255,255,.95); transform:rotate(45deg); border-radius:.5px; }
+.card ul:not(.features) { padding-left:18px; color:#c4c9d6; }
+/* Keep four cards in a single row at all widths; allow horizontal scroll */
+
+/* First, second, third, and fourth card special styling to match provided image */
+.pricing-grid-4 .card:first-child,
+.pricing-grid-4 .card:nth-child(2),
+.pricing-grid-4 .card:nth-child(3),
+.pricing-grid-4 .card:nth-child(4) {
+  background-color: #0e0f14; /* Fallback color */
+}
+.pricing-grid-4 .card:first-child .card-halo,
+.pricing-grid-4 .card:nth-child(2) .card-halo,
+.pricing-grid-4 .card:nth-child(3) .card-halo,
+.pricing-grid-4 .card:nth-child(4) .card-halo {
+  display: none; /* Hide the halo effect on all cards */
+}
+.pricing-grid-4 .card:first-child,
+.pricing-grid-4 .card:nth-child(2),
+.pricing-grid-4 .card:nth-child(3),
+.pricing-grid-4 .card:nth-child(4) {
+  overflow: visible; /* Allow stars to be visible */
+}
+.pricing-grid-4 .card:first-child .plan-subtitle,
+.pricing-grid-4 .card:nth-child(2) .plan-subtitle,
+.pricing-grid-4 .card:nth-child(3) .plan-subtitle,
+.pricing-grid-4 .card:nth-child(4) .plan-subtitle {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.pricing-grid-4 .card:first-child .card-cta,
+.pricing-grid-4 .card:nth-child(2) .card-cta,
+.pricing-grid-4 .card:nth-child(3) .card-cta,
+.pricing-grid-4 .card:nth-child(4) .card-cta {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08), 0 6px 20px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.pricing-grid-4 .card:first-child .divider,
+.pricing-grid-4 .card:nth-child(2) .divider,
+.pricing-grid-4 .card:nth-child(3) .divider,
+.pricing-grid-4 .card:nth-child(4) .divider {
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 22px auto;
+  width: 85%;
+}
+.pricing-grid-4 .card:first-child .price-main { font-size:52px; line-height:1; letter-spacing:.4px; }
+.pricing-grid-4 .card:first-child .plan-badge,
+.pricing-grid-4 .card:nth-child(2) .plan-badge,
+.pricing-grid-4 .card:nth-child(3) .plan-badge,
+.pricing-grid-4 .card:nth-child(4) .plan-badge {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  margin-left: 12px;
+}
+/* Place AI-based badge near the title on 2nd, 3rd, and 4th cards */
+.pricing-grid-4 .card:nth-child(2) .plan-badge,
+.pricing-grid-4 .card:nth-child(3) .plan-badge,
+.pricing-grid-4 .card:nth-child(4) .plan-badge { margin-left: 12px; }
+.pricing-grid-4 .card:first-child::before,
+.pricing-grid-4 .card:nth-child(2)::before,
+.pricing-grid-4 .card:nth-child(3)::before,
+.pricing-grid-4 .card:nth-child(4)::before { opacity:.55; }
+.pricing-grid-4 .card:first-child .features .check,
+.pricing-grid-4 .card:nth-child(2) .features .check,
+.pricing-grid-4 .card:nth-child(3) .features .check,
+.pricing-grid-4 .card:nth-child(4) .features .check { border-color: rgba(255,255,255,.35); }
+
+/* Align first card content to match provided layout */
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .card-inner { padding-top:24px; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .plan-subtitle { margin-top:6px; margin-bottom:16px; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .plan-price { justify-content:flex-start; margin-bottom:12px; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .card-cta { margin: 8px auto 0; width: 85%; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .features-title { margin-top: 4px; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .features { gap: 12px; }
+/* Center the section below the button to match the reference image */
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .features-title,
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .features,
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .divider { width: 85%; margin-left: auto; margin-right: auto; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .features-title { font-size:16px; font-weight:700; color:#ffffff; margin-bottom:6px; }
+
+/* Ensure 2nd card heading matches 1st card exactly */
+.pricing-grid-4 .card:nth-child(2) .features-title { font-size:16px !important; font-weight:700 !important; color:#ffffff !important; }
+.pricing-grid-4 .card:nth-child(2) .features { gap:12px !important; }
+.pricing-grid-4 .card:nth-child(2) .divider { width:85% !important; margin-left:auto !important; margin-right:auto !important; }
+/* Match 1st card check icon ring/tick appearance on 2nd card */
+.pricing-grid-4 .card:nth-child(2) .features .check { border-color: rgba(255,255,255,.35); }
+
+/* Match 3rd card heading and section to 1st */
+.pricing-grid-4 .card:nth-child(3) .features-title { font-size:16px !important; font-weight:700 !important; color:#ffffff !important; }
+.pricing-grid-4 .card:nth-child(3) .features { gap:12px !important; }
+.pricing-grid-4 .card:nth-child(3) .divider { width:85% !important; margin-left:auto !important; margin-right:auto !important; }
+/* Match 1st card check icon ring/tick appearance on 3rd card */
+.pricing-grid-4 .card:nth-child(3) .features .check { border-color: rgba(255,255,255,.35); }
+
+/* Match 4th card heading and section to 1st */
+.pricing-grid-4 .card:nth-child(4) .features-title { font-size:16px !important; font-weight:700 !important; color:#ffffff !important; }
+.pricing-grid-4 .card:nth-child(4) .features { gap:12px !important; }
+.pricing-grid-4 .card:nth-child(4) .divider { width:85% !important; margin-left:auto !important; margin-right:auto !important; }
+/* Make the horizontal divider on 3rd and 4th cards match 1st card */
+.pricing-grid-4 .card:nth-child(3) .divider,
+.pricing-grid-4 .card:nth-child(4) .divider {
+  height:1px !important;
+  background: rgba(255,255,255,0.2) !important;
+  margin:16px auto !important;
+  width:85% !important;
+}
+/* Force show the divider on the 3rd card in case of cascade issues */
+.pricing-grid-4 .card:nth-child(3) .divider { display:block !important; opacity:1 !important; }
+/* Match 1st card check icon ring/tick appearance on 4th card */
+.pricing-grid-4 .card:nth-child(4) .features .check { border-color: rgba(255,255,255,.35); }
+
+/* Keep logo fixed at top-left; place text and badge below it */
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .plan-line { position: relative; flex-wrap: nowrap; padding-top: 60px; align-items: flex-start; }
+.pricing-grid-4 .card:is(:first-child, :nth-child(2), :nth-child(3), :nth-child(4)) .plan-logo { position: absolute; top: 0; left: 0; margin: 0; width: 40px; height: 40px; object-fit: contain; }
+
+
