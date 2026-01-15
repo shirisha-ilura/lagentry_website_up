@@ -1,0 +1,3 @@
+// placeholder to ensure images directory exists; actual images are referenced from lagentry_website/public/images
+
+
