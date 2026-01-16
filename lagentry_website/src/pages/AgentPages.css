@@ -1,0 +1,3090 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap');
+
+.agent-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Geist', sans-serif;
+  padding-top: 80px;
+  position: relative;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+
+/* Remove top padding for HR Recruitment page, position video in bottom right */
+.hr-recruitment-page {
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  top: 0 !important;
+  left: 0 !important;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+/* Ensure body and html have no top spacing for HR Recruitment page */
+body.hr-recruitment-active,
+html.hr-recruitment-active {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  background: transparent !important;
+}
+
+/* Make sure the top area above navbar is transparent */
+body.hr-recruitment-active,
+html.hr-recruitment-active,
+body.hr-recruitment-active #root {
+  background: transparent !important;
+}
+
+/* Navigation bar positioning for HR Recruitment page - same as other pages */
+body.hr-recruitment-active .navigation {
+  position: fixed !important;
+  top: 20px !important;
+  z-index: 1000 !important;
+}
+
+body.hr-recruitment-active .navigation.scrolled {
+  top: 10px !important;
+}
+
+/* Position hero section overlay on video for HR Recruitment page - left side */
+.hr-recruitment-page .agent-hero {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 50%;
+  max-width: 600px;
+  display: block;
+  z-index: 10;
+  padding: 2rem;
+  background: transparent;
+  pointer-events: none;
+}
+
+.hr-recruitment-page .agent-hero::before {
+  display: none;
+}
+
+.hr-recruitment-page .agent-hero-inner {
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  width: 100%;
+}
+
+/* Make background transparent when EnergyBeam is present */
+.agent-page:has(.energy-beam-container) {
+  background: transparent !important;
+}
+
+/* Alternative: Direct class-based approach for better browser support */
+.agent-page.hr-recruitment-page {
+  background: transparent !important;
+}
+
+/* Remove black background on right side of image - make entire page transparent until features section */
+.agent-page.hr-recruitment-page .agent-hero,
+.agent-page.hr-recruitment-page .agent-video-section {
+  background: transparent !important;
+}
+
+/* Make video frame and image container completely transparent - remove all black backgrounds */
+.hr-recruitment-page .agent-video-frame {
+  background: transparent !important;
+}
+
+.hr-recruitment-page .agent-video-frame img {
+  background: transparent !important;
+}
+
+/* Ensure no black background shows around the image - make all child elements transparent */
+.hr-recruitment-page .agent-video-section,
+.hr-recruitment-page .agent-video-section * {
+  background: transparent !important;
+}
+
+/* Remove any black background from the page container around the image */
+.hr-recruitment-page {
+  background: transparent !important;
+}
+
+.hr-recruitment-page::before,
+.hr-recruitment-page::after {
+  background: transparent !important;
+}
+
+/* Remove black background from body and html for HR recruitment page - override all black backgrounds */
+body.hr-recruitment-active,
+body.hr-recruitment-active html,
+html.hr-recruitment-active,
+body.hr-recruitment-active #root,
+body.hr-recruitment-active .App {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Make sure the entire viewport is transparent around the image */
+body.hr-recruitment-active {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Ensure WebGL canvas is behind everything but visible */
+.agent-page canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+}
+
+/* Ensure EnergyBeam container is behind content but visible, extends to bottom of video, scrolls with page */
+.agent-page .energy-beam-container {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 80vh !important;
+  max-height: 80vh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+/* Purple Lagentry logo on HR Recruitment page */
+body.hr-recruitment-active .navigation .logo-icon-image {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(89%) saturate(2000%) hue-rotate(240deg) brightness(1.1) contrast(1.2);
+  transition: filter 0.3s ease;
+}
+
+/* Hero Section - Cinematic & Bold */
+.agent-hero {
+  padding: 8rem 8vw 5rem;
+  text-align: left;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.agent-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(139, 92, 246, 0.15) 0%,
+    rgba(139, 92, 246, 0.05) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.agent-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.agent-hero-eyebrow {
+  display: inline-block;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(139, 92, 246, 0.8);
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 50px;
+}
+
+.agent-hero-title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: visible;
+  text-align: left;
+}
+
+.agent-hero-overview {
+  max-width: 700px;
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(209, 213, 219, 0.85);
+  font-weight: 400;
+  text-align: left;
+}
+
+/* Video Section - Clean & Centered */
+.agent-video-section {
+  padding: 0 8vw 6rem;
+  position: relative;
+}
+
+
+/* Position video section at top, full width - touches left, right, and top */
+.hr-recruitment-page .agent-video-section {
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  top: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  z-index: 1;
+  display: block;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Ensure video frame has no top margin or padding - touches absolute top */
+.hr-recruitment-page .agent-video-frame {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  top: 0 !important;
+  z-index: 1;
+  position: relative;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* Ensure video element starts at absolute top - no gaps, zoomed to right, line touches top */
+.hr-recruitment-page .agent-video-frame video {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  vertical-align: top !important;
+  z-index: 1;
+  display: block;
+  position: relative;
+  width: 100% !important;
+  object-fit: cover !important;
+  object-position: right center !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure navigation bar stays above video */
+.navigation {
+  z-index: 1000 !important;
+  position: fixed !important;
+}
+
+/* Remove black background below image on HR Recruitment page - transparent until after image */
+.hr-recruitment-page .agent-video-section {
+  background: transparent !important;
+  position: relative !important;
+  top: 0 !important;
+}
+
+.hr-recruitment-page .agent-video-frame {
+  margin-bottom: 0;
+}
+
+/* Black background starts after the video section - cards appear below video */
+.hr-recruitment-page .agent-features-section {
+  background: #000000;
+  margin-top: 0;
+  padding-top: 6rem;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  clear: both;
+}
+
+.agent-video-frame {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  animation: none;
+}
+
+/* Background video for HR Recruitment page */
+.agent-video-background {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: 25px;
+}
+
+/* Video size for HR Recruitment page - full width, touches edges */
+.hr-recruitment-page .agent-video-frame {
+  max-width: 100% !important;
+  width: 100% !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  position: relative;
+  border-radius: 0 !important;
+  height: auto;
+}
+
+/* Video size for HR Recruitment page - full width, touches edges */
+.hr-recruitment-page .agent-video-frame video,
+.hr-recruitment-page .hr-recruitment-video {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: #000000;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure video container is visible */
+.hr-recruitment-page .agent-video-frame {
+  background: #000000;
+}
+
+/* Hero text overlay on video for HR Recruitment page - left aligned */
+.hr-recruitment-page .agent-video-frame .agent-hero {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 50%;
+  max-width: 600px;
+  z-index: 10;
+  padding: 2rem;
+  background: transparent;
+  pointer-events: none;
+  display: block !important;
+}
+
+.hr-recruitment-page .agent-video-frame .agent-hero::before {
+  display: none;
+}
+
+.hr-recruitment-page .agent-video-frame .agent-hero-inner {
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  width: 100%;
+}
+
+/* Make title visible with white color - keep in one line, show full text */
+.hr-recruitment-page .agent-video-frame .agent-hero-title {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+/* Hide eyebrow text box for HR Recruitment page */
+.hr-recruitment-page .agent-video-frame .agent-hero-eyebrow {
+  display: none !important;
+}
+
+/* Make overview text visible */
+.hr-recruitment-page .agent-video-frame .agent-hero-overview {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Image overlay for HR Recruitment page - transparent background, image directly on video */
+.hr-recruitment-page .agent-image-overlay {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+  width: 55%;
+  max-width: 700px;
+  height: 75%;
+  max-height: 550px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+
+.hr-recruitment-page .agent-overlay-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Background video styling for HR Recruitment page */
+.hr-recruitment-page .agent-video-background {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: 25px;
+}
+
+/* Animated glowing border - zeni.ai style (purple only) - hidden for images */
+.agent-video-frame::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 32px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.9) 0%,
+    rgba(167, 139, 250, 0.7) 25%,
+    rgba(139, 92, 246, 0.9) 50%,
+    rgba(167, 139, 250, 0.7) 75%,
+    rgba(139, 92, 246, 0.9) 100%
+  );
+  background-size: 400% 400%;
+  pointer-events: none;
+  z-index: -1;
+  animation: borderGradient 4s linear infinite, borderGlow 2s ease-in-out infinite;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+/* Remove purple border and effects when image is present (HR Recruitment page) */
+.agent-video-frame:has(img)::before {
+  display: none;
+}
+
+.agent-video-frame:has(img)::after {
+  display: none;
+}
+
+.agent-video-frame:has(img) {
+  box-shadow: none;
+  animation: none;
+  padding: 0;
+  background: transparent;
+}
+
+.agent-video-frame:has(img) img {
+  background: transparent;
+}
+
+/* Inner glow effect (purple only) */
+.agent-video-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.2) 0%,
+    transparent 50%,
+    rgba(167, 139, 250, 0.15) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+  animation: innerGlow 3s ease-in-out infinite;
+}
+
+/* Video container wrapper */
+.agent-video-frame > video {
+  position: relative;
+  z-index: 2;
+  border-radius: 25px;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Ensure only one video element is visible in video frame - hide duplicates */
+.agent-video-frame > video:not(:first-of-type),
+.agent-video-frame video:not(:first-of-type),
+.agent-video-frame video:nth-of-type(n+2) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Animated gradient border */
+@keyframes borderGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Pulsing glow effect */
+@keyframes borderGlow {
+  0%, 100% {
+    opacity: 0.6;
+    filter: blur(1px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+}
+
+/* Video container pulse (purple only) */
+@keyframes videoGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 40px rgba(139, 92, 246, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 0 60px rgba(139, 92, 246, 0.6),
+      0 0 30px rgba(167, 139, 250, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Inner glow animation */
+@keyframes innerGlow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Hover effect enhancement */
+.agent-video-frame:hover {
+  transform: translateY(-4px) scale(1.01);
+  animation-duration: 1.5s;
+}
+
+.agent-video-frame:hover::before {
+  animation-duration: 2s, 1s;
+  opacity: 1;
+  filter: blur(2px);
+}
+
+.agent-video-frame:hover::after {
+  opacity: 1;
+}
+
+.agent-video-element {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Ensure image is above background video on HR Recruitment page */
+.hr-recruitment-page .agent-video-element {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+/* Features Section - Grid Layout */
+.agent-features-section {
+  padding: 6rem 8vw 8rem;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.agent-features-header {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.agent-features-header h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 0 0 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
+}
+
+.agent-features-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 0;
+}
+
+/* HR Recruitment - 2x3 Grid Layout */
+body.hr-recruitment-active .agent-features-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1400px;
+  gap: 1.5rem;
+}
+
+/* Dashboard-style cards - shared sizing across all agent pages */
+.agent-feature-card.hr-dashboard-style {
+  padding: 1rem;
+  min-height: 200px;
+  gap: 0.75rem;
+}
+
+.agent-feature-card.hr-dashboard-style .agent-feature-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.3rem;
+}
+
+.agent-feature-card.hr-dashboard-style .agent-feature-subtitle {
+  font-size: 0.9rem;
+  margin: 0 0 0.9rem;
+  line-height: 1.5;
+  /* High-contrast subtitle so it reads clearly on the card background */
+  color: rgba(249, 250, 251, 0.96);
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.85);
+  position: relative;
+  z-index: 1; /* ensure text sits above card glow layers */
+}
+
+/* Feature Cards - Cinematic & Clean */
+.agent-feature-card {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(2, 6, 23, 0.9) 100%
+  );
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.agent-feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 50%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.agent-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(139, 92, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 40px rgba(139, 92, 246, 0.1);
+}
+
+.agent-feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Dashboard-style cards - blue UI from reference image applied to all agent pages */
+.agent-feature-card.hr-dashboard-style {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(2, 6, 23, 0.9) 100%
+  );
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-feature-card.hr-dashboard-style::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 50%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.agent-feature-card.hr-dashboard-style::after {
+  display: none;
+}
+
+/* Enhanced HR Card Content Styles */
+.hr-card-content-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Query Box Style */
+.hr-query-box {
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16),
+      rgba(15, 23, 42, 0.14)
+    );
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  max-width: 65%;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+}
+
+.hr-query-box:hover {
+  border-color: rgba(191, 219, 254, 0.9);
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22),
+      rgba(15, 23, 42, 0.18)
+    );
+  box-shadow:
+    0 22px 50px rgba(15, 23, 42, 1),
+    0 0 32px rgba(59, 130, 246, 0.55);
+}
+
+/* Data Display */
+.hr-data-display {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.hr-data-intro {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.hr-candidate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hr-candidate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.hr-candidate-name {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.hr-candidate-count {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 600;
+  align-self: flex-end;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hr-candidate-bar {
+  height: 6px;
+  background: rgba(139, 92, 246, 0.4);
+  border-radius: 3px;
+  margin-top: 0.25rem;
+  transition: width 0.3s ease;
+}
+
+/* Pipeline Stats */
+.hr-pipeline-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hr-stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.hr-stat-value {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  text-align: center !important;
+}
+
+.hr-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hr-pipeline-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.hr-flow-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.hr-flow-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hr-flow-dot.active {
+  background: rgba(139, 92, 246, 0.8);
+  border-color: rgba(139, 92, 246, 1);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.hr-flow-stage span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hr-flow-arrow {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.25rem;
+}
+
+/* Chart Labels */
+.hr-chart-labels {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.hr-chart-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hr-chart-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Insight Box */
+.hr-insight-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.hr-insight-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.hr-insight-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Velocity Metrics */
+.hr-velocity-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hr-metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.hr-metric-label {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hr-metric-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Action Buttons */
+.hr-action-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hr-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.hr-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.hr-action-check {
+  color: rgba(139, 92, 246, 1);
+  font-weight: 600;
+}
+
+/* Insights List */
+.hr-insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hr-insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.hr-insight-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.8);
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+.hr-insight-content {
+  flex: 1;
+}
+
+.hr-insight-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.hr-insight-desc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Onboarding Steps */
+.hr-onboarding-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hr-step-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.hr-step-item.active {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.hr-step-item.completed {
+  opacity: 0.7;
+}
+
+.hr-step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.hr-step-item.active .hr-step-number {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.6);
+  color: #ffffff;
+}
+
+.hr-step-item.completed .hr-step-number {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.6);
+  color: #ffffff;
+}
+
+.hr-step-content {
+  flex: 1;
+}
+
+.hr-step-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.hr-step-status {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hr-onboarding-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hr-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hr-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.hr-progress-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: right;
+}
+
+/* Resume Screening Card Styles */
+.hr-screening-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-stat-large {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.hr-stat-number {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  text-align: center !important;
+}
+
+.hr-stat-desc {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hr-screening-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hr-chart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hr-chart-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hr-chart-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hr-chart-bar {
+  flex: 1;
+  height: 6px;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.hr-chart-value {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center !important;
+  min-width: 35px;
+  text-align: center;
+}
+
+/* Trend Indicator */
+.hr-trend-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+.hr-trend-indicator.positive {
+  background: rgba(224, 128, 255, 0.1);
+  border: 1px solid rgba(224, 128, 255, 0.2);
+}
+
+.hr-trend-arrow {
+  font-size: 1rem;
+  color: rgba(224, 128, 255, 1);
+}
+
+.hr-trend-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Candidate Outreach Card Styles */
+.hr-outreach-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-metric-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hr-metric-icon {
+  font-size: 1.25rem;
+}
+
+.hr-metric-info {
+  flex: 1;
+}
+
+.hr-metric-number {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+  text-align: center !important;
+}
+
+.hr-metric-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hr-outreach-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hr-timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hr-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.6);
+  flex-shrink: 0;
+}
+
+.hr-timeline-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hr-timeline-title {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hr-timeline-bar {
+  height: 5px;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 3px;
+}
+
+/* AI Interviewing Card Styles */
+.hr-interview-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-interview-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hr-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hr-progress-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hr-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hr-progress-percent {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: right;
+}
+
+/* Cross-Questioning Card Styles */
+.hr-questioning-metrics {
+  margin-bottom: 1rem;
+}
+
+.hr-metric-display {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.hr-metric-main {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.hr-metric-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hr-questioning-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hr-breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hr-breakdown-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 100px;
+}
+
+.hr-breakdown-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hr-breakdown-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.hr-breakdown-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Shortlisting Card Styles */
+.hr-shortlisting-overview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-overview-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.hr-overview-number {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+  text-align: center !important;
+}
+
+.hr-overview-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hr-shortlisting-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-score-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hr-score-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hr-score-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hr-score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.hr-score-value {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center !important;
+}
+
+.hr-shortlisting-distribution {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+  height: 90px;
+  margin-bottom: 0.75rem;
+}
+
+.hr-dist-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hr-dist-bar {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.4));
+  border-radius: 4px 4px 0 0;
+  min-height: 10px;
+  transition: height 0.3s ease;
+}
+
+.hr-dist-item span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Interview Summaries Card Styles */
+.hr-summaries-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.hr-stat-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hr-stat-icon {
+  font-size: 1.5rem;
+}
+
+.hr-stat-details {
+  flex: 1;
+}
+
+.hr-stat-big {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+  text-align: center !important;
+}
+
+.hr-stat-small {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hr-summaries-features {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.hr-feature-tag {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hr-summaries-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hr-breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hr-breakdown-name {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 110px;
+}
+
+.hr-breakdown-line {
+  flex: 1;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hr-breakdown-progress {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.hr-breakdown-percent {
+  font-family: 'Geist', sans-serif !important;
+  text-align: center !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 35px;
+  text-align: right;
+}
+
+.agent-feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.agent-feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+.agent-feature-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(209, 213, 219, 0.8);
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .agent-hero {
+    padding: 6rem 4vw 4rem;
+  }
+
+  .agent-hero-title {
+    font-size: clamp(2.25rem, 8vw, 3rem);
+  }
+
+  .agent-hero-overview {
+    font-size: 1.05rem;
+  }
+
+  .agent-video-section {
+    padding: 0 4vw 4rem;
+  }
+
+  .agent-features-section {
+    padding: 4rem 4vw 6rem;
+  }
+
+  .agent-features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .agent-page {
+    padding-top: 70px;
+  }
+
+  /* Hero Section - Mobile */
+  .agent-hero {
+    padding: 3rem 1rem 2rem;
+    text-align: left !important;
+  }
+
+  .agent-hero-inner {
+    max-width: 100%;
+    text-align: left !important;
+  }
+
+  .agent-hero-eyebrow {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .agent-hero-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    white-space: normal !important;
+    word-wrap: break-word;
+    text-align: left !important;
+  }
+
+  .agent-hero-overview {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: left !important;
+    max-width: 100%;
+  }
+
+  /* Ensure all agent pages start below navbar on mobile */
+  .hr-recruitment-page,
+  .gtm-sales-page,
+  .cfo-finance-page,
+  .customer-support-page,
+  .real-estate-page,
+  .healthcare-page {
+    padding-top: 70px !important;
+  }
+
+  /* Reduce title size for individual agent pages on mobile and allow wrapping */
+  .hr-recruitment-page .agent-hero-title,
+  .gtm-sales-page .agent-hero-title,
+  .cfo-finance-page .agent-hero-title,
+  .customer-support-page .agent-hero-title,
+  .real-estate-page .agent-hero-title,
+  .healthcare-page .agent-hero-title {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    word-wrap: break-word;
+  }
+
+  /* Soften overview text for individual pages on mobile */
+  .hr-recruitment-page .agent-hero-overview,
+  .gtm-sales-page .agent-hero-overview,
+  .cfo-finance-page .agent-hero-overview,
+  .customer-support-page .agent-hero-overview,
+  .real-estate-page .agent-hero-overview,
+  .healthcare-page .agent-hero-overview {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Keep title + overview nicely aligned on mobile */
+  .agent-hero-inner {
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .agent-hero-title,
+  .agent-hero-overview {
+    max-width: 100%;
+  }
+
+  /* On mobile, keep hero text and image stacked ABOVE the video (not overlapping it) */
+  .gtm-sales-page .agent-hero,
+  .cfo-finance-page .agent-hero,
+  .customer-support-page .agent-hero,
+  .real-estate-page .agent-hero,
+  .healthcare-page .agent-hero {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 3rem 1rem 1.5rem !important;
+    pointer-events: auto !important;
+  }
+
+  .gtm-sales-page .agent-hero-inner,
+  .cfo-finance-page .agent-hero-inner,
+  .customer-support-page .agent-hero-inner,
+  .real-estate-page .agent-hero-inner,
+  .healthcare-page .agent-hero-inner {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    text-align: left !important;
+  }
+
+  /* Image above video on mobile instead of overlaid */
+  .gtm-sales-page .agent-video-frame,
+  .cfo-finance-page .agent-video-frame,
+  .customer-support-page .agent-video-frame,
+  .real-estate-page .agent-video-frame,
+  .healthcare-page .agent-video-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .gtm-sales-page .agent-image-overlay,
+  .cfo-finance-page .agent-image-overlay,
+  .customer-support-page .agent-image-overlay,
+  .real-estate-page .agent-image-overlay,
+  .healthcare-page .agent-image-overlay {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 80% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .gtm-sales-page .agent-overlay-image,
+  .cfo-finance-page .agent-overlay-image,
+  .customer-support-page .agent-overlay-image,
+  .real-estate-page .agent-overlay-image,
+  .healthcare-page .agent-overlay-image {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    transform: none !important;
+  }
+
+  /* Keep hero text above the video and fully visible on mobile */
+  .gtm-sales-page .agent-hero,
+  .cfo-finance-page .agent-hero,
+  .customer-support-page .agent-hero,
+  .real-estate-page .agent-hero,
+  .healthcare-page .agent-hero {
+    top: 18% !important;
+    transform: none !important;
+    left: 5% !important;
+    width: 80% !important;
+    max-width: 90% !important;
+  }
+
+  /* Video Section - Mobile */
+  .agent-video-section {
+    padding: 0 0 2rem;
+  }
+
+  .agent-video-frame {
+    border-radius: 16px;
+    margin: 0;
+  }
+
+  /* Features Section - Mobile */
+  .agent-features-section {
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .agent-features-header {
+    margin-bottom: 2rem;
+    text-align: center !important;
+  }
+
+  .agent-features-header h2 {
+    font-size: 1.35rem;
+    text-align: center !important;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Mobile layout for all agent pages:
+     - Hero text at top (below navbar)
+     - aicfohero.mp4 video below text
+     - Smaller dashboard image below the video */
+  .agent-video-section {
+    padding: 0 1rem 2rem;
+  }
+
+  .agent-video-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: visible !important;
+  }
+
+  /* Hero text at the top of the video section on mobile */
+  .agent-video-frame .agent-hero {
+    position: static !important;
+    order: 1;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  /* HR Recruitment: match other agent pages on mobile (hero below navbar, not over video) */
+  .hr-recruitment-page .agent-video-frame .agent-hero {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.25rem 1rem 0 !important; /* add side padding to match other agent pages */
+    pointer-events: auto !important;
+  }
+
+  .hr-recruitment-page .agent-video-frame .agent-hero-inner {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    text-align: left !important;
+  }
+
+  .agent-video-frame .agent-hero-inner {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: left !important;
+  }
+
+  /* aicfohero.mp4 video directly under the text on mobile, taking most of the width */
+  .agent-video-frame .agent-video-element {
+    order: 2;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    position: relative !important;
+    transform: scale(1.4) !important;
+    transform-origin: center center !important;
+  }
+
+  /* Smaller dashboard image overlaid on top of the video on mobile - positioned relative to video element */
+  /* Default: move image to right side over the video on mobile */
+  .agent-video-frame .agent-image-overlay {
+    position: absolute !important;
+    order: 3;
+    top: 80% !important;
+    left: 20% !important;
+    right: 40% !important;
+    transform: translateX(0) !important;
+    bottom: auto !important;
+    width: 60% !important;
+    max-width: 240px !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* HR Recruitment: keep image more to the left on mobile */
+  .hr-recruitment-page .agent-video-frame .agent-image-overlay {
+    left: 20% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .agent-video-frame .agent-overlay-image {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    transform: none !important;
+  }
+
+  .agent-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* HR Recruitment - Mobile: Single column */
+  body.hr-recruitment-active .agent-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .agent-feature-card.hr-dashboard-style {
+    min-height: auto;
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .agent-feature-card.hr-dashboard-style .agent-feature-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .agent-feature-card {
+    padding: 1.25rem;
+    gap: 0.75rem;
+    border-radius: 16px;
+  }
+
+  .agent-feature-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .agent-feature-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .agent-feature-description {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* GTM Sales - Mobile: Single column */
+  .gtm-sales-page .agent-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style {
+    padding: 1.25rem;
+    gap: 0.75rem;
+    min-height: auto;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.9rem;
+    color: rgba(249, 250, 251, 0.96);
+    text-shadow: 0 1px 2px rgba(15, 23, 42, 0.85);
+  }
+
+  /* Sales Analytics Card - Mobile */
+  .gtm-sales-page .agent-feature-card.sales-analytics-card {
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.sales-analytics-card .agent-feature-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* All agent pages hero positioning - Mobile */
+  .hr-recruitment-page .agent-hero,
+  .gtm-sales-page .agent-hero,
+  .cfo-finance-page .agent-hero,
+  .customer-support-page .agent-hero,
+  .real-estate-page .agent-hero,
+  .healthcare-page .agent-hero {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 3rem 1rem 2rem;
+    text-align: left !important;
+  }
+
+  /* All agent pages hero inner - Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-inner,
+  .gtm-sales-page .agent-hero-inner,
+  .cfo-finance-page .agent-hero-inner,
+  .customer-support-page .agent-hero-inner,
+  .real-estate-page .agent-hero-inner,
+  .healthcare-page .agent-hero-inner {
+    text-align: left !important;
+    width: 100%;
+  }
+
+  /* All agent pages hero title - Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-title,
+  .gtm-sales-page .agent-hero-title,
+  .cfo-finance-page .agent-hero-title,
+  .customer-support-page .agent-hero-title,
+  .real-estate-page .agent-hero-title,
+  .healthcare-page .agent-hero-title {
+    text-align: left !important;
+  }
+
+  /* All agent pages hero overview - Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-overview,
+  .gtm-sales-page .agent-hero-overview,
+  .cfo-finance-page .agent-hero-overview,
+  .customer-support-page .agent-hero-overview,
+  .real-estate-page .agent-hero-overview,
+  .healthcare-page .agent-hero-overview {
+    text-align: left !important;
+  }
+
+  /* Stat Cards - Mobile - Reduce sizes */
+  .hr-stat-large,
+  .sales-stat-large,
+  .cfo-stat-large,
+  .support-stat-large,
+  .re-stat-large,
+  .health-stat-large {
+    padding: 0.625rem;
+  }
+
+  .hr-stat-number,
+  .sales-stat-number,
+  .cfo-stat-number,
+  .support-stat-number,
+  .re-stat-number,
+  .health-stat-number {
+    font-size: 1.25rem !important;
+  }
+
+  .hr-stat-desc,
+  .sales-stat-desc,
+  .cfo-stat-desc,
+  .support-stat-desc,
+  .re-stat-desc,
+  .health-stat-desc {
+    font-size: 0.7rem;
+  }
+
+  /* Chart and progress bars - Mobile */
+  .hr-chart-item,
+  .sales-chart-item,
+  .cfo-chart-item,
+  .support-chart-item,
+  .re-chart-item,
+  .health-chart-item {
+    gap: 0.5rem;
+  }
+
+  .hr-chart-label,
+  .sales-chart-label,
+  .cfo-chart-label,
+  .support-chart-label,
+  .re-chart-label,
+  .health-chart-label {
+    font-size: 0.75rem;
+  }
+
+  .hr-chart-value,
+  .sales-chart-value,
+  .cfo-chart-value,
+  .support-chart-value,
+  .re-chart-value,
+  .health-chart-value {
+    font-size: 0.85rem !important;
+  }
+
+  /* Progress bars - Mobile */
+  .hr-progress-bar,
+  .sales-progress-bar,
+  .cfo-progress-bar,
+  .support-progress-bar,
+  .re-progress-bar,
+  .health-progress-bar {
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agent-hero {
+    padding: 2.5rem 1rem 1.5rem;
+    text-align: left !important;
+  }
+
+  .agent-hero-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.625rem;
+    white-space: normal !important;
+    word-wrap: break-word;
+    text-align: left !important;
+  }
+
+  .agent-hero-overview {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-align: left !important;
+  }
+
+  /* Slightly smaller paddings on the smallest screens */
+  .hr-recruitment-page,
+  .gtm-sales-page,
+  .cfo-finance-page,
+  .customer-support-page,
+  .real-estate-page,
+  .healthcare-page {
+    padding-top: 64px !important;
+  }
+
+  /* Further reduce title size for smallest mobile screens */
+  .hr-recruitment-page .agent-hero-title,
+  .gtm-sales-page .agent-hero-title,
+  .cfo-finance-page .agent-hero-title,
+  .customer-support-page .agent-hero-title,
+  .real-estate-page .agent-hero-title,
+  .healthcare-page .agent-hero-title {
+    font-size: 1.35rem !important;
+  }
+
+  .hr-recruitment-page .agent-hero-overview,
+  .gtm-sales-page .agent-hero-overview,
+  .cfo-finance-page .agent-hero-overview,
+  .customer-support-page .agent-hero-overview,
+  .real-estate-page .agent-hero-overview,
+  .healthcare-page .agent-hero-overview {
+    font-size: 0.8rem !important;
+  }
+
+  .agent-video-section {
+    padding: 0 0 1.5rem;
+  }
+
+  .agent-video-frame {
+    border-radius: 12px;
+  }
+
+  .agent-features-section {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .agent-features-header {
+    margin-bottom: 1.5rem;
+    text-align: center !important;
+  }
+
+  .agent-features-header h2 {
+    font-size: 1.2rem;
+    text-align: center !important;
+    margin-bottom: 0.625rem;
+  }
+
+  .agent-features-grid {
+    gap: 0.875rem;
+  }
+
+  .agent-feature-card {
+    padding: 1rem;
+    gap: 0.625rem;
+    border-radius: 12px;
+  }
+
+  .agent-feature-card.hr-dashboard-style {
+    padding: 1rem;
+    gap: 0.625rem;
+  }
+
+  .agent-feature-card.hr-dashboard-style .agent-feature-title {
+    font-size: 1.05rem;
+  }
+
+  .agent-feature-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .agent-feature-title {
+    font-size: 1rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .agent-feature-description {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  /* GTM Sales - Small Mobile: Single column */
+  .gtm-sales-page .agent-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.875rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style {
+    padding: 1rem;
+    gap: 0.625rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    color: rgba(249, 250, 251, 0.96);
+    text-shadow: 0 1px 2px rgba(15, 23, 42, 0.85);
+  }
+
+  /* Sales Analytics Card - Small Mobile */
+  .gtm-sales-page .agent-feature-card.sales-analytics-card {
+    padding: 1rem;
+    gap: 0.625rem;
+  }
+
+  .gtm-sales-page .agent-feature-card.sales-analytics-card .agent-feature-title {
+    font-size: 1.05rem;
+  }
+
+  /* All agent pages hero positioning - Small Mobile */
+  .hr-recruitment-page .agent-hero,
+  .gtm-sales-page .agent-hero,
+  .cfo-finance-page .agent-hero,
+  .customer-support-page .agent-hero,
+  .real-estate-page .agent-hero,
+  .healthcare-page .agent-hero {
+    padding: 2.5rem 1rem 1.5rem;
+    text-align: left !important;
+  }
+
+  /* All agent pages hero inner - Small Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-inner,
+  .gtm-sales-page .agent-hero-inner,
+  .cfo-finance-page .agent-hero-inner,
+  .customer-support-page .agent-hero-inner,
+  .real-estate-page .agent-hero-inner,
+  .healthcare-page .agent-hero-inner {
+    text-align: left !important;
+    width: 100%;
+  }
+
+  /* All agent pages hero title - Small Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-title,
+  .gtm-sales-page .agent-hero-title,
+  .cfo-finance-page .agent-hero-title,
+  .customer-support-page .agent-hero-title,
+  .real-estate-page .agent-hero-title,
+  .healthcare-page .agent-hero-title {
+    text-align: left !important;
+  }
+
+  /* All agent pages hero overview - Small Mobile - Match HR alignment */
+  .hr-recruitment-page .agent-hero-overview,
+  .gtm-sales-page .agent-hero-overview,
+  .cfo-finance-page .agent-hero-overview,
+  .customer-support-page .agent-hero-overview,
+  .real-estate-page .agent-hero-overview,
+  .healthcare-page .agent-hero-overview {
+    text-align: left !important;
+  }
+
+  /* Stat Cards - Small Mobile - Further reduce sizes */
+  .hr-stat-large,
+  .sales-stat-large,
+  .cfo-stat-large,
+  .support-stat-large,
+  .re-stat-large,
+  .health-stat-large {
+    padding: 0.5rem;
+  }
+
+  .hr-stat-number,
+  .sales-stat-number,
+  .cfo-stat-number,
+  .support-stat-number,
+  .re-stat-number,
+  .health-stat-number {
+    font-size: 1.1rem !important;
+  }
+
+  .hr-stat-desc,
+  .sales-stat-desc,
+  .cfo-stat-desc,
+  .support-stat-desc,
+  .re-stat-desc,
+  .health-stat-desc {
+    font-size: 0.65rem;
+  }
+
+  /* Chart and progress bars - Small Mobile */
+  .hr-chart-item,
+  .sales-chart-item,
+  .cfo-chart-item,
+  .support-chart-item,
+  .re-chart-item,
+  .health-chart-item {
+    gap: 0.375rem;
+  }
+
+  .hr-chart-label,
+  .sales-chart-label,
+  .cfo-chart-label,
+  .support-chart-label,
+  .re-chart-label,
+  .health-chart-label {
+    font-size: 0.7rem;
+  }
+
+  .hr-chart-value,
+  .sales-chart-value,
+  .cfo-chart-value,
+  .support-chart-value,
+  .re-chart-value,
+  .health-chart-value {
+    font-size: 0.8rem !important;
+  }
+
+  /* Progress bars - Small Mobile */
+  .hr-progress-bar,
+  .sales-progress-bar,
+  .cfo-progress-bar,
+  .support-progress-bar,
+  .re-progress-bar,
+  .health-progress-bar {
+    height: 5px;
+  }
+}
+
+/* ============================================
+   GTM Sales, CFO Finance, Customer Support, Real Estate, Healthcare Pages
+   Same design as HR Recruitment page
+   ============================================ */
+
+/* GTM Sales Page (desktop-only overlay layout) */
+@media (min-width: 769px) {
+.gtm-sales-page,
+.cfo-finance-page,
+.customer-support-page,
+.real-estate-page,
+.healthcare-page {
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  top: 0 !important;
+  left: 0 !important;
+  min-height: 100vh;
+  height: 100vh;
+  background: transparent !important;
+}
+
+.gtm-sales-page .agent-video-section,
+.cfo-finance-page .agent-video-section,
+.customer-support-page .agent-video-section,
+.real-estate-page .agent-video-section,
+.healthcare-page .agent-video-section {
+  padding: 0 !important;
+  background: transparent !important;
+  position: relative !important;
+  top: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.gtm-sales-page .agent-video-frame,
+.cfo-finance-page .agent-video-frame,
+.customer-support-page .agent-video-frame,
+.real-estate-page .agent-video-frame,
+.healthcare-page .agent-video-frame {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.gtm-sales-page .agent-video-frame video,
+.cfo-finance-page .agent-video-frame video,
+.customer-support-page .agent-video-frame video,
+.real-estate-page .agent-video-frame video,
+.healthcare-page .agent-video-frame video {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  object-position: center center !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Ensure only one video is visible - hide any duplicates */
+.gtm-sales-page .agent-video-frame video:not(:first-of-type),
+.cfo-finance-page .agent-video-frame video:not(:first-of-type),
+.customer-support-page .agent-video-frame video:not(:first-of-type),
+.real-estate-page .agent-video-frame video:not(:first-of-type),
+.healthcare-page .agent-video-frame video:not(:first-of-type),
+.gtm-sales-page .agent-video-frame video:nth-of-type(n+2),
+.cfo-finance-page .agent-video-frame video:nth-of-type(n+2),
+.customer-support-page .agent-video-frame video:nth-of-type(n+2),
+.real-estate-page .agent-video-frame video:nth-of-type(n+2),
+.healthcare-page .agent-video-frame video:nth-of-type(n+2) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+.gtm-sales-page .agent-hero,
+.cfo-finance-page .agent-hero,
+.customer-support-page .agent-hero,
+.real-estate-page .agent-hero,
+.healthcare-page .agent-hero {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 50%;
+  max-width: 600px;
+  display: block !important;
+  z-index: 10;
+  padding: 2rem;
+  background: transparent;
+  pointer-events: none;
+  text-align: left !important;
+}
+
+.gtm-sales-page .agent-hero::before,
+.cfo-finance-page .agent-hero::before,
+.customer-support-page .agent-hero::before,
+.real-estate-page .agent-hero::before,
+.healthcare-page .agent-hero::before {
+  display: none;
+}
+
+.gtm-sales-page .agent-hero-inner,
+.cfo-finance-page .agent-hero-inner,
+.customer-support-page .agent-hero-inner,
+.real-estate-page .agent-hero-inner,
+.healthcare-page .agent-hero-inner {
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
+  text-align: left !important;
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+}
+
+.gtm-sales-page .agent-hero-title,
+.cfo-finance-page .agent-hero-title,
+.customer-support-page .agent-hero-title,
+.real-estate-page .agent-hero-title,
+.healthcare-page .agent-hero-title {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  white-space: nowrap !important;
+  overflow: visible !important;
+  font-size: clamp(2.5rem, 5vw, 4rem) !important;
+  line-height: 1.2 !important;
+  margin: 0 0 1.5rem 0 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  text-align: left !important;
+}
+
+.gtm-sales-page .agent-hero-eyebrow,
+.cfo-finance-page .agent-hero-eyebrow,
+.customer-support-page .agent-hero-eyebrow,
+.real-estate-page .agent-hero-eyebrow,
+.healthcare-page .agent-hero-eyebrow {
+  display: none !important;
+}
+
+.gtm-sales-page .agent-hero-overview,
+.cfo-finance-page .agent-hero-overview,
+.customer-support-page .agent-hero-overview,
+.real-estate-page .agent-hero-overview,
+.healthcare-page .agent-hero-overview {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  font-size: 1.1rem !important;
+  line-height: 1.7 !important;
+  margin: 0 !important;
+  max-width: 700px !important;
+  text-align: left !important;
+}
+
+.gtm-sales-page .agent-image-overlay,
+.cfo-finance-page .agent-image-overlay,
+.customer-support-page .agent-image-overlay,
+.real-estate-page .agent-image-overlay,
+.healthcare-page .agent-image-overlay {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+  width: 55%;
+  max-width: 700px;
+  height: 75%;
+  max-height: 550px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+
+.gtm-sales-page .agent-overlay-image,
+.cfo-finance-page .agent-overlay-image,
+.customer-support-page .agent-overlay-image,
+.real-estate-page .agent-overlay-image,
+.healthcare-page .agent-overlay-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+}
+
+.gtm-sales-page .agent-features-section,
+.cfo-finance-page .agent-features-section,
+.customer-support-page .agent-features-section,
+.real-estate-page .agent-features-section,
+.healthcare-page .agent-features-section {
+  background: #000000;
+  margin-top: 0;
+  padding: 6rem 8vw 8rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.gtm-sales-page .agent-features-header,
+.cfo-finance-page .agent-features-header,
+.customer-support-page .agent-features-header,
+.real-estate-page .agent-features-header,
+.healthcare-page .agent-features-header {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+/* GTM Sales - 3 cards per row with proper alignment */
+.gtm-sales-page .agent-features-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1400px;
+  align-items: stretch;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style {
+  padding: 1rem;
+  min-height: auto;
+  gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+  text-align: left;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style .agent-feature-subtitle {
+  font-size: 0.9rem;
+  margin: 0 0 0.9rem;
+  text-align: left;
+  color: rgba(249, 250, 251, 0.96);
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.85);
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style .hr-card-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make Sales Analytics card span 3 columns (full width) */
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card {
+  grid-column: 1 / -1;
+  max-width: 100%;
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-analytics-stats {
+  margin-bottom: 0.4rem;
+  gap: 0.5rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-stat-large {
+  padding: 0.5rem;
+  margin-bottom: 0;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-stat-number {
+  font-size: 1.5rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-stat-desc {
+  font-size: 0.75rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-area-chart {
+  margin: 0.4rem 0;
+  padding: 0.4rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-area-title {
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-area-container {
+  height: 60px;
+  gap: 4px;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-analytics-chart {
+  margin-top: 0.4rem;
+  gap: 0.5rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-chart-item {
+  margin-bottom: 0.3rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-chart-label {
+  font-size: 0.75rem;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-chart-value {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 0.75rem;
+  text-align: center !important;
+}
+
+.gtm-sales-page .agent-feature-card.hr-dashboard-style.sales-analytics-card .sales-trend-indicator {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+}
+
+/* Enhanced Card Styles - Shared across all agents */
+.sales-stat-large, .sales-metric-box, .sales-stat-card, .sales-stat-box, .sales-overview-item,
+.cfo-stat-large, .cfo-metric-box, .cfo-stat-card, .cfo-stat-box, .cfo-overview-item,
+.support-stat-large, .support-metric-box, .support-stat-card, .support-stat-box, .support-overview-item,
+.re-stat-large, .re-metric-box, .re-stat-card, .re-stat-box, .re-overview-item,
+.health-stat-large, .health-metric-box, .health-stat-card, .health-stat-box, .health-overview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.sales-stat-number, .sales-metric-number, .sales-stat-value, .sales-stat-big, .sales-overview-number,
+.cfo-stat-number, .cfo-metric-number, .cfo-stat-value, .cfo-stat-big, .cfo-overview-number,
+.support-stat-number, .support-metric-number, .support-stat-value, .support-stat-big, .support-overview-number,
+.re-stat-number, .re-metric-number, .re-stat-value, .re-stat-big, .re-overview-number,
+.health-stat-number, .health-metric-number, .health-stat-value, .health-stat-big, .health-overview-number {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-align: center !important;
+}
+
+/* Center align and apply Geist font to all chart values, breakdown percents, and score values */
+.sales-chart-value, .cfo-chart-value, .support-chart-value, .re-chart-value, .health-chart-value,
+.sales-breakdown-percent, .cfo-breakdown-percent, .support-breakdown-percent, .re-breakdown-percent, .health-breakdown-percent,
+.sales-score-value, .cfo-score-value, .support-score-value, .re-score-value, .health-score-value {
+  font-family: 'Geist', sans-serif !important;
+  text-align: center !important;
+}
+
+.sales-stat-desc, .sales-metric-label, .sales-stat-label, .sales-stat-small, .sales-overview-label,
+.cfo-stat-desc, .cfo-metric-label, .cfo-stat-label, .cfo-stat-small, .cfo-overview-label,
+.support-stat-desc, .support-metric-label, .support-stat-label, .support-stat-small, .support-overview-label,
+.re-stat-desc, .re-metric-label, .re-stat-label, .re-stat-small, .re-overview-label,
+.health-stat-desc, .health-metric-label, .health-stat-label, .health-stat-small, .health-overview-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.sales-chart-bar, .sales-breakdown-fill, .sales-progress-fill, .sales-score-fill, .sales-breakdown-progress,
+.cfo-chart-bar, .cfo-breakdown-fill, .cfo-progress-fill, .cfo-score-fill, .cfo-breakdown-progress,
+.support-chart-bar, .support-breakdown-fill, .support-progress-fill, .support-score-fill, .support-breakdown-progress,
+.re-chart-bar, .re-breakdown-fill, .re-progress-fill, .re-score-fill, .re-breakdown-progress,
+.health-chart-bar, .health-breakdown-fill, .health-progress-fill, .health-score-fill, .health-breakdown-progress {
+  height: 8px;
+  background: linear-gradient(90deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.9));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.sales-trend-indicator, .cfo-trend-indicator, .support-trend-indicator, .re-trend-indicator, .health-trend-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(224, 128, 255, 0.1);
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.sales-trend-arrow, .cfo-trend-arrow, .support-trend-arrow, .re-trend-arrow, .health-trend-arrow {
+  font-size: 1.25rem;
+  color: rgba(224, 128, 255, 1);
+}
+
+.sales-trend-text, .cfo-trend-text, .support-trend-text, .re-trend-text, .health-trend-text {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sales-feature-tag, .cfo-feature-tag, .support-feature-tag, .re-feature-tag, .health-feature-tag {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(224, 128, 255, 0.15);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sales-chart-bar-container, .cfo-chart-bar-container, .support-chart-bar-container, .re-chart-bar-container, .health-chart-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.sales-breakdown-line, .cfo-breakdown-line, .support-breakdown-line, .re-breakdown-line, .health-breakdown-line,
+.sales-breakdown-bar, .cfo-breakdown-bar, .support-breakdown-bar, .re-breakdown-bar, .health-breakdown-bar,
+.sales-progress-track, .cfo-progress-track, .support-progress-track, .re-progress-track, .health-progress-track,
+.sales-score-bar, .cfo-score-bar, .support-score-bar, .re-score-bar, .health-score-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Line Graph Styles */
+.sales-line-graph, .cfo-line-graph, .support-line-graph, .re-line-graph, .health-line-graph {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.sales-graph-title, .cfo-graph-title, .support-graph-title, .re-graph-title, .health-graph-title {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.sales-graph-container, .cfo-graph-container, .support-graph-container, .re-graph-container, .health-graph-container {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sales-graph-svg, .cfo-graph-svg, .support-graph-svg, .re-graph-svg, .health-graph-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 200px;
+}
+
+/* Pie Chart Styles */
+.sales-pie-chart, .cfo-pie-chart, .support-pie-chart, .re-pie-chart, .health-pie-chart {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.sales-pie-title, .cfo-pie-title, .support-pie-title, .re-pie-title, .health-pie-title {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.sales-pie-visual, .cfo-pie-visual, .support-pie-visual, .re-pie-visual, .health-pie-visual {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sales-pie-segment, .cfo-pie-segment, .support-pie-segment, .re-pie-segment, .health-pie-segment {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Area Chart Styles */
+.sales-area-chart, .cfo-area-chart, .support-area-chart, .re-area-chart, .health-area-chart {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.sales-area-title, .cfo-area-title, .support-area-title, .re-area-title, .health-area-title {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.sales-area-container, .cfo-area-container, .support-area-container, .re-area-container, .health-area-container {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 4px;
+}
+
+.sales-area-bar, .cfo-area-bar, .support-area-bar, .re-area-bar, .health-area-bar {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(224, 128, 255, 0.8), rgba(213, 111, 255, 0.4));
+  border-radius: 4px 4px 0 0;
+  min-height: 10px;
+  transition: height 0.3s ease;
+}
+
+/* Visual Icons and Images */
+.sales-visual-icon, .cfo-visual-icon, .support-visual-icon, .re-visual-icon, .health-visual-icon {
+  display: none !important;
+  background: rgba(224, 128, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0.5rem auto;
+}
+
+/* Grid Visual */
+.sales-grid-visual, .cfo-grid-visual, .support-grid-visual, .re-grid-visual, .health-grid-visual {
+  display: none !important;
+}
+
+.sales-grid-item, .cfo-grid-item, .support-grid-item, .re-grid-item, .health-grid-item {
+  aspect-ratio: 1;
+  background: rgba(224, 128, 255, 0.15);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}

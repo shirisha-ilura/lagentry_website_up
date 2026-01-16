@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+.mena-card-section {
+  width: 100%;
+  padding: 120px 16px;
+  background: var(--bg, #07070a);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: 'Geist', sans-serif;
+}
+
+.mena-card-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mena-card-section.light-theme {
+  background: var(--bg, #f5f5f5);
+}
+
+.mena-card-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mena-card {
+  background: var(--card, #0e0f14);
+  border: 1px solid var(--border, #212230);
+  border-radius: 24px;
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  perspective: 1000px;
+}
+
+.mena-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: cardReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.mena-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 80px rgba(0, 191, 255, 0.2);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes cardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95) rotateX(5deg);
+    filter: blur(10px);
+  }
+  50% {
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+.light-theme .mena-card {
+  background: var(--card, #ffffff);
+  border-color: var(--border, #e0e0e0);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.mena-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 191, 255, 0.06) 0%,
+    transparent 70%
+  );
+  animation: rotateGlow 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes rotateGlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mena-card-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.mena-card-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #ffffff, rgba(135, 206, 250, 0.9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  text-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+.mena-card-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: titleSlideIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+@keyframes titleSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    filter: blur(8px);
+  }
+  50% {
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.light-theme .mena-card-title {
+  background: linear-gradient(135deg, #1a1a1a, rgba(0, 191, 255, 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mena-card-tagline {
+  font-size: 22px;
+  color: var(--muted, #9aa3b2);
+  margin: 0 0 50px 0;
+  font-weight: 400;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s,
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s;
+}
+
+.mena-card-tagline.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: taglineFadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+}
+
+@keyframes taglineFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.light-theme .mena-card-tagline {
+  color: var(--muted, #666666);
+}
+
+  /* Deep navy blue background - grid will be in SVG */
+.mena-map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #0a0e1a;
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  box-shadow: 
+    inset 0 0 80px rgba(0, 191, 255, 0.08),
+    0 0 60px rgba(0, 191, 255, 0.1);
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s,
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s;
+}
+
+.mena-map-container.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: mapReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s forwards;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mena-card:hover .mena-map-container {
+  transform: translateY(-5px) scale(1.02);
+}
+
+@keyframes mapReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9) rotateY(-5deg);
+    filter: blur(15px) brightness(0.5);
+  }
+  50% {
+    filter: blur(5px) brightness(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateY(0deg);
+    filter: blur(0) brightness(1);
+  }
+}
+
+.mena-map-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Animated particles flowing east-to-west (intelligent regional adaptation) */
+.mena-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(135, 206, 250, 0.9), rgba(0, 191, 255, 0.7));
+  border-radius: 50%;
+  pointer-events: none;
+  animation: flowEastToWest linear infinite;
+  box-shadow: 
+    0 0 6px rgba(135, 206, 250, 0.9),
+    0 0 10px rgba(0, 191, 255, 0.5);
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes flowEastToWest {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--end-x, 0), var(--end-y, 0));
+    opacity: 0;
+  }
+}
+
+/* SVG Map Styling */
+.mena-map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.continent-outline {
+  animation: outlinePulse 4s ease-in-out infinite;
+}
+
+@keyframes outlinePulse {
+  0%, 100% {
+    opacity: 0.6;
+    stroke-width: 2;
+  }
+  50% {
+    opacity: 0.9;
+    stroke-width: 2.5;
+  }
+}
+
+.country-border {
+  animation: borderPulse 5s ease-in-out infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.data-point {
+  animation: dotPulse 3s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 0.4;
+    r: 1.5;
+  }
+  50% {
+    opacity: 0.8;
+    r: 2;
+  }
+}
+
+.lens-flare-streak {
+  animation: flarePulse 2s ease-in-out infinite;
+}
+
+@keyframes flarePulse {
+  0%, 100% {
+    opacity: 0.5;
+    stroke-width: 2;
+  }
+  50% {
+    opacity: 1;
+    stroke-width: 3;
+  }
+}
+
+.landmark-halo {
+  animation: haloPulse 3s ease-in-out infinite;
+}
+
+@keyframes haloPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+}
+
+.landmark-group {
+  transition: all 0.3s ease;
+}
+
+.landmark-point {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landmark-label {
+  animation: labelFadeIn 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes labelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Interactive hover zones */
+.landmark-hover-zone {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 4;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.landmark-hover-zone:hover {
+  background: radial-gradient(
+    circle,
+    rgba(0, 191, 255, 0.25) 0%,
+    rgba(0, 191, 255, 0.1) 50%,
+    transparent 70%
+  );
+  width: 90px;
+  height: 90px;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
+
+.landmark-glow {
+  animation: landmarkPulse 2s ease-in-out infinite;
+}
+
+@keyframes landmarkPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mena-card {
+    padding: 40px 24px;
+  }
+
+.mena-card-title {
+    font-size: 36px;
+  }
+
+.mena-card-tagline {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+.mena-map-container {
+    height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mena-card-section {
+    padding: 60px 16px;
+  }
+
+.mena-card {
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+
+.mena-card-title {
+    font-size: 28px;
+  }
+
+.mena-card-tagline {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+.mena-map-container {
+    height: 300px;
+  }
+}
+

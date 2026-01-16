@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+.footer {
+  background: #000000;
+  color: #ffffff;
+  padding: 4rem 0 2rem;
+  margin-top: 1.25rem;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer * {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Ensure agents word is completely isolated from any parent effects */
+.footer-description .agents-word-clear,
+.footer-section .agents-word-clear {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none !important;
+}
+
+.footer-container {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer-container * {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Footer sections grid (Resources, Contact, Legal) - FIRST */
+.footer-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns with same gap */
+  gap: 12rem; /* Increased gap between all columns */
+  width: 100%;
+  align-items: start;
+}
+
+/* Lagentry section - AFTER sections grid */
+.footer-lagentry-section {
+  width: 100%;
+  text-align: center;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Allow flex items to shrink below their content size */
+}
+
+/* First footer section (Lagentry logo section) should have proper width */
+.footer-content > .footer-section:first-child {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Logo Section */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  margin-top: -0.75rem; /* lift the logo slightly higher in the footer */
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo-image {
+  width: auto;
+  height: 120px; /* larger logo in Contact section */
+  object-fit: contain;
+}
+
+.logo-l {
+  font-family: 'Geist', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #ffffff;
+  margin-right: 0;
+  display: inline-block;
+  position: relative;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.logo-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  box-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(255, 255, 255, 0.6),
+    0 0 24px rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  animation: underlineGlow 2s ease-in-out infinite;
+}
+
+.logo-part {
+  display: inline;
+}
+
+.logo-underlined {
+  display: inline;
+  position: relative;
+  text-decoration: none;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 2px;
+  filter: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.footer-description {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #cccccc;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+.footer-description,
+.footer-description *,
+.footer-description *::before,
+.footer-description *::after {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Specific class for agents word - maximum clarity, NO GLOW */
+.agents-word-clear {
+  filter: none !important;
+  -webkit-filter: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transform: none !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  color: #cccccc !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  font-variant: normal !important;
+  font-stretch: normal !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: 'Geist', sans-serif !important;
+  display: inline !important;
+  position: static !important;
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+  image-rendering: auto !important;
+  -webkit-text-stroke: 0 !important;
+  outline: none !important;
+  -webkit-text-fill-color: #cccccc !important;
+}
+
+.agents-word-clear::before,
+.agents-word-clear::after {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.footer-section {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.footer-section *,
+.footer-section *::before,
+.footer-section *::after {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@keyframes icon-glow {
+  0%, 100% {
+    opacity: 0.8;
+    box-shadow: 
+      0 0 8px rgba(255, 255, 255, 0.9),
+      0 0 16px rgba(255, 255, 255, 0.6),
+      0 0 24px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 0 12px rgba(255, 255, 255, 1),
+      0 0 24px rgba(255, 255, 255, 0.8),
+      0 0 36px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Social Icons */
+.social-icons {
+  justify-content: center; /* Center the icons */
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: translateY(-2px);
+}
+
+/* Footer Headings */
+.footer-heading {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-link {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.95rem;
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #333333;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.copyright {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  color: #888888;
+  margin: 0;
+}
+
+/* Copyright under giant brand */
+.footer-bottom-end {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 2rem 0;
+  text-align: center;
+  border-top: none;
+}
+
+.footer-bottom-end .copyright {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  color: #888888;
+  margin: 0;
+}
+
+/* Giant brand at the very end */
+.giant-brand {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(10,10,10,0.9) 30%, #000 100%);
+  border-top: none;
+}
+
+.giant-brand-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 18vw; /* huge */
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.04);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.8);
+  user-select: none;
+  position: relative;
+}
+
+.giant-brand-text::before {
+  content: 'Lagentry';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 245, 200, 0.1) 0%,
+    rgba(255, 240, 180, 0.05) 40%,
+    transparent 70%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  transition: background 0.1s ease-out;
+  mix-blend-mode: screen;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 0 2rem;
+  }
+  
+  .footer-container {
+    padding: 0 1rem;
+  }
+  
+  .footer-content {
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Resources, Legal, Contact on mobile - adjust layout */
+  .footer-sections-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack vertically on mobile */
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .footer-lagentry-section {
+    text-align: center;
+  }
+  
+  .footer-description {
+    max-width: 100%;
+  }
+  
+  .logo-l,
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .social-icons {
+    justify-content: center; /* Center icons on mobile too */
+  }
+  
+  .footer-bottom {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 1.5rem;
+  }
+  
+.footer-content {
+    gap: 1.5rem;
+  }
+
+  /* Stack columns vertically on very small screens */
+  .footer-sections-grid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+    gap: 2rem;
+  }
+  
+  .logo-l,
+.logo-text {
+    font-size: 1.8rem;
+  }
+  
+.footer-description {
+    font-size: 0.9rem;
+  }
+}

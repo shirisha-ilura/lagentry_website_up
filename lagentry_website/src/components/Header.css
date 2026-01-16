@@ -1,0 +1,754 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000000 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: all 1s ease-out;
+}
+
+.header.header-hidden {
+  height: 0;
+  margin-top: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.header.lagentry-fullscreen {
+  height: 100vh;
+  margin-top: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.header.lagentry-fullscreen .header-background {
+  border-radius: 0;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000 !important;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hide ShaderBackground - pure black background */
+.header-background .shader-background {
+  display: none;
+}
+
+  /* Remove purple gradient glow */
+.header-background::after {
+  display: none;
+}
+
+/* Cinematic Background Effect */
+.cinematic-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cinematic-background.visible {
+  opacity: 1;
+}
+
+.header-background.background-active {
+  background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%) !important;
+}
+
+.background-lagentry-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+  filter: blur(20px);
+  transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.background-lagentry-text.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  filter: blur(0px);
+  animation: logoReveal 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotateY(90deg);
+    filter: blur(30px);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.1) rotateY(0deg);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+    filter: blur(0px);
+  }
+}
+
+  /* Reduced from 900px per 70vw to 400px per 50vw */
+.lagentry-image {
+  width: min(400px, 50vw);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: brightness(1.5) contrast(1.3) drop-shadow(0 0 30px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 60px rgba(220, 180, 255, 0.6));
+}
+
+  /* increased size for more impact */
+.lagentry-year {
+  font-family: 'Geist', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+  /* Increased padding significantly to prevent cutoff when AI Employees zooms to 1.6x */
+.sliding-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 12rem;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.sliding-text.visible {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.sliding-text.hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 1s ease-in-out;
+}
+
+/* Removed cinematicTextReveal animation */
+
+  /* Removed padding to ensure proper centering */
+.sliding-text-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-perspective: 1000px;
+  perspective-origin: center center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  text-align: center;
+  padding-left: 0;
+}
+
+.sliding-text-content h2 {
+  margin: 0;
+  transform-style: preserve-3d;
+}
+
+.header-logo-icon-intro {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(1.2);
+  opacity: 0;
+  animation: logoFadeIn 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+  /* Increased size for intro animation */
+.sliding-text h2 {
+  font-family: 'Geist', sans-serif;
+  font-size: 9.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  overflow: visible;
+  width: auto;
+  max-width: 90vw;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+/* Base word animation - will be overridden by specific classes */
+  /* Increased base desktop size */
+.word-animation {
+  font-family: 'Geist', sans-serif;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-size: 9.5rem;
+}
+
+/* 1. "Introducing" - Kinetic Typography with Scale + Fade */
+  /* Increased from 0.08em for more gap between letters */
+  /* Increased desktop size */
+  /* Ensure it's in caps */
+.word-animation.typewriter-reveal {
+  animation: kineticReveal 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  font-size: 9.5rem;
+  text-transform: uppercase;
+}
+
+@keyframes kineticReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.3) translateY(40px);
+    filter: blur(15px);
+  }
+
+  25% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(20px);
+    filter: blur(8px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-30px);
+    filter: blur(10px);
+  }
+}
+
+/* 2. "MENA's First" - Slide + Fade Reveal */
+  /* Desktop size */
+.word-animation.slide-fade-reveal {
+  animation: slideFadeReveal 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  font-size: 8rem;
+}
+
+@keyframes slideFadeReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(30px) scale(0.9);
+    filter: blur(10px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+    filter: blur(0px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100px) translateY(-30px) scale(0.9);
+    filter: blur(10px);
+  }
+}
+
+/* 3. "AI Employees" - Typewriter → Zoom → Slide Left (Train) */
+  /* Allow zoom to be visible */
+  /* GPU acceleration - no initial transform that could interfere */
+  /* Prevent cutoff - ensure text stays within bounds */
+  /* Desktop size */
+.word-animation.gsap-ai-employees {
+  transform-origin: center center;
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  position: relative;
+  text-shadow: none;
+  will-change: transform, opacity, scale;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  overflow: visible;
+  transform: translateZ(0) scale(1);
+  -webkit-transform: translateZ(0) scale(1);
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 8rem;
+}
+
+/* Optimized shimmer effect - lighter and smoother */
+/* Shimmer effect removed - no longer needed */
+
+@keyframes aiEmployeesAnimation {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5) rotateY(0deg);
+    filter: blur(20px);
+  }
+
+  20% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0) scale(1.3) rotateY(0deg);
+    filter: blur(5px);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.2) rotateY(0deg);
+    filter: blur(0px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.2) rotateY(0deg);
+    filter: blur(0px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate3d(-30%, 0, 0) scale(1.1) rotateY(10deg);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-250%, 0, 0) scale(0.9) rotateY(25deg);
+    filter: blur(15px);
+  }
+}
+
+/* 4. "Built to Run" - Static + Rotating Dynamic Word */
+  /* Reduced from 7.5rem to prevent cutoff */
+.word-animation.gsap-built-to-run {
+  font-weight: 700;
+  font-size: 6rem;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15em;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  left: 0;
+  right: 0;
+}
+
+.word-animation.gsap-built-to-run .static-text {
+  display: inline-block;
+  color: #ffffff;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  font-size: inherit;
+  font-weight: inherit;
+  white-space: nowrap;
+}
+
+  /* Gradient fill - purple gradient matching brand */
+  /* Fallback for browsers that don't support gradient text */
+  /* No glow, no text-shadow - clean professional look */
+  /* Fixed height to prevent size changes - accommodate longest word */
+  /* GPU acceleration */
+.word-animation.gsap-built-to-run .dynamic-text {
+  display: inline-block;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  font-weight: 800;
+  font-size: inherit;
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #a855f7;
+  text-shadow: none;
+  min-width: 8em;
+  text-align: left;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+@keyframes builtToRunReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    filter: blur(25px) brightness(0.3);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  25% {
+    opacity: 0.5;
+    transform: scale(0.95) translateY(10px);
+    filter: blur(15px) brightness(0.6);
+    clip-path: inset(0 50% 0 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px) brightness(1.2);
+    clip-path: inset(0 0% 0 0);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px) brightness(1.2);
+    clip-path: inset(0 0% 0 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+    filter: blur(10px) brightness(0.8);
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* Desktop view - keep nowrap for single line */
+@media (min-width: 1025px) {
+  .sliding-text h2 {
+    white-space: nowrap;
+  }
+}
+
+
+.diagonal-glow-line {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  width: 500px;
+  height: 3px;
+  background: linear-gradient(135deg,
+      transparent 0%,
+      transparent 5%,
+      rgba(255, 255, 255, 0.3) 8%,
+      rgba(255, 255, 255, 0.5) 12%,
+      rgba(255, 255, 255, 0.4) 20%,
+      rgba(255, 255, 255, 0.2) 35%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 70%,
+      transparent 100%);
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.4),
+    0 0 16px rgba(255, 255, 255, 0.3),
+    0 0 24px rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+  transform-origin: left bottom;
+  opacity: 0;
+  z-index: 4;
+  filter: blur(0.5px);
+}
+
+.diagonal-glow-line.visible {
+  opacity: 1;
+  animation: shootingStar 2.5s ease-out forwards;
+}
+
+@keyframes shootingStar {
+  0% {
+    width: 0;
+    opacity: 0;
+    transform: rotate(45deg) translateX(0) translateY(0);
+    transform-origin: left bottom;
+  }
+
+  3% {
+    opacity: 1;
+    width: 80px;
+  }
+
+  10% {
+    width: 200px;
+  }
+
+  50% {
+    width: 400px;
+  }
+
+  100% {
+    width: 500px;
+    opacity: 0;
+    transform: rotate(45deg) translateX(calc(100vw - 50px)) translateY(calc(-100vh + 50px));
+    transform-origin: left bottom;
+  }
+}
+
+.diagonal-glow-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.9) 30%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.3) 70%,
+      transparent 100%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 1),
+    0 0 30px rgba(255, 255, 255, 0.9),
+    0 0 50px rgba(255, 255, 255, 0.7),
+    0 0 80px rgba(255, 255, 255, 0.5),
+    0 0 120px rgba(255, 255, 255, 0.3);
+  z-index: 6;
+  animation: starHeadPulse 0.3s ease-in-out infinite;
+}
+
+.diagonal-glow-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(135deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 10%,
+      rgba(255, 255, 255, 0.15) 25%,
+      rgba(255, 255, 255, 0.1) 40%,
+      transparent 70%);
+  filter: blur(2px);
+  z-index: 3;
+  opacity: 0.7;
+}
+
+@keyframes starHeadPulse {
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+.copyright-text {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 5;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.copyright-text.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.copyright-text.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px);
+  transition: all 1s ease-in-out;
+}
+
+.copyright-text p {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #888888;
+  margin: 0;
+  text-align: center;
+}
+
+/* Removed gradientShift animation */
+
+@media (max-width: 1024px) {
+  .header {
+    height: calc(100vh - 70px);
+  }
+
+  .background-lagentry-text {
+    left: 50%;
+  }
+
+  .lagentry-image {
+    height: 60vh;
+  }
+
+  /* Increased padding on tablet to prevent cutoff when AI Employees zooms */
+  .sliding-text {
+    width: 95%;
+    max-width: 95vw;
+    padding: 0 6rem;
+  }
+
+.sliding-text-content {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+    /* Increased from 4.5rem for mobile */
+.sliding-text h2 {
+    font-size: 5.5rem;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+    /* Increased from 3.5rem for tablet */
+.word-animation.gsap-built-to-run {
+    font-size: 4.5rem;
+    padding: 0 1rem;
+  }
+
+    /* Increased for mobile */
+    /* Maintain letter spacing on tablet */
+    /* Ensure it's in caps */
+.word-animation.typewriter-reveal {
+    font-size: 5.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+    /* Increased for mobile */
+.word-animation.slide-fade-reveal {
+    font-size: 5.5rem;
+  }
+
+    /* Increased for mobile */
+.word-animation.gsap-ai-employees {
+    font-size: 5.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Increased padding on mobile to prevent cutoff when AI Employees zooms */
+  .sliding-text {
+    width: 95%;
+    max-width: 95vw;
+    padding: 0 4rem;
+  }
+
+  /* Increased from 3rem for small mobile */
+  .sliding-text h2 {
+    font-size: 4rem;
+    line-height: 1.3;
+    padding: 0 0.25rem;
+  }
+
+  /* Increased from 2.5rem for small mobile */
+  .word-animation.gsap-built-to-run {
+    font-size: 3.5rem;
+  }
+
+  /* Increased for small mobile */
+  /* Maintain letter spacing on mobile */
+  /* Ensure it's in caps */
+  .word-animation.typewriter-reveal {
+    font-size: 4rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Increased for small mobile */
+  .word-animation.slide-fade-reveal {
+    font-size: 4rem;
+  }
+
+  /* Increased for small mobile */
+  .word-animation.gsap-ai-employees {
+    font-size: 4rem;
+  }
+}

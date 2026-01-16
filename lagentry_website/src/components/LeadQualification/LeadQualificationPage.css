@@ -1,0 +1,990 @@
+    /* Account for navbar height */
+    /* Center the content */
+    /* Push footer to bottom */
+.lead-qualification-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    background: #000000;
+    position: relative;
+    z-index: 1;
+    padding-top: 90px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.why-choose-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    width: 100%;
+    padding: 0 16px;
+}
+
+    /* Same size as "Meet our AI Employees" */
+    /* Gradient white and grey - same as "Meet our AI Employees" */
+    /* Fallback */
+.why-choose-title {
+    font-family: 'Geist', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 50%, #808080 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #ffffff;
+}
+
+    /* Limit max width and center */
+    /* 16px padding on either side */
+    /* Take available space */
+.lead-qualification-container {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    background: #000000;
+    padding: 20px 16px;
+    flex: 1;
+    flex-grow: 1;
+    overflow: hidden;
+    align-items: flex-start;
+    box-sizing: border-box;
+    min-height: 0;
+}
+
+/* Left Panel */
+    /* 16px padding on either side */
+.left-panel {
+    width: 500px;
+    min-width: 500px;
+    max-width: 500px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: transparent;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    padding: 0 16px;
+}
+
+/* Custom scrollbar for left panel */
+.left-panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+.left-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.left-panel::-webkit-scrollbar-thumb {
+    background: #555555;
+    border-radius: 2px;
+}
+
+.left-panel::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* New left preview card (matches reference design) */
+.left-panel-preview {
+    margin-top: 16px;
+}
+
+.left-panel-card {
+    background: #050505;
+    border-radius: 20px;
+    padding: 20px 16px 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid #262626;
+}
+
+.left-panel-card .preview-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px;
+    border-radius: 14px;
+    background: #050505;
+    border: 1px solid #3f3f46;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+    margin-bottom: 10px;
+}
+
+.left-panel-card .preview-option:last-child {
+    margin-bottom: 0;
+}
+
+.left-panel-card .preview-option.preview-option-active {
+    background: #05010e;
+    border-color: #a855f7;
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
+}
+
+.left-panel-card .preview-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.left-panel-card .preview-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-panel-card .preview-icon-pink {
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+}
+
+.left-panel-card .preview-icon-green {
+    background: linear-gradient(135deg, #22c55e, #0ea5e9);
+}
+
+.left-panel-card .preview-icon-blue {
+    background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+.left-panel-card .preview-option.preview-option-active .preview-icon-blue {
+    background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+    /* Allow text to shrink and wrap */
+.left-panel-card .preview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+    overflow: visible;
+}
+
+.left-panel-card .preview-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.left-panel-card .preview-tags {
+    font-size: 1rem;
+    color: #9ca3af;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.left-panel-card .phone-section {
+    margin-top: 16px;
+}
+
+    /* Reduced from 22px */
+.main-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.description {
+    font-size: 16px;
+    color: #b0b0b0;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Right Panel */
+.right-panel {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 40px 20px;
+    overflow: visible;
+    box-sizing: border-box;
+    height: 100%;
+    max-height: 100%;
+    position: relative;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+    /* Increased gap for better spacing */
+    /* Add padding for spacing */
+.idle-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+    padding: 20px 0;
+}
+
+    /* Agent name and status come after sphere */
+.idle-state-container .agent-info-section {
+    order: 2;
+    margin-bottom: 0;
+}
+
+    /* Button comes last */
+    /* Ensure button is above everything */
+.idle-state-container .call-button {
+    order: 3;
+    margin-top: 0;
+    z-index: 20;
+    position: relative;
+}
+
+    /* Don't let sphere take all space - leave room for agent info and button */
+.sphere-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    max-height: 350px;
+    width: 100%;
+    pointer-events: none;
+}
+
+.sphere-container {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.sphere-canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: auto;
+}
+
+    /* Increased size for better visibility */
+    /* Bolder */
+    /* Space before status */
+    /* Add shadow for better visibility */
+.agent-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff !important;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 8px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.status {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-text {
+    font-size: 14px;
+    color: #b0b0b0 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+    /* Increased padding for better visibility */
+    /* Increased font size */
+    /* Bolder */
+    /* Increased min width */
+    /* Ensure button is visible */
+    /* High z-index to ensure visibility */
+    /* Higher z-index to ensure visibility */
+    /* Add shadow for depth */
+.call-button {
+    padding: 16px 40px;
+    color: white !important;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 180px;
+    position: relative;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 100;
+    z-index: 20 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.call-button:hover {
+    transform: translateY(-2px);
+}
+
+.end-call-button {
+    background-color: #dc2626 !important;
+}
+
+.end-call-button:hover {
+    background-color: #b91c1c !important;
+}
+
+.agent-info-section {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.connecting-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.connecting-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-circle {
+    width: 24px;
+    height: 24px;
+    animation: rotate 1.5s linear infinite;
+}
+
+.loading-arc {
+    transform-origin: center;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.connecting-text {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 500;
+    margin: 0;
+}
+
+.call-instruction {
+    font-size: 14px;
+    color: #b0b0b0;
+    text-align: center;
+    margin: 0;
+}
+
+/* Form Modal in Right Panel */
+.form-modal-content {
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    background: #111111;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid #262626;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column;
+    visibility: visible !important;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto !important;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.form-modal-content * {
+    animation: none !important;
+}
+
+.form-modal-content .form-field,
+.form-modal-content .call-form,
+.form-modal-content input,
+.form-modal-content label {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.form-modal-content input {
+    pointer-events: auto !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    cursor: text !important;
+}
+
+.form-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.form-modal-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: visible;
+    padding-right: 32px;
+    flex: 1;
+}
+
+.close-form-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.close-form-btn:hover {
+    opacity: 0.7;
+}
+
+.call-form {
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.call-form .call-button {
+    margin-top: 32px;
+    width: 100%;
+}
+
+.form-field {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100%;
+}
+
+.form-field label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f5f5f5;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 8px;
+    overflow: visible;
+    word-wrap: break-word;
+}
+
+.form-field input {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #1a1a1a !important;
+    border: 1px solid #333333;
+    color: #ffffff !important;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    display: block !important;
+    visibility: visible !important;
+    min-height: 48px;
+    pointer-events: auto !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    cursor: text !important;
+    overflow: visible;
+    word-wrap: break-word;
+}
+
+.form-field input::placeholder {
+    color: #888888;
+}
+
+.form-field input:focus {
+    border-color: #7c3aed;
+    outline: none;
+    color: #ffffff !important;
+    background: #1a1a1a !important;
+}
+
+.form-field input:-webkit-autofill,
+.form-field input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+    box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+}
+
+/* Call Limit Popup */
+.call-limit-popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.call-limit-card {
+    background: #000000;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    padding: 40px 32px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+}
+
+.call-limit-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+.call-limit-text {
+    font-size: 16px;
+    color: #b0b0b0;
+    margin: 0 0 24px 0;
+}
+
+.get-started-button {
+    padding: 14px 32px;
+    background-color: #9333ea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    min-width: 160px;
+}
+
+.get-started-button:hover {
+    background-color: #7c3aed;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+    /* Increased height */
+    /* Push footer to bottom */
+.lead-qualification-footer {
+    background: transparent;
+    padding: 20px 40px;
+    border-top: 1px solid #333333;
+    flex-shrink: 0;
+    min-height: 100px;
+    max-height: 100px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+    z-index: 5;
+}
+
+.footer-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #808080;
+    margin: 0;
+}
+
+    /* Keep "Ready to build AI Agents" in one line */
+.footer-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+}
+
+.footer-question {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.footer-button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #3A025b 0%, #4A036F 50%, #5A0483 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.footer-button:hover {
+    background: linear-gradient(135deg, #4A036F 0%, #5A0483 50%, #6A0597 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(58, 2, 91, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    /* Increased size for tablet */
+    .why-choose-title {
+        font-size: 4.5rem;
+    }
+
+    .lead-qualification-container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+
+    .left-panel {
+        max-width: 100%;
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .sphere-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-cta {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Wider form on mobile with round corners */
+    .form-modal-content {
+        width: 100%;
+        max-width: 450px;
+        min-height: auto;
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+    
+    .form-modal-header h3 {
+        font-size: 18px;
+        padding-right: 24px;
+    }
+    
+    /* Increased size for mobile */
+    .why-choose-title {
+        font-size: 5rem;
+    }
+
+.why-choose-header {
+        margin-bottom: 2rem;
+    }
+
+    /* Make "Test the Lead Qualification Live" centered and smaller */
+.header-section {
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+        /* Readable size on mobile */
+.main-title {
+        font-size: 1rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        line-height: 1.3;
+        text-align: center;
+    }
+
+        /* Hide description on mobile */
+.description {
+        display: none;
+    }
+
+    /* Change cards from vertical to horizontal - ONLY SHOW ICONS */
+.left-panel-card {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        padding: 16px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: center;
+    }
+
+        /* Only icon width */
+.left-panel-card .preview-option {
+        flex: 0 0 auto;
+        min-width: 60px;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0;
+        margin-right: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+
+.left-panel-card .preview-option:last-child {
+        margin-right: 0;
+    }
+
+    /* Hide text - only show icons */
+        /* Hide all text */
+.left-panel-card .preview-text {
+        display: none;
+    }
+
+    /* Make icons larger and centered */
+.left-panel-card .preview-icon {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        flex-shrink: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.left-panel-card .preview-option:last-child {
+        margin-right: 0;
+    }
+
+    /* Reorganize layout: Cards -> Sphere -> Button */
+.lead-qualification-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+        /* Cards come first */
+.left-panel {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+        /* Sphere and button come after cards */
+.right-panel {
+        order: 2;
+    }
+
+        /* Add padding to prevent button cutoff */
+.idle-state-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-bottom: 2rem;
+    }
+
+        /* Sphere comes first in right panel */
+        /* Larger sphere area on mobile */
+.sphere-wrapper {
+        order: 1;
+        min-height: 350px;
+    }
+
+        /* Increased sphere size on mobile */
+.sphere-container {
+        width: 320px;
+        height: 320px;
+    }
+
+        /* Agent name comes after sphere */
+.agent-info-section {
+        order: 2;
+    }
+
+        /* Button comes last */
+.call-button {
+        order: 3;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: auto;
+        max-width: 90%;
+        position: relative;
+        z-index: 20;
+    }
+
+    /* Ensure right panel has enough space and doesn't cut off button */
+.right-panel {
+        padding-bottom: 2rem;
+        min-height: auto;
+        overflow-y: auto;
+    }
+
+.lead-qualification-wrapper {
+        min-height: auto;
+        height: auto;
+        overflow-y: auto;
+        padding-bottom: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Wider form on small mobile with round corners */
+    .form-modal-content {
+        width: 100%;
+        max-width: 380px;
+        min-height: auto;
+        padding: 28px 20px;
+        border-radius: 18px;
+    }
+    
+    .form-modal-header h3 {
+        font-size: 16px;
+        padding-right: 20px;
+    }
+    
+    /* Increased size for small mobile */
+    .why-choose-title {
+        font-size: 4rem;
+    }
+
+        /* Further reduced for small mobile */
+.main-title {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+
+.left-panel-card .preview-option {
+        min-width: 55px;
+        width: 55px;
+        height: 55px;
+        padding: 0;
+    }
+
+.left-panel-card .preview-icon {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+    }
+
+.call-button {
+        padding: 14px 32px;
+        font-size: 16px;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+        /* Larger sphere on small mobile */
+.sphere-container {
+        width: 300px;
+        height: 300px;
+    }
+}
