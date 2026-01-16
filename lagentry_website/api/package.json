@@ -1,0 +1,11 @@
+{
+  "name": "lagentry-api",
+  "version": "1.0.0",
+  "description": "Vercel serverless functions for Lagentry API",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "nodemailer": "^7.0.12"
+  }
+}
+
