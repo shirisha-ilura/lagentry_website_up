@@ -1,38 +1,50 @@
-// Email service for Vercel serverless functions (ESM-compatible)
+// Email service for Vercel serverless functions (ESM)
 import nodemailer from 'nodemailer';
 
-// NOTE:
-// ❌ Do NOT use dotenv on Vercel
-// Vercel automatically provides process.env
-
-// Email configuration from environment variables
+// Environment variables (provided by Vercel)
 const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.hostinger.com';
 const EMAIL_PORT = Number(process.env.EMAIL_PORT) || 465;
-const EMAIL_USER = process.env.EMAIL_USER || process.env.EMAIL_FROM;
+const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD || process.env.EMAIL_PASS;
-const EMAIL_FROM = process.env.EMAIL_FROM || EMAIL_USER || 'info@lagentry.com';
+const EMAIL_FROM = process.env.EMAIL_FROM || EMAIL_USER;
 const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || 'Zoya – Founder, Lagentry';
 const COMPANY_EMAIL = process.env.COMPANY_EMAIL || EMAIL_FROM;
 
-// Reusable transporter (safe in serverless)
 let transporter;
 
+/**
+ * Create SMTP transporter (NO pooling – serverless safe)
+ */
 function getTransporter() {
   if (!transporter) {
     if (!EMAIL_USER || !EMAIL_PASS) {
-      throw new Error('Email credentials are missing');
+      throw new Error('❌ Email credentials are missing');
     }
 
     transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: EMAIL_PORT,
-      secure: EMAIL_PORT === 465, // Hostinger = true
+      secure: EMAIL_PORT === 465, // REQUIRED for Hostinger
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
+
+      // 🔐 TLS REQUIRED for Hostinger
+      tls: {
+        rejectUnauthorized: false,
+      },
+
+      // ⏱ Prevent hanging serverless execution
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
+
+      // ❌ DO NOT enable pooling on Vercel
+      pool: false,
     });
   }
+
   return transporter;
 }
 
@@ -53,7 +65,7 @@ export async function sendWaitlistConfirmationEmail({ email, name }) {
     to: email,
     bcc: COMPANY_EMAIL,
     subject: "You're officially in! Welcome to Lagentry 🚀",
-    html: `<p>Hi ${getFirstName(name)}, welcome to Lagentry!</p>`,
+    html: `<p>Hi ${getFirstName(name) || 'there'}, welcome to Lagentry!</p>`,
   });
 }
 
@@ -64,8 +76,8 @@ export async function sendNewsletterWelcomeEmail({ email, name }) {
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
     to: email,
     bcc: COMPANY_EMAIL,
-    subject: "Welcome to Lagentry!",
-    html: `<p>Hi ${getFirstName(name)}, thanks for subscribing!</p>`,
+    subject: 'Welcome to Lagentry!',
+    html: `<p>Hi ${getFirstName(name) || 'there'}, thanks for subscribing!</p>`,
   });
 }
 
@@ -76,8 +88,8 @@ export async function sendDemoConfirmationEmail({ email, name }) {
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
     to: email,
     bcc: COMPANY_EMAIL,
-    subject: "Your Lagentry demo is confirmed",
-    html: `<p>Hi ${getFirstName(name)}, your demo is booked.</p>`,
+    subject: 'Your Lagentry demo is confirmed',
+    html: `<p>Hi ${getFirstName(name) || 'there'}, your demo is booked.</p>`,
   });
 }
 
