@@ -1,0 +1,22 @@
+{
+  "name": "lagentry-voice-server",
+  "version": "1.0.0",
+  "description": "Backend server for Lagentry voice calls with ElevenLabs integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^7.0.12",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
