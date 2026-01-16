@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+/* NUCLEAR BORDER ELIMINATION */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* CANVAS TOTAL BORDER DESTRUCTION */
+canvas, canvas * {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html, body {
+  overflow-x: hidden; /* prevent horizontal scroll */
+  overflow-y: auto; /* allow vertical scroll with default scrollbar */
+  height: 100%;
+  background: #000000 !important;
+}
+
+#root {
+  overflow-x: hidden; /* ensure no horizontal scroll from children */
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Geist', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  background: #000000 !important;
+}
+
+code {
+  font-family: 'Geist', sans-serif;
+}
+
+/* Shared purple gradient text utility for highlighted headings */
+.gradient-purple-text {
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Show default scrollbar only for body and html, hide for carousel */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Global dark‑purple gradient button token */
+:root {
+  --btn-purple-gradient: linear-gradient(135deg, #1a0033 0%, #4a1a6e 50%, #6b2d91 100%);
+}
+
+/* Global Mobile Responsive Utilities */
+@media (max-width: 1200px) {
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Prevent horizontal overflow */
+  body, html, #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+  
+  /* Ensure all containers respect viewport */
+  .container, [class*="container"], [class*="Container"] {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Prevent text overflow in all text elements */
+  p, span, div, h1, h2, h3, h4, h5, h6 {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure images and videos don't overflow */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  body {
+    font-size: 14px;
+  }
+  
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+}
