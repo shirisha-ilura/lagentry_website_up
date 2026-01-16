@@ -1,0 +1,70 @@
+Platform logos needed:
+
+Prospect column:
+- zoominfo.png
+- seamless-ai.png  
+- clay.png
+- outreach.png
+- salesloft.png
+- quickbooks.png
+- xero.png
+- freshbooks.png
+- zoho-books.png
+- bill-com.png
+- greenhouse.png
+- bamboohr.png
+- lever.png
+- ashby.png
+- rippling.png
+- zillow-premier-agent.png
+- propertyware.png
+- buildium.png
+- appfolio.png
+- yardi.png
+
+Engage column:
+- zendesk.png
+- intercom.png
+- freshdesk.png
+- helpscout.png
+- crisp.png
+- retell-ai.png
+- twilio-voice.png
+- aircall.png
+- justcall.png
+- vapi.png
+- elevenlabs.png
+- play-ht.png
+- resemble-ai.png
+- vocaloid.png
+- speechify-voices.png
+- zocdoc.png
+- athenahealth.png
+- kareo.png
+- drchrono.png
+- mend-telehealth.png
+
+Signals column:
+- autoraptor.png
+- dealercenter.png
+- vinsolutions.png
+- dealersocket.png
+- cars-com-dealer-solutions.png
+- trueaccord.png
+- chaser.png
+- dunning-from-chargebee.png
+- upflow-collections.png
+- collectai.png
+- invoice-ninja.png
+- zoho-invoice.png
+- quickbooks-invoicing.png
+- zapier-ai.png
+- make.png
+- n8n.png
+- taskade-agents.png
+- agentgpt.png
+
+Note: Add actual logo files with these names to make the "What We Replace" section display properly.
+
+
+
