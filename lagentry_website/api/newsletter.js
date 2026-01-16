@@ -1,4 +1,6 @@
-import { sendNewsletterWelcomeEmail } from '../_shared/emailService.js';
+const { sendNewsletterWelcomeEmail } =
+  require('./_shared/emailService.js');
+
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -35,3 +37,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ success: false, message: 'Failed to process newsletter signup' });
   }
 }
+
