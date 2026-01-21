@@ -39,10 +39,13 @@ module.exports = async (req, res) => {
     });
 
     await sendDemoConfirmationEmail({
-      email,
-      name,
-      token,
-    });
+  email,
+  name,
+  token,
+  bookingDate,
+  bookingTime,
+});
+
 
     return res.json({
       success: true,
@@ -53,3 +56,4 @@ module.exports = async (req, res) => {
     return res.status(500).json({ success: false });
   }
 };
+
