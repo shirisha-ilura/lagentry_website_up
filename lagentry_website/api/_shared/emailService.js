@@ -1,12 +1,10 @@
 const nodemailer = require("nodemailer");
 
-const EMAIL_HOST = "smtp.hostinger.com";
-const EMAIL_PORT = 465;
-
+const EMAIL_HOST = process.env.EMAIL_HOST || "smtp.hostinger.com";
+const EMAIL_PORT = 587; // <-- IMPORTANT: use 587 for Vercel
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD;
-const EMAIL_FROM_NAME =
-  process.env.EMAIL_FROM_NAME || "Zoya – Founder, Lagentry";
+const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "Zoya – Founder, Lagentry";
 const COMPANY_EMAIL = process.env.COMPANY_EMAIL || EMAIL_USER;
 
 let transporter;
@@ -15,13 +13,13 @@ function getTransporter() {
   if (transporter) return transporter;
 
   if (!EMAIL_USER || !EMAIL_PASS) {
-    throw new Error("❌ Hostinger email credentials missing");
+    throw new Error("Missing EMAIL_USER or EMAIL_PASSWORD in env");
   }
 
   transporter = nodemailer.createTransport({
     host: EMAIL_HOST,
     port: EMAIL_PORT,
-    secure: true, // ✅ REQUIRED
+    secure: false, // MUST be false for 587
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS,
@@ -41,7 +39,7 @@ function firstName(name = "") {
 async function sendMailSafe(options) {
   try {
     const info = await getTransporter().sendMail(options);
-    console.log("✅ EMAIL SENT:", info.messageId);
+    console.log("✅ EMAIL SENT:", info.response);
     return info;
   } catch (err) {
     console.error("❌ EMAIL FAILED:", err);
@@ -49,14 +47,12 @@ async function sendMailSafe(options) {
   }
 }
 
-/* ================= EMAIL FUNCTIONS ================= */
-
 async function sendDemoConfirmationEmail({ email, name }) {
   return sendMailSafe({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`, // ✅ MUST MATCH
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     subject: "Your Lagentry demo is confirmed",
-    html: `<p>Hi ${firstName(name)},<br>Your demo is booked successfully.</p>`,
+    html: `<p>Hi ${firstName(name)}, your demo is booked successfully.</p>`,
   });
 }
 
