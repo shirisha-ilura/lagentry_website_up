@@ -2,7 +2,7 @@ const crypto = require("crypto");
 const { sendDemoConfirmationEmail } = require("./_shared/emailService");
 const { saveBooking } = require("./_shared/bookingsStore");
 
-function setCORSHeaders(res, origin) {
+function setCORSHeaders(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -25,7 +25,10 @@ module.exports = async (req, res) => {
     const { name, email, phone, bookingDate, bookingTime } = req.body;
 
     if (!name || !email || !phone || !bookingDate || !bookingTime) {
-      return res.status(400).json({ success: false, message: "Missing fields" });
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      });
     }
 
     const token = crypto.randomBytes(24).toString("hex");
@@ -39,21 +42,22 @@ module.exports = async (req, res) => {
     });
 
     await sendDemoConfirmationEmail({
-  email,
-  name,
-  token,
-  bookingDate,
-  bookingTime,
-});
-
+      email,
+      name,
+      token,
+      bookingDate,
+      bookingTime,
+    });
 
     return res.json({
       success: true,
       message: "Demo booked successfully",
     });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ success: false });
+    console.error("BOOK DEMO ERROR:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };
-
