@@ -46,11 +46,21 @@ async function sendMailSafe(options) {
   }
 }
 
-/* ---------------- CALENDAR (.ics) GENERATOR ---------------- */
+/* ---------------- SAFE CALENDAR (.ics) GENERATOR ---------------- */
 
 function generateICS({ name, email, bookingDate, bookingTime }) {
-  // Convert date + time into proper ISO
+  if (!bookingDate || !bookingTime) {
+    console.warn("⚠️ Missing booking date/time, skipping calendar");
+    return null;
+  }
+
   const start = new Date(`${bookingDate}T${bookingTime}:00`);
+
+  if (isNaN(start.getTime())) {
+    console.warn("⚠️ Invalid date/time format:", bookingDate, bookingTime);
+    return null;
+  }
+
   const end = new Date(start.getTime() + 30 * 60 * 1000); // 30 min demo
 
   function formatDate(d) {
@@ -76,7 +86,7 @@ END:VCALENDAR
 `.trim();
 }
 
-/* ---------------- MAIN EMAIL ---------------- */
+/* ---------------- MAIN EMAIL FUNCTION ---------------- */
 
 async function sendDemoConfirmationEmail({
   email,
@@ -116,21 +126,25 @@ async function sendDemoConfirmationEmail({
 
   const icsContent = generateICS({ name, email, bookingDate, bookingTime });
 
-  return sendMailSafe({
+  const mailOptions = {
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL,
     subject: "Your Lagentry demo is booked! Let’s automate your business!",
     html,
+  };
 
-    // 📎 Calendar attachment
-    alternatives: [
+  // Attach calendar only if valid
+  if (icsContent) {
+    mailOptions.alternatives = [
       {
         contentType: "text/calendar; charset=utf-8; method=REQUEST",
         content: icsContent,
       },
-    ],
-  });
+    ];
+  }
+
+  return sendMailSafe(mailOptions);
 }
 
 module.exports = { sendDemoConfirmationEmail };
