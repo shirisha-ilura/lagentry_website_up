@@ -1,91 +1,78 @@
-// Email service for Vercel serverless functions (CommonJS)
 const nodemailer = require("nodemailer");
 
-// Environment variables
-const EMAIL_HOST = process.env.EMAIL_HOST || "smtp.hostinger.com";
-const EMAIL_PORT = Number(process.env.EMAIL_PORT) || 465;
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASS = process.env.EMAIL_PASSWORD || process.env.EMAIL_PASS;
-const EMAIL_FROM = process.env.EMAIL_FROM || EMAIL_USER;
-const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "Zoya – Founder, Lagentry";
-const COMPANY_EMAIL = process.env.COMPANY_EMAIL || EMAIL_FROM;
+const EMAIL_HOST = "smtp.hostinger.com";
+const EMAIL_PORT = 465;
 
-let transporter = null;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASSWORD;
+const EMAIL_FROM_NAME =
+  process.env.EMAIL_FROM_NAME || "Zoya – Founder, Lagentry";
+const COMPANY_EMAIL = process.env.COMPANY_EMAIL || EMAIL_USER;
+
+let transporter;
 
 function getTransporter() {
-  if (!transporter) {
-    if (!EMAIL_USER || !EMAIL_PASS) {
-      throw new Error("Email credentials are missing");
-    }
+  if (transporter) return transporter;
 
-    transporter = nodemailer.createTransport({
-      host: EMAIL_HOST,
-      port: EMAIL_PORT,
-      secure: EMAIL_PORT === 465,
-      auth: {
-        user: EMAIL_USER,
-        pass: EMAIL_PASS,
-      },
-      tls: { rejectUnauthorized: false },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-      pool: false,
-      maxConnections: 1,
-    });
+  if (!EMAIL_USER || !EMAIL_PASS) {
+    throw new Error("❌ Hostinger email credentials missing");
   }
+
+  transporter = nodemailer.createTransport({
+    host: EMAIL_HOST,
+    port: EMAIL_PORT,
+    secure: true, // ✅ REQUIRED
+    auth: {
+      user: EMAIL_USER,
+      pass: EMAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
   return transporter;
 }
 
-function getFirstName(name = "") {
-  return name.trim().split(" ")[0] || "";
+function firstName(name = "") {
+  return name.trim().split(" ")[0] || "there";
+}
+
+async function sendMailSafe(options) {
+  try {
+    const info = await getTransporter().sendMail(options);
+    console.log("✅ EMAIL SENT:", info.messageId);
+    return info;
+  } catch (err) {
+    console.error("❌ EMAIL FAILED:", err);
+    throw err;
+  }
 }
 
 /* ================= EMAIL FUNCTIONS ================= */
 
-async function sendWaitlistConfirmationEmail({ email, name }) {
-  return getTransporter().sendMail({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
-    to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "You're officially in! Welcome to Lagentry 🚀",
-    html: `<p>Hi ${getFirstName(name)}, welcome to Lagentry!</p>`,
-  });
-}
-
-async function sendNewsletterWelcomeEmail({ email, name }) {
-  return getTransporter().sendMail({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
-    to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "Welcome to Lagentry!",
-    html: `<p>Hi ${getFirstName(name)}, thanks for subscribing!</p>`,
-  });
-}
-
 async function sendDemoConfirmationEmail({ email, name }) {
-  return getTransporter().sendMail({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+  return sendMailSafe({
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`, // ✅ MUST MATCH
     to: email,
-    bcc: COMPANY_EMAIL,
     subject: "Your Lagentry demo is confirmed",
-    html: `<p>Hi ${getFirstName(name)}, your demo is booked.</p>`,
+    html: `<p>Hi ${firstName(name)},<br>Your demo is booked successfully.</p>`,
   });
 }
 
 async function sendDemoInternalNotification({ name, email }) {
-  return getTransporter().sendMail({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+  return sendMailSafe({
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: COMPANY_EMAIL,
     replyTo: email,
-    subject: `New Demo Booking: ${name}`,
-    html: `<p>New demo booking from ${name} (${email})</p>`,
+    subject: `New Demo Booking – ${name}`,
+    html: `<p>Name: ${name}<br>Email: ${email}</p>`,
   });
 }
 
 async function sendChatNotificationEmail({ conversationId, userMessage }) {
-  return getTransporter().sendMail({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+  return sendMailSafe({
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: COMPANY_EMAIL,
     subject: "New Chat Conversation",
     html: `<p>${userMessage}</p><p>ID: ${conversationId}</p>`,
@@ -93,8 +80,6 @@ async function sendChatNotificationEmail({ conversationId, userMessage }) {
 }
 
 module.exports = {
-  sendWaitlistConfirmationEmail,
-  sendNewsletterWelcomeEmail,
   sendDemoConfirmationEmail,
   sendDemoInternalNotification,
   sendChatNotificationEmail,
