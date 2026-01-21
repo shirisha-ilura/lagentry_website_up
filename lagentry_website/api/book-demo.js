@@ -1,118 +1,55 @@
-// Vercel serverless function for demo booking
-const {
-  sendDemoConfirmationEmail,
-  sendDemoInternalNotification,
-} = require("./_shared/emailService");
+const crypto = require("crypto");
+const { sendDemoConfirmationEmail } = require("./_shared/emailService");
+const { saveBooking } = require("./_shared/bookingsStore");
 
-// CORS headers
 function setCORSHeaders(res, origin) {
-  const allowedOrigins = [
-    "https://lagentry.com",
-    "https://www.lagentry.com",
-    "https://aganret.com",
-    "https://www.aganret.com",
-    "http://localhost:3000",
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-    process.env.FRONTEND_URL,
-  ].filter(Boolean);
-
-  if (origin && allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 module.exports = async (req, res) => {
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
-    setCORSHeaders(res, req.headers.origin);
+    setCORSHeaders(res);
     return res.status(200).end();
   }
 
   if (req.method !== "POST") {
-    setCORSHeaders(res, req.headers.origin);
-    return res.status(405).json({
-      success: false,
-      message: "Method not allowed",
-    });
+    setCORSHeaders(res);
+    return res.status(405).json({ success: false });
   }
 
   try {
-    const origin = req.headers.origin;
-    setCORSHeaders(res, origin);
+    setCORSHeaders(res);
 
-    const {
+    const { name, email, phone, bookingDate, bookingTime } = req.body;
+
+    if (!name || !email || !phone || !bookingDate || !bookingTime) {
+      return res.status(400).json({ success: false, message: "Missing fields" });
+    }
+
+    const token = crypto.randomBytes(24).toString("hex");
+
+    saveBooking(token, {
       name,
       email,
       phone,
-      company,
-      companySize,
-      agentOfInterest,
-      message,
       bookingDate,
       bookingTime,
-      bookingDateTime,
-    } = req.body;
+    });
 
-    // Basic validation
-    if (!name || !email || !phone || !bookingDate || !bookingTime) {
-      return res.status(400).json({
-        success: false,
-        message: "Name, email, phone, date, and time are required",
-      });
-    }
+    await sendDemoConfirmationEmail({
+      email,
+      name,
+      token,
+    });
 
-    // Email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid email format",
-      });
-    }
-
-    const dateTime = bookingDateTime || `${bookingDate} at ${bookingTime}`;
-
-    // ✅ IMPORTANT FIX: Await emails (serverless safe)
-    await Promise.all([
-      sendDemoConfirmationEmail({
-        email: email.trim(),
-        name: name.trim(),
-        dateTime,
-        agentName: agentOfInterest || "General Demo",
-        userRequirement: message || "",
-      }),
-
-      sendDemoInternalNotification({
-        email: email.trim(),
-        name: name.trim(),
-        phone: phone.trim(),
-        company: company || "",
-        dateTime,
-        agentName: agentOfInterest || "General Demo",
-        userRequirement: message || "",
-      }),
-    ]);
-
-    return res.status(200).json({
+    return res.json({
       success: true,
-      message: "Demo booked successfully!",
+      message: "Demo booked successfully",
     });
-  } catch (error) {
-    console.error("Error processing demo booking:", error);
-
-    const origin = req.headers.origin;
-    setCORSHeaders(res, origin);
-
-    return res.status(500).json({
-      success: false,
-      message: "Failed to book demo",
-      error: error.message,
-    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false });
   }
 };
