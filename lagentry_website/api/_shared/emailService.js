@@ -46,7 +46,45 @@ async function sendMailSafe(options) {
   }
 }
 
-async function sendDemoConfirmationEmail({ email, name, token }) {
+/* ---------------- CALENDAR (.ics) GENERATOR ---------------- */
+
+function generateICS({ name, email, bookingDate, bookingTime }) {
+  // Convert date + time into proper ISO
+  const start = new Date(`${bookingDate}T${bookingTime}:00`);
+  const end = new Date(start.getTime() + 30 * 60 * 1000); // 30 min demo
+
+  function formatDate(d) {
+    return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  }
+
+  return `
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:${Date.now()}@lagentry.com
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(start)}
+DTEND:${formatDate(end)}
+SUMMARY:Lagentry Demo Session
+DESCRIPTION:Your Lagentry demo is confirmed. We will walk you through real use cases.
+ORGANIZER;CN=Zoya:MAILTO:${EMAIL_USER}
+ATTENDEE;CN=${name};RSVP=TRUE:MAILTO:${email}
+END:VEVENT
+END:VCALENDAR
+`.trim();
+}
+
+/* ---------------- MAIN EMAIL ---------------- */
+
+async function sendDemoConfirmationEmail({
+  email,
+  name,
+  token,
+  bookingDate,
+  bookingTime,
+}) {
   const rescheduleLink = `${BASE_URL}/reschedule?token=${token}`;
   const cancelLink = `${BASE_URL}/cancel?token=${token}`;
 
@@ -60,8 +98,11 @@ async function sendDemoConfirmationEmail({ email, name, token }) {
     </p>
 
     <p>
-      You can manage your booking here:
-      <br/>
+      You’ll find the meeting details in your calendar invite.<br/>
+      You can reschedule or cancel anytime if needed.
+    </p>
+
+    <p>
       <a href="${rescheduleLink}">Reschedule Demo</a> |
       <a href="${cancelLink}">Cancel Demo</a>
     </p>
@@ -73,12 +114,22 @@ async function sendDemoConfirmationEmail({ email, name, token }) {
     </p>
   `;
 
+  const icsContent = generateICS({ name, email, bookingDate, bookingTime });
+
   return sendMailSafe({
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL,
     subject: "Your Lagentry demo is booked! Let’s automate your business!",
     html,
+
+    // 📎 Calendar attachment
+    alternatives: [
+      {
+        contentType: "text/calendar; charset=utf-8; method=REQUEST",
+        content: icsContent,
+      },
+    ],
   });
 }
 
