@@ -1,7 +1,7 @@
 // Vercel serverless function for chat messages
 const chatStorage = require("../_shared/chatStorage");
 
-const { sendChatNotificationEmail } = require('./_shared/emailService');
+const { sendChatNotificationEmail } = require("../_shared/emailService");
 const crypto = require('crypto');
 
 // Knowledge base content
@@ -293,5 +293,6 @@ module.exports = async (req, res) => {
     });
   }
 };
+
 
 
