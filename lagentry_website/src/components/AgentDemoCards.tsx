@@ -11,7 +11,7 @@ import agentBg from './agentbg2.png';
 // Note: File is AICFO.MP4 (uppercase) - Netlify is case-sensitive
 // Use absolute paths for Netlify deployment compatibility
 // Try both cases for compatibility
-const aiCFOVideo = '/AICFO.MP4';
+const aiCFOVideo = '/AICFO.mp4';
 const hrVideo = '/HRvc.mp4';
 const healthcareVideo = '/Healthcare-agent.mp4';
 const realEstateVideo = '/real.mp4';
@@ -918,4 +918,5 @@ const AgentDemoCards: React.FC = () => {
 };
 
 export default AgentDemoCards;
+
 
