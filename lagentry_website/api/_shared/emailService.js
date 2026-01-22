@@ -154,7 +154,7 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
     <p><strong>You’ve successfully joined the Lagentry waitlist!</strong></p>
 
     <p>
-      Thanks for your interest in Lagentry. You’ll be among the first to know when we open early access.
+      Thanks for your interest in Lagentry. You’ll be among the first to know when early access is available.
     </p>
 
     <p>
@@ -169,9 +169,9 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
   `;
 
   return sendMailSafe({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"Zoya – Founder, Lagentry" <${process.env.EMAIL_USER}>`,
     to: email,
-    bcc: COMPANY_EMAIL, // admin also gets a copy
+    bcc: process.env.COMPANY_EMAIL || process.env.EMAIL_USER,
     subject: "You’ve joined the Lagentry waitlist 🚀",
     html,
   });
@@ -179,10 +179,12 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
 
 
 
+
 module.exports = {
   sendDemoConfirmationEmail,
   sendWaitlistConfirmationEmail,
 };
+
 
 
 
