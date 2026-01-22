@@ -147,4 +147,36 @@ async function sendDemoConfirmationEmail({
   return sendMailSafe(mailOptions);
 }
 
-module.exports = { sendDemoConfirmationEmail };
+async function sendWaitlistConfirmationEmail({ email, name }) {
+  const html = `
+    <p>Hi ${name?.split(" ")[0] || "there"},</p>
+
+    <p>You're officially on the <strong>Lagentry waitlist</strong> 🚀</p>
+
+    <p>
+      We’ll notify you as soon as early access is available.
+    </p>
+
+    <p>
+      Thanks for your interest in Lagentry!<br><br>
+      <strong>Zoya</strong><br>
+      CEO, Lagentry
+    </p>
+  `;
+
+  return sendMailSafe({
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    to: email,
+    bcc: COMPANY_EMAIL,
+    subject: "You’re on the Lagentry waitlist 🚀",
+    html,
+  });
+}
+
+
+module.exports = {
+  sendDemoConfirmationEmail,
+  sendWaitlistConfirmationEmail,
+};
+
+
