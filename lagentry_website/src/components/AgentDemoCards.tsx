@@ -75,7 +75,7 @@ const agents: AgentCard[] = [
   },
   {
     id: 'agent-4',
-    name: 'AI Healthcare Agent',
+    name: 'AI Support Agent',
     description: 'Your 24/7 AI Health Hub — Smart, Caring, Always Ready. The AI Healthcare Agent transforms your clinic or medical-service offering into a round-the-clock intelligent care center. It handles patient intake, triage, appointment scheduling, follow-ups, reminders, and basic diagnostics support — all with the empathy and efficiency of a seasoned healthcare professional, but at AI-speed and scale. With multilingual voice calling, voice cloning, secure data handling and seamless workflows, it becomes the healthcare assistant every modern practice needs.',
     video: healthcareVideo,
     color: '#9333EA',
@@ -918,3 +918,4 @@ const AgentDemoCards: React.FC = () => {
 };
 
 export default AgentDemoCards;
+
