@@ -1,9 +1,5 @@
-const { sendNewsletterWelcomeEmail } =
-  require('./_shared/emailService.js');
+const { sendNewsletterWelcomeEmail } = require('./_shared/emailService.js');
 
-/* ===============================
-   CORS helper
-================================ */
 function setCORSHeaders(res, origin) {
   const allowedOrigins = [
     'https://lagentry.com',
@@ -24,13 +20,9 @@ function setCORSHeaders(res, origin) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
 }
 
-/* ===============================
-   API handler
-================================ */
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
 
-  // Preflight
   if (req.method === 'OPTIONS') {
     setCORSHeaders(res, origin);
     return res.status(200).end();
@@ -38,9 +30,10 @@ module.exports = async function handler(req, res) {
 
   if (req.method !== 'POST') {
     setCORSHeaders(res, origin);
-    return res
-      .status(405)
-      .json({ success: false, message: 'Method not allowed' });
+    return res.status(405).json({
+      success: false,
+      message: 'Method not allowed',
+    });
   }
 
   try {
@@ -49,28 +42,29 @@ module.exports = async function handler(req, res) {
     const { email, name } = req.body || {};
 
     if (!email || !email.trim()) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'Email is required' });
+      return res.status(400).json({
+        success: false,
+        message: 'Email is required',
+      });
     }
 
-    // Fire-and-forget email
-    sendNewsletterWelcomeEmail({
+    // ✅ MUST be awaited on Vercel
+    await sendNewsletterWelcomeEmail({
       email: email.trim(),
       name: name?.trim() || '',
-    }).catch(err =>
-      console.error('Newsletter email failed:', err)
-    );
+    });
 
     return res.json({
       success: true,
       message: 'Successfully subscribed to newsletter!',
     });
+
   } catch (error) {
     console.error('Newsletter API error:', error);
     setCORSHeaders(res, origin);
-    return res
-      .status(500)
-      .json({ success: false, message: 'Failed to process newsletter signup' });
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to process newsletter signup',
+    });
   }
 };
