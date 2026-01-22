@@ -149,16 +149,20 @@ async function sendDemoConfirmationEmail({
 
 async function sendWaitlistConfirmationEmail({ email, name }) {
   const html = `
-    <p>Hi ${name?.split(" ")[0] || "there"},</p>
+    <p>Hi ${name ? name.split(" ")[0] : "there"},</p>
 
-    <p>You're officially on the <strong>Lagentry waitlist</strong> 🚀</p>
+    <p><strong>You’ve successfully joined the Lagentry waitlist!</strong></p>
 
     <p>
-      We’ll notify you as soon as early access is available.
+      Thanks for your interest in Lagentry. You’ll be among the first to know when we open early access.
     </p>
 
     <p>
-      Thanks for your interest in Lagentry!<br><br>
+      Stay tuned for updates 🚀
+    </p>
+
+    <p>
+      Warm regards,<br><br>
       <strong>Zoya</strong><br>
       CEO, Lagentry
     </p>
@@ -167,16 +171,18 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
   return sendMailSafe({
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "You’re on the Lagentry waitlist 🚀",
+    bcc: COMPANY_EMAIL, // admin also gets a copy
+    subject: "You’ve joined the Lagentry waitlist 🚀",
     html,
   });
 }
+
 
 
 module.exports = {
   sendDemoConfirmationEmail,
   sendWaitlistConfirmationEmail,
 };
+
 
 
