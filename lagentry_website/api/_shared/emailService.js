@@ -46,22 +46,15 @@ async function sendMailSafe(options) {
   }
 }
 
-/* ---------------- SAFE CALENDAR (.ics) GENERATOR ---------------- */
+/* ---------------- CALENDAR (.ics) ---------------- */
 
 function generateICS({ name, email, bookingDate, bookingTime }) {
-  if (!bookingDate || !bookingTime) {
-    console.warn("⚠️ Missing booking date/time, skipping calendar");
-    return null;
-  }
+  if (!bookingDate || !bookingTime) return null;
 
   const start = new Date(`${bookingDate}T${bookingTime}:00`);
+  if (isNaN(start.getTime())) return null;
 
-  if (isNaN(start.getTime())) {
-    console.warn("⚠️ Invalid date/time format:", bookingDate, bookingTime);
-    return null;
-  }
-
-  const end = new Date(start.getTime() + 30 * 60 * 1000); // 30 min demo
+  const end = new Date(start.getTime() + 30 * 60 * 1000);
 
   function formatDate(d) {
     return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
@@ -78,7 +71,7 @@ DTSTAMP:${formatDate(new Date())}
 DTSTART:${formatDate(start)}
 DTEND:${formatDate(end)}
 SUMMARY:Lagentry Demo Session
-DESCRIPTION:Your Lagentry demo is confirmed. We will walk you through real use cases.
+DESCRIPTION:Your Lagentry demo is confirmed.
 ORGANIZER;CN=Zoya:MAILTO:${EMAIL_USER}
 ATTENDEE;CN=${name};RSVP=TRUE:MAILTO:${email}
 END:VEVENT
@@ -86,7 +79,7 @@ END:VCALENDAR
 `.trim();
 }
 
-/* ---------------- MAIN EMAIL FUNCTION ---------------- */
+/* ---------------- DEMO EMAIL ---------------- */
 
 async function sendDemoConfirmationEmail({
   email,
@@ -100,23 +93,13 @@ async function sendDemoConfirmationEmail({
 
   const html = `
     <p>Hi ${firstName(name)},</p>
-
     <p><strong>Your Lagentry demo is confirmed!</strong></p>
-
-    <p>
-      In the session, I’ll walk you through how Lagentry agents work in real production environments beyond demos and buzzwords.
-    </p>
-
-    <p>
-      You’ll find the meeting details in your calendar invite.<br/>
-      You can reschedule or cancel anytime if needed.
-    </p>
-
+    <p>In the session, I’ll walk you through how Lagentry agents work in real production environments beyond demos and buzzwords.</p>
+    <p>You’ll find the meeting details in your calendar invite.</p>
     <p>
       <a href="${rescheduleLink}">Reschedule Demo</a> |
       <a href="${cancelLink}">Cancel Demo</a>
     </p>
-
     <p>
       Looking forward to speaking with you!<br><br>
       <strong>Zoya</strong><br>
@@ -134,7 +117,6 @@ async function sendDemoConfirmationEmail({
     html,
   };
 
-  // Attach calendar only if valid
   if (icsContent) {
     mailOptions.alternatives = [
       {
@@ -147,20 +129,13 @@ async function sendDemoConfirmationEmail({
   return sendMailSafe(mailOptions);
 }
 
+/* ---------------- WAITLIST EMAIL ---------------- */
+
 async function sendWaitlistConfirmationEmail({ email, name }) {
   const html = `
-    <p>Hi ${name ? name.split(" ")[0] : "there"},</p>
-
+    <p>Hi ${firstName(name)},</p>
     <p><strong>You’ve successfully joined the Lagentry waitlist!</strong></p>
-
-    <p>
-      Thanks for your interest in Lagentry. You’ll be among the first to know when early access is available.
-    </p>
-
-    <p>
-      Stay tuned for updates 🚀
-    </p>
-
+    <p>We’ll notify you when early access becomes available.</p>
     <p>
       Warm regards,<br><br>
       <strong>Zoya</strong><br>
@@ -169,22 +144,41 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
   `;
 
   return sendMailSafe({
-    from: `"Zoya – Founder, Lagentry" <${process.env.EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
-    bcc: process.env.COMPANY_EMAIL || process.env.EMAIL_USER,
+    bcc: COMPANY_EMAIL,
     subject: "You’ve joined the Lagentry waitlist 🚀",
     html,
   });
 }
 
+/* ---------------- NEWSLETTER EMAIL ---------------- */
 
+async function sendNewsletterWelcomeEmail({ email, name }) {
+  const html = `
+    <p>Hi ${firstName(name)},</p>
+    <p>Thanks for subscribing to the <strong>Lagentry Newsletter</strong>!</p>
+    <p>You’ll receive product updates, insights, and announcements in your inbox.</p>
+    <p>
+      Cheers,<br><br>
+      <strong>Zoya</strong><br>
+      CEO, Lagentry
+    </p>
+  `;
 
+  return sendMailSafe({
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    to: email,
+    bcc: COMPANY_EMAIL,
+    subject: "Welcome to the Lagentry Newsletter ✨",
+    html,
+  });
+}
+
+/* ---------------- EXPORTS ---------------- */
 
 module.exports = {
   sendDemoConfirmationEmail,
   sendWaitlistConfirmationEmail,
+  sendNewsletterWelcomeEmail,
 };
-
-
-
-
