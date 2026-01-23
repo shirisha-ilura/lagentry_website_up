@@ -72,14 +72,16 @@ DTSTART:${formatDate(start)}
 DTEND:${formatDate(end)}
 SUMMARY:Lagentry Demo Session
 DESCRIPTION:Your Lagentry demo is confirmed.
-ORGANIZER;CN=Zoya:MAILTO:${EMAIL_USER}
+ORGANIZER;CN=Lagentry:MAILTO:${EMAIL_USER}
 ATTENDEE;CN=${name};RSVP=TRUE:MAILTO:${email}
 END:VEVENT
 END:VCALENDAR
 `.trim();
 }
 
-/* ---------------- DEMO EMAIL ---------------- */
+/* =========================================================
+   DEMO BOOKING - USER EMAIL
+========================================================= */
 
 async function sendDemoConfirmationEmail({
   email,
@@ -92,28 +94,45 @@ async function sendDemoConfirmationEmail({
   const cancelLink = `${BASE_URL}/cancel?token=${token}`;
 
   const html = `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6;">
     <p>Hi ${firstName(name)},</p>
-    <p><strong>Your Lagentry demo is confirmed!</strong></p>
-    <p>In the session, I’ll walk you through how Lagentry agents work in real production environments beyond demos and buzzwords.</p>
-    <p>You’ll find the meeting details in your calendar invite.</p>
+
+    <p><strong>Your Lagentry demo is successfully confirmed.</strong></p>
+
     <p>
-      <a href="${rescheduleLink}">Reschedule Demo</a> |
+      During the session, we will walk you through how Lagentry AI agents operate in real production environments, beyond typical demos and buzzwords.
+    </p>
+
+    <p>
+      You will find the session added to your calendar via the attached invite.
+    </p>
+
+    <p>
+      You may manage your booking anytime here:
+      <br/>
+      <a href="${rescheduleLink}">Reschedule Demo</a> | 
       <a href="${cancelLink}">Cancel Demo</a>
     </p>
+
     <p>
-      Looking forward to speaking with you!<br><br>
-      <strong>Zoya</strong><br>
-      CEO, Lagentry
+      We look forward to speaking with you.
     </p>
+
+    <p>
+      Warm regards,<br/>
+      <strong>Zoya</strong><br/>
+      Founder & CEO<br/>
+      Lagentry
+    </p>
+  </div>
   `;
 
   const icsContent = generateICS({ name, email, bookingDate, bookingTime });
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"Lagentry" <${EMAIL_USER}>`,
     to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "Your Lagentry demo is booked! Let’s automate your business!",
+    subject: "Your Lagentry Demo is Confirmed",
     html,
   };
 
@@ -129,56 +148,149 @@ async function sendDemoConfirmationEmail({
   return sendMailSafe(mailOptions);
 }
 
-/* ---------------- WAITLIST EMAIL ---------------- */
+/* =========================================================
+   DEMO BOOKING - ADMIN EMAIL
+========================================================= */
+
+async function sendDemoAdminNotification(data) {
+  const html = `
+  <div style="font-family: Arial, sans-serif;">
+    <h3>New Demo Booking</h3>
+    <p><strong>Name:</strong> ${data.name}</p>
+    <p><strong>Email:</strong> ${data.email}</p>
+    <p><strong>Date:</strong> ${data.bookingDate}</p>
+    <p><strong>Time:</strong> ${data.bookingTime}</p>
+    <p><strong>Source:</strong> Website Booking Form</p>
+  </div>
+  `;
+
+  return sendMailSafe({
+    from: `"Lagentry Notifications" <${EMAIL_USER}>`,
+    to: COMPANY_EMAIL,
+    subject: `New Demo Booking – ${data.name}`,
+    html,
+  });
+}
+
+/* =========================================================
+   WAITLIST - USER EMAIL
+========================================================= */
 
 async function sendWaitlistConfirmationEmail({ email, name }) {
   const html = `
+  <div style="font-family: Arial, sans-serif;">
     <p>Hi ${firstName(name)},</p>
-    <p><strong>You’ve successfully joined the Lagentry waitlist!</strong></p>
-    <p>We’ll notify you when early access becomes available.</p>
+
+    <p><strong>Thank you for joining the Lagentry waitlist.</strong></p>
+
     <p>
-      Warm regards,<br><br>
-      <strong>Zoya</strong><br>
-      CEO, Lagentry
+      We appreciate your interest in Lagentry. You will be among the first to receive updates when early access becomes available.
     </p>
+
+    <p>
+      Warm regards,<br/>
+      <strong>Zoya</strong><br/>
+      Founder & CEO<br/>
+      Lagentry
+    </p>
+  </div>
   `;
 
   return sendMailSafe({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"Lagentry" <${EMAIL_USER}>`,
     to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "You’ve joined the Lagentry waitlist 🚀",
+    subject: "You’re on the Lagentry Waitlist",
     html,
   });
 }
 
-/* ---------------- NEWSLETTER EMAIL ---------------- */
+/* =========================================================
+   WAITLIST - ADMIN EMAIL
+========================================================= */
+
+async function sendWaitlistAdminNotification({ email, name }) {
+  const html = `
+  <div style="font-family: Arial, sans-serif;">
+    <h3>New Waitlist Signup</h3>
+    <p><strong>Name:</strong> ${name || "N/A"}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Source:</strong> Website Waitlist Form</p>
+  </div>
+  `;
+
+  return sendMailSafe({
+    from: `"Lagentry Notifications" <${EMAIL_USER}>`,
+    to: COMPANY_EMAIL,
+    subject: `New Waitlist Signup – ${email}`,
+    html,
+  });
+}
+
+/* =========================================================
+   NEWSLETTER - USER EMAIL
+========================================================= */
 
 async function sendNewsletterWelcomeEmail({ email, name }) {
   const html = `
+  <div style="font-family: Arial, sans-serif;">
     <p>Hi ${firstName(name)},</p>
-    <p>Thanks for subscribing to the <strong>Lagentry Newsletter</strong>!</p>
-    <p>You’ll receive product updates, insights, and announcements in your inbox.</p>
+
+    <p><strong>Welcome to the Lagentry newsletter.</strong></p>
+
     <p>
-      Cheers,<br><br>
-      <strong>Zoya</strong><br>
-      CEO, Lagentry
+      You are now subscribed to receive product updates, insights, and announcements from the Lagentry team.
     </p>
+
+    <p>
+      We’re glad to have you with us.
+    </p>
+
+    <p>
+      Regards,<br/>
+      <strong>Zoya</strong><br/>
+      Founder & CEO<br/>
+      Lagentry
+    </p>
+  </div>
   `;
 
   return sendMailSafe({
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"Lagentry" <${EMAIL_USER}>`,
     to: email,
-    bcc: COMPANY_EMAIL,
-    subject: "Welcome to the Lagentry Newsletter ✨",
+    subject: "Welcome to Lagentry",
     html,
   });
 }
 
-/* ---------------- EXPORTS ---------------- */
+/* =========================================================
+   NEWSLETTER - ADMIN EMAIL
+========================================================= */
+
+async function sendNewsletterAdminNotification({ email, name }) {
+  const html = `
+  <div style="font-family: Arial, sans-serif;">
+    <h3>New Newsletter Subscriber</h3>
+    <p><strong>Name:</strong> ${name || "N/A"}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Source:</strong> Website Newsletter Form</p>
+  </div>
+  `;
+
+  return sendMailSafe({
+    from: `"Lagentry Notifications" <${EMAIL_USER}>`,
+    to: COMPANY_EMAIL,
+    subject: `New Newsletter Subscriber – ${email}`,
+    html,
+  });
+}
+
+/* ========================================================= */
 
 module.exports = {
   sendDemoConfirmationEmail,
+  sendDemoAdminNotification,
   sendWaitlistConfirmationEmail,
+  sendWaitlistAdminNotification,
   sendNewsletterWelcomeEmail,
+  sendNewsletterAdminNotification,
 };
