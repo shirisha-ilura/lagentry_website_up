@@ -176,6 +176,198 @@ function formatDateTime(dateTimeString) {
   }
 }
 
+// Helper to get a safe base URL for assets/links inside emails
+function getPublicBaseUrl() {
+  // Prefer explicit frontend URL if set
+  if (process.env.FRONTEND_URL) {
+    return process.env.FRONTEND_URL.replace(/\/+$/, '');
+  }
+  // Fall back to a generic production domain
+  return 'https://lagentry.com';
+}
+
+/**
+ * Shared HTML email layout (inspired by modern ecommerce emails).
+ * Uses inline styles and table layout for better email-client support.
+ */
+function buildBrandedEmailTemplate({
+  preheader = '',
+  eyebrow = '',
+  title = '',
+  greeting = '',
+  bodyHtml = '',
+  primaryCtaLabel,
+  primaryCtaUrl,
+  secondaryCtaLabel,
+  secondaryCtaUrl,
+  highlightText,
+  heroImageUrl,
+  footerNote,
+  accentColor = '#F97316', // warm orange
+}) {
+  const baseUrl = getPublicBaseUrl();
+  const safeHero = heroImageUrl || `${baseUrl}/images/email/lagentry-hero-default.png`;
+
+  // Preheader is hidden in most clients but appears in inbox preview
+  const safePreheader = (preheader || title || '').replace(/"/g, "'");
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${title || 'Lagentry'}</title>
+    <style>
+      /* Some clients support embedded styles; critical styles are also inlined */
+      @media only screen and (max-width: 600px) {
+        .wrapper {
+          width: 100% !important;
+        }
+        .card {
+          padding: 24px 18px !important;
+        }
+        .hero-title {
+          font-size: 24px !important;
+          line-height: 1.2 !important;
+        }
+        .cta-primary, .cta-secondary {
+          display: block !important;
+          width: 100% !important;
+          margin: 0 0 12px 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background-color:#020617; background-image:radial-gradient(circle at top, rgba(248,250,252,0.06), transparent 55%), radial-gradient(circle at bottom, rgba(79,70,229,0.18), transparent 60%); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+    <!-- Preheader text : hidden -->
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0; color:transparent; visibility:hidden; mso-hide:all;">
+      ${safePreheader}
+    </div>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:transparent; padding:24px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" style="width:600px; max-width:100%;">
+            <!-- Brand header -->
+            <tr>
+              <td align="left" style="padding:0 24px 16px 24px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td align="left">
+                      <span style="font-size:14px; letter-spacing:0.18em; text-transform:uppercase; color:#F9FAFB;">LAGENTRY</span>
+                    </td>
+                    <td align="right">
+                      <span style="font-size:11px; color:#9CA3AF;">AI Employees for MENA</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding-top:10px;">
+                      <!-- Thin accent bar inspired by modern SaaS emails -->
+                      <div style="height:3px; width:100%; border-radius:999px; background:linear-gradient(90deg, ${accentColor}, #22c55e, #0ea5e9);"></div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Card -->
+            <tr>
+              <td style="padding:0 16px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-radius:24px; overflow:hidden; background:radial-gradient(circle at top left, rgba(248,250,252,0.08), transparent 55%), radial-gradient(circle at bottom right, rgba(148,163,184,0.16), transparent 60%), #020617; border:1px solid rgba(148,163,184,0.35);" class="card">
+                  <!-- Hero image -->
+                  <tr>
+                    <td align="center" style="padding:0; border-bottom:1px solid rgba(148,163,184,0.16);">
+                      <img src="${safeHero}" width="600" alt="Lagentry AI agents" style="display:block; width:100%; max-width:600px; height:auto; border:0; outline:none; text-decoration:none;" />
+                    </td>
+                  </tr>
+
+                  <!-- Content -->
+                  <tr>
+                    <td style="padding:28px 28px 10px 28px;">
+                      ${eyebrow ? `<div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${accentColor}; margin-bottom:8px;">${eyebrow}</div>` : ''}
+                      <div class="hero-title" style="font-size:28px; line-height:1.25; font-weight:700; color:#F9FAFB; margin:0 0 12px 0;">
+                        ${title}
+                      </div>
+                      ${highlightText ? `
+                        <div style="margin:0 0 14px 0; font-size:13px; color:#E5E7EB;">
+                          <span style="display:inline-block; padding:4px 10px; border-radius:999px; background-color:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.45); font-size:12px;">
+                            ⭐ ${highlightText}
+                          </span>
+                        </div>
+                      ` : ''}
+                      ${greeting ? `<p style="margin:0 0 10px 0; font-size:14px; line-height:1.6; color:#E5E7EB;">${greeting}</p>` : ''}
+                      <div style="font-size:14px; line-height:1.7; color:#E5E7EB; margin:0 0 4px 0;">
+                        ${bodyHtml}
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- CTAs -->
+                  ${(primaryCtaLabel && primaryCtaUrl) || (secondaryCtaLabel && secondaryCtaUrl) ? `
+                  <tr>
+                    <td align="center" style="padding:4px 28px 24px 28px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          ${primaryCtaLabel && primaryCtaUrl ? `
+                          <td align="center" style="padding:0 6px 8px 0;">
+                            <a href="${primaryCtaUrl}" class="cta-primary" style="background-color:${accentColor}; color:#0B1020 !important; text-decoration:none; padding:11px 22px; border-radius:999px; font-size:13px; font-weight:600; display:inline-block; border:none;">
+                              ✨ ${primaryCtaLabel}
+                            </a>
+                          </td>` : ''}
+                          ${secondaryCtaLabel && secondaryCtaUrl ? `
+                          <td align="center" style="padding:0 0 8px 6px;">
+                            <a href="${secondaryCtaUrl}" class="cta-secondary" style="background-color:transparent; color:#E5E7EB !important; text-decoration:none; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:500; display:inline-block; border:1px solid rgba(148,163,184,0.55);">
+                              ${secondaryCtaLabel}
+                            </a>
+                          </td>` : ''}
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  ` : ''}
+
+                  <!-- Footer inside card -->
+                  <tr>
+                    <td style="padding:0 28px 26px 28px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td style="font-size:11px; color:#9CA3AF; line-height:1.6;">
+                            <div style="margin-bottom:6px;">
+                              <strong style="color:#E5E7EB;">Zoya</strong><br />
+                              CEO, Lagentry
+                            </div>
+                            ${footerNote ? `<div>${footerNote}</div>` : ''}
+                          </td>
+                          <td align="right" style="font-size:11px; color:#6B7280;">
+                            <div style="margin-bottom:4px;">⭐ Built for operators, not hobbyists.</div>
+                            <div>Follow along at <a href="${baseUrl}" style="color:#A855F7; text-decoration:none;">lagentry.com</a></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Legal footer -->
+            <tr>
+              <td align="center" style="padding:18px 16px 8px 16px;">
+                <div style="font-size:10px; line-height:1.5; color:#6B7280; max-width:520px; margin:0 auto;">
+                  You’re receiving this email because you interacted with Lagentry (waitlist, demo booking, or newsletter). 
+                  If this wasn’t you, you can safely ignore this message.
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+  `.trim();
+}
+
 /**
  * 1. Waitlist Confirmation Email
  */
@@ -187,6 +379,9 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
   }
 
   const firstName = getFirstName(name);
+  const waitlistHero =
+    process.env.EMAIL_WAITLIST_HERO_URL ||
+    `${getPublicBaseUrl()}/images/email/waitlist-hero.png`;
 
   const mailOptions = {
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
@@ -194,25 +389,31 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
     subject: "You're officially in! Welcome to Lagentry 🚀",
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <p>Hi ${firstName || 'there'},</p>
-        
-        <p>You're officially on the Lagentry waitlist!</p>
-        
-        <p>I'm Zoya, CEO of Lagentry, and I wanted to personally say hello.</p>
-        
-        <p>We're building what we like to call "AI employees" agents that don't just chat, but actually work inside real businesses across MENA.</p>
-        
-        <p>You'll hear from us as we open early access, roll out features, and get closer to launch. No noise. No spam. Just real updates.</p>
-        
-        <p>If you ever want to share what you're hoping to automate, just reply! I read these myself.</p>
-        
-        <p>Glad you're here. Really.</p>
-        
-        <p><strong>Zoya</strong><br>CEO, Lagentry</p>
-      </div>
-    `,
+    html: buildBrandedEmailTemplate({
+      preheader: "You’re officially on the Lagentry waitlist.",
+      eyebrow: "WAITLIST CONFIRMED",
+      title: "You’re officially on the Lagentry waitlist ⭐",
+      greeting: `Hi ${firstName || 'there'},`,
+      highlightText: "Early access to AI employees for MENA just unlocked.",
+      heroImageUrl: waitlistHero,
+      bodyHtml: `
+        <p style="margin:0 0 10px 0;">You’re in. Thanks for raising your hand early.</p>
+        <p style="margin:0 0 10px 0;">We’re building <strong>real AI employees</strong> agents that don’t just chat, but actually work inside real teams — qualifying leads, answering support, and moving revenue.</p>
+        <p style="margin:0 0 10px 0;">From here, you’ll get:
+          <br />⭐ Early product previews and behind-the-scenes updates
+          <br />⭐ First access when we open private beta
+          <br />⭐ Practical examples of how other operators are using Lagentry
+        </p>
+        <p style="margin:0 0 10px 0;">If you want to share what you’re hoping to automate, just hit reply — I read these myself.</p>
+        <p style="margin:0;">Glad you’re here. Really.</p>
+      `,
+      primaryCtaLabel: "View what Lagentry can do",
+      primaryCtaUrl: `${getPublicBaseUrl()}/#how-it-works`,
+      secondaryCtaLabel: "Book a live demo",
+      secondaryCtaUrl: `${getPublicBaseUrl()}/book-demo`,
+      footerNote: "No spam. Just sharp, operator-level updates on what’s actually working with AI in MENA.",
+      accentColor: "#F97316"
+    }),
     text: `
 Hi ${firstName || 'there'},
 
@@ -277,6 +478,9 @@ async function sendNewsletterWelcomeEmail({ email, name }) {
   }
 
   const firstName = getFirstName(name);
+  const newsletterHero =
+    process.env.EMAIL_NEWSLETTER_HERO_URL ||
+    `${getPublicBaseUrl()}/images/email/newsletter-hero.png`;
 
   const mailOptions = {
     from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
@@ -284,23 +488,30 @@ async function sendNewsletterWelcomeEmail({ email, name }) {
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
     subject: "Welcome to Lagentry! Let's build this right",
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <p>Hi ${firstName || 'there'},</p>
-        
-        <p>Welcome to Lagentry!</p>
-        
-        <p>From time to time, I'll share how we're building "AI employees" for real businesses in MENA what's working, what isn't, and what's coming next.</p>
-        
-        <p>This won't be marketing fluff.</p>
-        
-        <p>Just honest updates from the ground.</p>
-        
-        <p>Thanks for joining us.</p>
-        
-        <p><strong>Zoya</strong><br>CEO, Lagentry</p>
-      </div>
-    `,
+    html: buildBrandedEmailTemplate({
+      preheader: "Thanks for subscribing to sharp, no-fluff updates from Lagentry.",
+      eyebrow: "NEWSLETTER",
+      title: "Welcome to the Lagentry insider list 💌",
+      greeting: `Hi ${firstName || 'there'},`,
+      highlightText: "Short, practical emails on how AI employees are used in real businesses.",
+      heroImageUrl: newsletterHero,
+      bodyHtml: `
+        <p style="margin:0 0 10px 0;">Thanks for subscribing.</p>
+        <p style="margin:0 0 10px 0;">Every so often, I’ll send you:
+          <br />⭐ Real breakdowns of how MENA teams are deploying Lagentry agents
+          <br />⭐ What’s working (and what isn’t) as we build the platform
+          <br />⭐ Product updates worth your attention — not every tiny tweak
+        </p>
+        <p style="margin:0 0 10px 0;">No fluffy “AI hype” content, no daily spam. Just the stuff an operator or founder actually needs to see.</p>
+        <p style="margin:0;">If there’s a specific workflow you’re trying to automate, reply and tell me about it.</p>
+      `,
+      primaryCtaLabel: "See the latest on Lagentry",
+      primaryCtaUrl: `${getPublicBaseUrl()}/#updates`,
+      secondaryCtaLabel: "Book a 20‑minute demo",
+      secondaryCtaUrl: `${getPublicBaseUrl()}/book-demo`,
+      footerNote: "You can unsubscribe anytime from the link in the footer of any newsletter.",
+      accentColor: "#A855F7"
+    }),
     text: `
 Hi ${firstName || 'there'},
 
@@ -455,28 +666,32 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
     replyTo: EMAIL_FROM,
     subject: "Your Lagentry demo is booked! Let's automate your business!",
     attachments: attachments.length > 0 ? attachments : [],
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <p>Hi ${name || firstName || 'there'},</p>
-        
-        <p>Your Lagentry demo is confirmed!</p>
-        
-        <p>In the session, I'll walk you through how Lagentry agents work in real production environments beyond demos and buzzwords.</p>
-        
-        <p>You'll find the meeting details in your calendar invite.</p>
-        
-        <p>You can reschedule or cancel anytime if needed.</p>
-        
-        <div style="margin: 30px 0; text-align: center;">
-          <a href="${finalRescheduleLink}" style="display: inline-block; background-color: #8B5CF6; color: #ffffff !important; padding: 14px 28px; text-decoration: none; border-radius: 8px; margin: 0 10px; font-weight: 600; font-size: 16px; border: none;">🔄 Reschedule</a>
-          <a href="${finalCancelLink}" style="display: inline-block; background-color: #ef4444; color: #ffffff !important; padding: 14px 28px; text-decoration: none; border-radius: 8px; margin: 0 10px; font-weight: 600; font-size: 16px; border: none;">❌ Cancel</a>
-        </div>
-        
-        <p>Looking forward to speaking with you!</p>
-        
-        <p><strong>Zoya</strong><br>CEO, Lagentry</p>
-      </div>
-    `,
+    html: buildBrandedEmailTemplate({
+      preheader: "Your Lagentry demo is confirmed. Calendar invite is attached.",
+      eyebrow: "DEMO CONFIRMED",
+      title: "Your Lagentry demo is locked in ✅",
+      greeting: `Hi ${name || firstName || 'there'},`,
+      highlightText: formattedDateTime ? `You’re meeting with us on ${formattedDateTime}.` : "Your demo is scheduled and ready.",
+      heroImageUrl:
+        process.env.EMAIL_DEMO_HERO_URL ||
+        `${getPublicBaseUrl()}/images/email/demo-hero.png`,
+      bodyHtml: `
+        <p style="margin:0 0 10px 0;">Your session is confirmed. In this demo, we’ll walk through how Lagentry’s <strong>AI employees</strong> plug into real workflows — not just chat widgets.</p>
+        <p style="margin:0 0 10px 0;">
+          ⭐ Live walkthrough of agents like <strong>${agentName || 'Lead Qualification & Support'}</strong><br/>
+          ⭐ How teams in MENA are using them in production<br/>
+          ${userRequirement ? `⭐ A quick deep-dive on what you shared: <em>${userRequirement}</em><br/>` : ''}
+        </p>
+        <p style="margin:0 0 10px 0;">All the exact meeting details are in the attached calendar invite.</p>
+        <p style="margin:0;">If the timing stops working, you can move or cancel your slot in one click below.</p>
+      `,
+      primaryCtaLabel: "🔄 Reschedule demo",
+      primaryCtaUrl: finalRescheduleLink,
+      secondaryCtaLabel: "❌ Cancel demo",
+      secondaryCtaUrl: finalCancelLink,
+      footerNote: "If these links don’t work for any reason, just reply to this email and we’ll adjust your booking manually.",
+      accentColor: "#8B5CF6"
+    }),
     text: `
 Hi ${name || firstName || 'there'},
 
