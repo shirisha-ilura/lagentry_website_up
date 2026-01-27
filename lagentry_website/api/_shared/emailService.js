@@ -35,6 +35,193 @@ function firstName(name = "") {
   return name.trim().split(" ")[0] || "there";
 }
 
+// Public URL helper (for hero images in emails)
+function getPublicBaseUrl() {
+  return (BASE_URL || "https://lagentry.com").replace(/\/+$/, "");
+}
+
+/**
+ * Shared HTML layout for user-facing emails (waitlist, newsletter, demo, etc.)
+ * Uses table-based structure and inline styles for good email client support.
+ */
+function buildBrandedEmailTemplate({
+  preheader = "",
+  eyebrow = "",
+  title = "",
+  greeting = "",
+  bodyHtml = "",
+  primaryCtaLabel,
+  primaryCtaUrl,
+  secondaryCtaLabel,
+  secondaryCtaUrl,
+  highlightText,
+  heroImageUrl,
+  footerNote,
+  accentColor = "#F97316",
+}) {
+  const baseUrl = getPublicBaseUrl();
+  const safeHero =
+    heroImageUrl || `${baseUrl}/images/email/lagentry-hero-default.png`;
+  const safePreheader = (preheader || title || "").replace(/"/g, "'");
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${title || "Lagentry"}</title>
+    <style>
+      @media only screen and (max-width: 600px) {
+        .wrapper { width: 100% !important; }
+        .card { padding: 24px 18px !important; }
+        .hero-title { font-size: 24px !important; line-height: 1.2 !important; }
+        .cta-primary, .cta-secondary {
+          display: block !important;
+          width: 100% !important;
+          margin: 0 0 12px 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background-color:#020617; background-image:radial-gradient(circle at top, rgba(248,250,252,0.06), transparent 55%), radial-gradient(circle at bottom, rgba(79,70,229,0.18), transparent 60%); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0; color:transparent; visibility:hidden; mso-hide:all;">
+      ${safePreheader}
+    </div>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:transparent; padding:24px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="wrapper" style="width:600px; max-width:100%;">
+            <tr>
+              <td align="left" style="padding:0 24px 16px 24px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td align="left">
+                      <span style="font-size:14px; letter-spacing:0.18em; text-transform:uppercase; color:#F9FAFB;">LAGENTRY</span>
+                    </td>
+                    <td align="right">
+                      <span style="font-size:11px; color:#9CA3AF;">AI Employees for MENA</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding-top:10px;">
+                      <div style="height:3px; width:100%; border-radius:999px; background:linear-gradient(90deg, ${accentColor}, #22c55e, #0ea5e9);"></div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 16px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-radius:24px; overflow:hidden; background:radial-gradient(circle at top left, rgba(248,250,252,0.08), transparent 55%), radial-gradient(circle at bottom right, rgba(148,163,184,0.16), transparent 60%), #020617; border:1px solid rgba(148,163,184,0.35);" class="card">
+                  <tr>
+                    <td align="center" style="padding:0; border-bottom:1px solid rgba(148,163,184,0.16);">
+                      <img src="${safeHero}" width="600" alt="Lagentry" style="display:block; width:100%; max-width:600px; height:auto; border:0; outline:none; text-decoration:none;" />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:28px 28px 10px 28px;">
+                      ${
+                        eyebrow
+                          ? `<div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${accentColor}; margin-bottom:8px;">${eyebrow}</div>`
+                          : ""
+                      }
+                      <div class="hero-title" style="font-size:28px; line-height:1.25; font-weight:700; color:#F9FAFB; margin:0 0 12px 0;">
+                        ${title}
+                      </div>
+                      ${
+                        highlightText
+                          ? `<div style="margin:0 0 14px 0; font-size:13px; color:#E5E7EB;">
+                          <span style="display:inline-block; padding:4px 10px; border-radius:999px; background-color:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.45); font-size:12px;">
+                            ⭐ ${highlightText}
+                          </span>
+                        </div>`
+                          : ""
+                      }
+                      ${
+                        greeting
+                          ? `<p style="margin:0 0 10px 0; font-size:14px; line-height:1.6; color:#E5E7EB;">${greeting}</p>`
+                          : ""
+                      }
+                      <div style="font-size:14px; line-height:1.7; color:#E5E7EB; margin:0 0 4px 0;">
+                        ${bodyHtml}
+                      </div>
+                    </td>
+                  </tr>
+
+                  ${
+                    (primaryCtaLabel && primaryCtaUrl) ||
+                    (secondaryCtaLabel && secondaryCtaUrl)
+                      ? `<tr>
+                    <td align="center" style="padding:4px 28px 24px 28px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          ${
+                            primaryCtaLabel && primaryCtaUrl
+                              ? `<td align="center" style="padding:0 6px 8px 0;">
+                            <a href="${primaryCtaUrl}" class="cta-primary" style="background-color:${accentColor}; color:#0B1020 !important; text-decoration:none; padding:11px 22px; border-radius:999px; font-size:13px; font-weight:600; display:inline-block; border:none;">
+                              ✨ ${primaryCtaLabel}
+                            </a>
+                          </td>`
+                              : ""
+                          }
+                          ${
+                            secondaryCtaLabel && secondaryCtaUrl
+                              ? `<td align="center" style="padding:0 0 8px 6px;">
+                            <a href="${secondaryCtaUrl}" class="cta-secondary" style="background-color:transparent; color:#E5E7EB !important; text-decoration:none; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:500; display:inline-block; border:1px solid rgba(148,163,184,0.55);">
+                              ${secondaryCtaLabel}
+                            </a>
+                          </td>`
+                              : ""
+                          }
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>`
+                      : ""
+                  }
+
+                  <tr>
+                    <td style="padding:0 28px 26px 28px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td style="font-size:11px; color:#9CA3AF; line-height:1.6;">
+                            <div style="margin-bottom:6px;">
+                              <strong style="color:#E5E7EB;">Zoya</strong><br />
+                              CEO, Lagentry
+                            </div>
+                            ${footerNote || ""}
+                          </td>
+                          <td align="right" style="font-size:11px; color:#6B7280;">
+                            <div style="margin-bottom:4px;">⭐ Built for operators, not hobbyists.</div>
+                            <div>More at <a href="${baseUrl}" style="color:#A855F7; text-decoration:none;">lagentry.com</a></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding:18px 16px 8px 16px;">
+                <div style="font-size:10px; line-height:1.5; color:#6B7280; max-width:520px; margin:0 auto;">
+                  You’re receiving this email because you interacted with Lagentry (demo booking, waitlist, or newsletter). If this wasn’t you, you can safely ignore this message.
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+  `.trim();
+}
+
 async function sendMailSafe(options) {
   try {
     const info = await getTransporter().sendMail(options);
@@ -177,24 +364,34 @@ async function sendDemoAdminNotification(data) {
 ========================================================= */
 
 async function sendWaitlistConfirmationEmail({ email, name }) {
-  const html = `
-  <div style="font-family: Arial, sans-serif;">
-    <p>Hi ${firstName(name)},</p>
+  const hero = `${getPublicBaseUrl()}/images/email/waitlist-hero.png`;
 
-    <p><strong>Thank you for joining the Lagentry waitlist.</strong></p>
-
-    <p>
-      We appreciate your interest in Lagentry. You will be among the first to receive updates when early access becomes available.
-    </p>
-
-    <p>
-      Warm regards,<br/>
-      <strong>Zoya</strong><br/>
-      Founder & CEO<br/>
-      Lagentry
-    </p>
-  </div>
-  `;
+  const html = buildBrandedEmailTemplate({
+    preheader: "You’re officially on the Lagentry waitlist.",
+    eyebrow: "WAITLIST CONFIRMED",
+    title: "You’re officially on the Lagentry waitlist ⭐",
+    greeting: `Hi ${firstName(name)},`,
+    highlightText: "Early access to AI employees for MENA just unlocked.",
+    heroImageUrl: hero,
+    bodyHtml: `
+      <p style="margin:0 0 10px 0;">You’re in. Thanks for raising your hand early.</p>
+      <p style="margin:0 0 10px 0;">We’re building <strong>real AI employees</strong> agents that don’t just chat, but actually work inside real teams — qualifying leads, answering support, and moving revenue.</p>
+      <p style="margin:0 0 10px 0;">From here, you’ll get:
+        <br />⭐ Early product previews and behind-the-scenes updates
+        <br />⭐ First access when we open private beta
+        <br />⭐ Practical examples of how other operators are using Lagentry
+      </p>
+      <p style="margin:0 0 10px 0;">If you want to share what you’re hoping to automate, just hit reply — I read these myself.</p>
+      <p style="margin:0;">Glad you’re here. Really.</p>
+    `,
+    primaryCtaLabel: "View what Lagentry can do",
+    primaryCtaUrl: `${getPublicBaseUrl()}/#how-it-works`,
+    secondaryCtaLabel: "Book a live demo",
+    secondaryCtaUrl: `${getPublicBaseUrl()}/book-demo`,
+    footerNote:
+      "No spam. Just sharp, operator-level updates on what’s actually working with AI in MENA.",
+    accentColor: "#F97316",
+  });
 
   return sendMailSafe({
     from: `"Lagentry" <${EMAIL_USER}>`,
@@ -231,28 +428,34 @@ async function sendWaitlistAdminNotification({ email, name }) {
 ========================================================= */
 
 async function sendNewsletterWelcomeEmail({ email, name }) {
-  const html = `
-  <div style="font-family: Arial, sans-serif;">
-    <p>Hi ${firstName(name)},</p>
+  const hero = `${getPublicBaseUrl()}/images/email/newsletter-hero.png`;
 
-    <p><strong>Welcome to the Lagentry newsletter.</strong></p>
-
-    <p>
-      You are now subscribed to receive product updates, insights, and announcements from the Lagentry team.
-    </p>
-
-    <p>
-      We’re glad to have you with us.
-    </p>
-
-    <p>
-      Regards,<br/>
-      <strong>Zoya</strong><br/>
-      Founder & CEO<br/>
-      Lagentry
-    </p>
-  </div>
-  `;
+  const html = buildBrandedEmailTemplate({
+    preheader: "Thanks for subscribing to sharp, no-fluff updates from Lagentry.",
+    eyebrow: "NEWSLETTER",
+    title: "Welcome to the Lagentry insider list 💌",
+    greeting: `Hi ${firstName(name)},`,
+    highlightText:
+      "Short, practical emails on how AI employees are used in real businesses.",
+    heroImageUrl: hero,
+    bodyHtml: `
+      <p style="margin:0 0 10px 0;">Thanks for subscribing.</p>
+      <p style="margin:0 0 10px 0;">Every so often, I’ll send you:
+        <br />⭐ Real breakdowns of how MENA teams are deploying Lagentry agents
+        <br />⭐ What’s working (and what isn’t) as we build the platform
+        <br />⭐ Product updates worth your attention — not every tiny tweak
+      </p>
+      <p style="margin:0 0 10px 0;">No fluffy “AI hype” content, no daily spam. Just the stuff an operator or founder actually needs to see.</p>
+      <p style="margin:0;">If there’s a specific workflow you’re trying to automate, reply and tell me about it.</p>
+    `,
+    primaryCtaLabel: "See the latest on Lagentry",
+    primaryCtaUrl: `${getPublicBaseUrl()}/#updates`,
+    secondaryCtaLabel: "Book a 20‑minute demo",
+    secondaryCtaUrl: `${getPublicBaseUrl()}/book-demo`,
+    footerNote:
+      "You can unsubscribe anytime from the link in the footer of any newsletter.",
+    accentColor: "#A855F7",
+  });
 
   return sendMailSafe({
     from: `"Lagentry" <${EMAIL_USER}>`,
