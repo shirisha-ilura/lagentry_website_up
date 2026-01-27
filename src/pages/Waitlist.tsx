@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Waitlist.css';
 import { db } from '../lib/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import emailjs from 'emailjs-com';
 // Localized shader imports (no external deps)
 import ShaderCanvas from '../community/ShaderCanvas';
 import StarsOverlay from '../community/StarsOverlay';
@@ -89,32 +88,37 @@ const Waitlist: React.FC = () => {
         createdAt: serverTimestamp(),
       });
 
-      // Send emails via EmailJS (requires env-configured template)
-      const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY as string;
-      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
-      const templateIdUser = process.env.REACT_APP_EMAILJS_TEMPLATE_USER as string;
-      const templateIdAdmin = process.env.REACT_APP_EMAILJS_TEMPLATE_ADMIN as string;
-
-      if (publicKey && serviceId && templateIdUser && templateIdAdmin) {
-        emailjs.init(publicKey);
-        // User confirmation
-        await emailjs.send(serviceId, templateIdUser, {
-          to_email: form.email,
-          to_name: form.name,
-          message: "You've successfully joined the Legentry waitlist! Stay tuned for updates.",
-        });
-        // Admin notification
-        await emailjs.send(serviceId, templateIdAdmin, {
-          name: form.name,
+      // Also send to backend so Nodemailer HTML template runs
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           email: form.email,
+          name: form.name,
           company: form.company,
           designation: form.designation,
-        });
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result?.success) {
+        console.error('Backend waitlist response error:', result);
+        // Still consider it mostly successful if Firestore saved, but show softer message
+        setSuccess(
+          "You're on the waitlist, but we had trouble sending your confirmation email. We'll still keep you updated."
+        );
+      } else {
+        setSuccess(
+          "You've successfully joined the Lagentry waitlist! Check your inbox for a confirmation email."
+        );
       }
 
-      setSuccess("You've successfully joined the Legentry waitlist! Stay tuned for updates.");
       setForm(initialState);
     } catch (err: any) {
+      console.error('Waitlist submission error:', err);
       setError(err?.message || 'Submission failed, please try again.');
     } finally {
       setSubmitting(false);
