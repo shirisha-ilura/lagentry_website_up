@@ -1,5 +1,6 @@
 // Vercel serverless function for waitlist signup
 const { sendWaitlistConfirmationEmail } = require('./_shared/emailService');
+const { upsertLead } = require('./_shared/leadsDb');
 
 // CORS headers
 function setCORSHeaders(res, origin) {
@@ -52,7 +53,7 @@ module.exports = async (req, res) => {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
 
-    const { email, name } = req.body;
+    const { email, name, company, designation } = req.body;
 
     // Validation
     if (!email || !email.trim()) {
@@ -70,7 +71,24 @@ module.exports = async (req, res) => {
       });
     }
 
-    // ✅ IMPORTANT FIX: Await email safely with timeout
+    // 1) Save to leads table in Neon / Vercel Postgres
+    let duplicate = false;
+    try {
+      const leadResult = await upsertLead({
+        email: email.trim(),
+        source: 'waitlist',
+        name: name?.trim() || null,
+        phone: null,
+        company: company?.trim() || null,
+        message: designation?.trim() || null,
+      });
+      duplicate = leadResult.duplicate;
+    } catch (dbErr) {
+      console.error('❌ Failed to save waitlist lead to Postgres:', dbErr);
+      // Do NOT fail the user if DB write fails – email + UX still continue
+    }
+
+    // 2) Send email (with timeout so we don't hang)
     try {
       await withTimeout(
         sendWaitlistConfirmationEmail({
@@ -86,7 +104,8 @@ module.exports = async (req, res) => {
 
     return res.json({
       success: true,
-      message: "You've successfully joined the Lagentry waitlist! Stay tuned for updates."
+      message: "You've successfully joined the Lagentry waitlist! Stay tuned for updates.",
+      duplicate,
     });
 
   } catch (error) {

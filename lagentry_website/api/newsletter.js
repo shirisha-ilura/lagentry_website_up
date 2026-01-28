@@ -1,4 +1,5 @@
 const { sendNewsletterWelcomeEmail } = require('./_shared/emailService.js');
+const { upsertLead } = require('./_shared/leadsDb');
 
 function setCORSHeaders(res, origin) {
   const allowedOrigins = [
@@ -48,7 +49,22 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // ✅ MUST be awaited on Vercel
+    // 1) Save to leads table in Neon / Vercel Postgres
+    try {
+      await upsertLead({
+        email: email.trim(),
+        source: 'newsletter',
+        name: name?.trim() || null,
+        phone: null,
+        company: null,
+        message: null,
+      });
+    } catch (dbErr) {
+      console.error('❌ Failed to save newsletter lead to Postgres:', dbErr);
+      // Continue anyway – email + UX should still succeed
+    }
+
+    // 2) Send welcome email (must be awaited on Vercel)
     await sendNewsletterWelcomeEmail({
       email: email.trim(),
       name: name?.trim() || '',
