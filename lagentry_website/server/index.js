@@ -2830,12 +2830,37 @@ app.post('/api/chat/message', async (req, res) => {
       
       // Try to parse error for better message
       let errorMessage = 'Failed to get AI response';
+      let errorCode = null;
+      let isQuotaError = false;
+      
       try {
         const errorJson = JSON.parse(errorData);
         errorMessage = errorJson.error?.message || errorMessage;
+        errorCode = errorJson.error?.code || null;
+        isQuotaError = openaiResponse.status === 429 || 
+                      errorCode === 'insufficient_quota' || 
+                      errorMessage.toLowerCase().includes('quota') ||
+                      errorMessage.toLowerCase().includes('billing');
         console.error('❌ Parsed error:', errorMessage);
+        console.error('❌ Error code:', errorCode);
       } catch (e) {
         console.error('❌ Could not parse error response');
+      }
+      
+      // Handle quota errors gracefully with a fallback response
+      if (isQuotaError) {
+        console.warn('⚠️ OpenAI quota exceeded. Using fallback response.');
+        const fallbackResponse = `I apologize, but I'm currently experiencing high demand. Please feel free to reach out to us directly at info@lagentry.com, or visit our website to learn more about Lagentry's AI employees for MENA.`;
+        
+        // Save fallback response to conversation
+        const savedMessage = chatStorage.addMessage(currentConversationId, 'assistant', fallbackResponse);
+        
+        return res.json({
+          success: true,
+          conversationId: currentConversationId,
+          messageId: savedMessage.id,
+          response: fallbackResponse,
+        });
       }
       
       throw new Error(`OpenAI API error: ${errorMessage}`);
