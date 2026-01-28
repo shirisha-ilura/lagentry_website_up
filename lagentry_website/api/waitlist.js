@@ -88,18 +88,15 @@ module.exports = async (req, res) => {
       // Do NOT fail the user if DB write fails – email + UX still continue
     }
 
-    // 2) Send email (with timeout so we don't hang)
+    // 2) Send email (let it run fully so we see real SMTP errors in logs)
     try {
-      await withTimeout(
-        sendWaitlistConfirmationEmail({
-          email: email.trim(),
-          name: name?.trim() || ''
-        }),
-        4000 // max wait 4 seconds
-      );
+      await sendWaitlistConfirmationEmail({
+        email: email.trim(),
+        name: name?.trim() || '',
+      });
     } catch (mailErr) {
-      console.error("Email sending issue:", mailErr.message);
-      // Do NOT fail the user if mail is slow/fails
+      console.error('Waitlist email error:', mailErr);
+      // Do NOT fail the user if mail fails; they are already saved in DB
     }
 
     return res.json({
