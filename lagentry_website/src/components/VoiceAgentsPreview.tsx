@@ -152,16 +152,15 @@ const VoiceAgentsPreview: React.FC = () => {
                 // Directly use backend URL in development
                 backendUrl = 'http://localhost:5001';
             } else {
-                // In production, REACT_APP_BACKEND_URL must be set in Netlify environment variables
+                // In production, use REACT_APP_BACKEND_URL if set, otherwise use relative path (Vercel serverless function)
                 backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-                if (!backendUrl) {
-                    console.error('REACT_APP_BACKEND_URL is not set. Voice call feature will not work.');
-                    throw new Error('Backend service is not configured. Please contact support.');
+                if (backendUrl) {
+                    // Remove trailing slash if present
+                    backendUrl = backendUrl.replace(/\/$/, '');
                 }
-                // Remove trailing slash if present
-                backendUrl = backendUrl.replace(/\/$/, '');
             }
 
+            // Use relative path if no backend URL is set (will use Vercel serverless function)
             const apiUrl = backendUrl ? `${backendUrl}/api/start-voice-call` : '/api/start-voice-call';
             console.log('Calling backend API:', apiUrl, 'isDevelopment:', isDevelopment);
             const response = await fetch(apiUrl, {
