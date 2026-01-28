@@ -1,5 +1,5 @@
 // Vercel serverless function for starting voice calls with VAPI
-const fetch = require('node-fetch');
+// Note: Uses native fetch (Node.js 18+) - no need for node-fetch
 
 // VAPI configuration from environment variables (set these in Vercel)
 const VAPI_API_KEY = process.env.VAPI_API_KEY || 'f59d5ef2-204a-4b3a-9b99-2f2552a45a08';
@@ -56,9 +56,22 @@ module.exports = async (req, res) => {
   try {
     setCORSHeaders(res, origin);
 
-    const { prompt, voiceId, userName, userEmail, userPhone, agentType } = req.body;
+    // Parse request body
+    let body;
+    try {
+      body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    } catch (parseError) {
+      console.error('Error parsing request body:', parseError);
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid request body'
+      });
+    }
+
+    const { prompt, voiceId, userName, userEmail, userPhone, agentType } = body || {};
 
     if (!agentType) {
+      console.error('Missing agentType in request:', body);
       return res.status(400).json({
         success: false,
         error: 'Agent type is required'
@@ -71,6 +84,7 @@ module.exports = async (req, res) => {
     const agentId = FIXED_ASSISTANT_IDS[agentType];
     
     if (!agentId) {
+      console.error(`No assistant ID found for agent type: ${agentType}`);
       return res.status(400).json({
         success: false,
         error: `No assistant ID configured for agent type: ${agentType}`
@@ -89,7 +103,7 @@ module.exports = async (req, res) => {
     }
 
     // Return response for WebRTC connection (frontend will use VAPI SDK)
-    return res.json({
+    const response = {
       success: true,
       conversationId,
       agentId,
@@ -97,15 +111,20 @@ module.exports = async (req, res) => {
       webRTCEnabled: true,
       publicApiKey: VAPI_PUBLIC_KEY,
       variables: variables
-    });
+    };
+
+    console.log('Returning success response:', JSON.stringify(response, null, 2));
+    return res.json(response);
 
   } catch (error) {
     console.error('Error starting voice call:', error);
+    console.error('Error stack:', error.stack);
     setCORSHeaders(res, origin);
     return res.status(500).json({
       success: false,
       error: 'Failed to start voice call',
-      details: error.message
+      details: error.message || 'Unknown error',
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };
