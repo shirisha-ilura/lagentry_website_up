@@ -2818,7 +2818,10 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Legacy chat endpoint - handle messages with full conversation + handoff
-app.post('/api/chat/message', async (req, res) => {
+app.post(
+  ['/api/chat/message', '/api/chat/message/'],
+  async (req, res) => {
+
   let currentConversationId = null;
   
   try {

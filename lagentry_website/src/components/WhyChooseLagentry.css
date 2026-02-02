@@ -721,7 +721,7 @@
   border: 1px solid #222;
   gap: 16px;
   min-width: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .pes-row-main {
@@ -729,93 +729,92 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 10px;
   flex: 1;
   min-width: 0;
   overflow: visible;
 }
 
 .pes-row-title {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #f5f5f5;
+  font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
+  margin-bottom: 4px;
 }
 
 .pes-row-logos {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: auto;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
   flex-shrink: 0;
-  max-width: fit-content;
-  overflow: visible;
-  justify-content: flex-end;
+  overflow: hidden;
+  justify-content: flex-start;
+  width: 100%;
 }
 
-/* Desktop and laptop view - logos wrap to multiple lines if needed */
+/* Desktop and laptop view - logos in single line */
 @media (min-width: 768px) {
   .pes-row-logos {
-    gap: 12px;
-    flex-wrap: wrap;
-    overflow-x: visible;
-    justify-content: flex-end;
-  }
-  
-  .pes-row-logos img {
-    width: 120px;
-    height: 120px;
-    min-width: 120px;
-    max-width: 120px;
-    min-height: 120px;
-    max-height: 120px;
-  }
-}
-
-/* Mobile view - smaller logos but still square */
-@media (max-width: 767px) {
-  .pes-row-logos {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-    margin-left: 8px;
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow: hidden;
     justify-content: flex-start;
   }
   
   .pes-row-logos img {
-    width: 80px;
-    height: 80px;
-    min-width: 80px;
-    max-width: 80px;
-    min-height: 80px;
-    max-height: 80px;
-    padding: 12px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    flex-shrink: 0;
+  }
+}
+
+/* Mobile view - smaller logos in single line */
+@media (max-width: 767px) {
+  .pes-row-logos {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    gap: 4px;
+    justify-content: flex-start;
+  }
+  
+  .pes-row-logos img {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    padding: 4px;
     flex-shrink: 0;
   }
 }
 
 .pes-row-logos img {
-  width: 120px;
-  height: 120px;
-  min-width: 120px;
-  max-width: 120px;
-  min-height: 120px;
-  max-height: 120px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
   object-fit: contain;
   object-position: center;
-  border-radius: 8px;
-  background: transparent;
-  padding: 16px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
   box-sizing: border-box;
   position: relative;
   transition: transform 0.2s ease, z-index 0.2s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
   display: block;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pes-row-logos img:hover {
@@ -828,9 +827,11 @@
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   white-space: nowrap;
   gap: 0;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .pes-row-price span:first-child {
@@ -844,15 +845,18 @@
 
 .agent-matrix .pes-row {
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+  align-items: flex-start;
 }
 
 .agent-matrix .pes-row-price {
   align-items: flex-start;
+  text-align: right;
 }
 
 .agent-matrix .pes-row-main {
   flex: 1;
+  min-width: 0;
 }
 
 /* Footer with connectors + summary card */
