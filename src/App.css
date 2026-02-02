@@ -1,0 +1,26 @@
+/* Global reset: keep layout consistent but do NOT strip borders everywhere,
+   so components like Pricing cards can show their own borders and shadows. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* CANVAS SPECIFIC RESET */
+canvas {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000 !important;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: #000000 !important;
+  color: #ffffff;
+}

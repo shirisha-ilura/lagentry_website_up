@@ -1,0 +1,2516 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+  /* Reduced top padding to pull it up */
+  /* Restored for desktop */
+  /* Pull it up closer to the button */
+.agent-demo-section {
+  padding: 2rem 20px 6rem 20px;
+  background: #000000;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin-top: -4rem;
+}
+
+/* AI Sales GTM Agent Section */
+  /* Reduced padding */
+.ai-sales-gtm-section {
+  margin-bottom: 0;
+  position: relative;
+  padding: 1.25rem;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  width: 100%;
+  max-width: 850px;
+  border: 3px solid #808080;
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.ai-sales-gtm-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ai-sales-gtm-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+  /* Reduced gap */
+.ai-sales-gtm-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  justify-content: center;
+}
+
+  /* Reduced font size */
+  /* Reduced margin */
+.ai-sales-gtm-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+  /* Reduced font size */
+  /* Reduced margin */
+.ai-sales-gtm-tagline {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+
+  /* Reduced gap */
+.ai-sales-gtm-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0;
+}
+
+.ai-sales-gtm-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ai-sales-gtm-checkmark {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.ai-sales-gtm-feature-item span {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+  /* Reduced font size */
+  /* Reduced padding */
+  /* Reduced margin */
+.ai-sales-gtm-button {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--btn-purple-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.25rem;
+  align-self: flex-start;
+}
+
+.ai-sales-gtm-button:hover {
+  background: var(--btn-purple-gradient);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.ai-sales-gtm-button:active {
+  transform: translateY(0);
+}
+
+  /* Match the height of left content */
+.ai-sales-gtm-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  align-self: stretch;
+}
+
+  /* Slightly reduced to prevent corner cutting */
+  /* Match the height of left content */
+.ai-sales-gtm-visual-panel {
+  width: 95%;
+  max-width: 95%;
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  align-self: stretch;
+}
+
+.ai-sales-gtm-visual-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.ai-sales-gtm-geometric-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.ai-sales-gtm-geometric-pattern .geometric-lines-top {
+  transform: translate(20%, -10%);
+}
+
+.ai-sales-gtm-geometric-pattern .geometric-lines-bottom {
+  transform: translate(20%, 10%);
+}
+
+.ai-sales-gtm-visual-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, transparent 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 0 16px 16px 0;
+}
+
+/* Video container inside AI Sales and GTM section */
+  /* Match the visual panel height */
+  /* Rounded corners - matching other videos */
+.ai-sales-gtm-visual-panel .agent-video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: transparent;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+  /* Fit perfectly without stretching or shrinking */
+  /* Center the video */
+  /* Rounded corners */
+.ai-sales-gtm-visual-panel .agent-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.4s ease;
+  display: block;
+  background: transparent;
+  border-radius: 24px;
+}
+
+.ai-sales-gtm-visual-panel .video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  z-index: 3;
+  border-radius: 16px;
+}
+
+.ai-sales-gtm-visual-panel .video-overlay.playing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ai-sales-gtm-visual-panel .video-overlay:not(.playing):hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+  /* Centered container with side gaps */
+.agent-demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Stacked Cards Layout */
+  /* Reduced gap */
+  /* Ensure all cards have same width and alignment */
+  /* Align cards to top */
+.agent-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+  /* back to earlier card rounding */
+.agent-card-stacked {
+  width: 100%;
+  max-width: 100%;
+  border: 3px solid #808080;
+  border-radius: 24px;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+/* CFO card - ensure it can expand to show all text */
+  /* Full width with 16px padding */
+.cfo-card {
+  max-width: 100%;
+}
+
+.cfo-card .agent-card-inner-stacked {
+  overflow: visible;
+}
+
+/* Apply same max-width to all agent cards for consistency */
+.agent-card-stacked.layout-left-visual,
+  /* Full width with 16px padding */
+.agent-card-stacked.layout-right-visual {
+  max-width: 100%;
+}
+
+.agent-card-stacked.layout-left-visual .agent-card-inner-stacked,
+.agent-card-stacked.layout-right-visual .agent-card-inner-stacked {
+  overflow: visible;
+}
+
+.agent-card-stacked::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 24px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+  /* Wider: video 50%, text 50% */
+  /* Increased gap for better spacing between text and video */
+  /* Align to top for better alignment */
+  /* 20px side padding for laptop view */
+.agent-card-inner-stacked {
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
+  gap: 60px;
+  align-items: start;
+  justify-items: stretch;
+  padding: 1.25rem 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure grid columns don't shrink below content size */
+.agent-card-inner-stacked>* {
+  min-width: 0;
+}
+
+/* Alternating layouts - video and text positions alternate */
+  /* Wider: Video left (60%), text right (40%) */
+.agent-card-stacked.layout-left-visual .agent-card-inner-stacked {
+  grid-template-columns: 0.6fr 0.4fr;
+}
+
+/* CFO card - give more space for text to prevent truncation */
+  /* Wider: video 50%, text 50% */
+  /* Allow grid to shrink below content size */
+  /* 20px side padding for laptop view */
+  /* Ensure top alignment */
+  /* Reduced gap */
+.cfo-card .agent-card-inner-stacked {
+  grid-template-columns: 0.6fr 0.4fr;
+  min-width: 0;
+  padding: 1.25rem 0;
+  align-items: start;
+  gap: 60px;
+}
+
+  /* Allow flex item to shrink */
+  /* Show all text */
+.cfo-card .agent-content-panel-stacked {
+  min-width: 0;
+  overflow: visible;
+}
+
+/* Apply same grid layout to all agent cards */
+  /* Wider: video 60%, text 40% */
+  /* Ensure top alignment */
+  /* No side padding - text moves to edge */
+  /* Increased gap to move text away from video */
+.agent-card-stacked.layout-left-visual .agent-card-inner-stacked {
+  grid-template-columns: 0.6fr 0.4fr;
+  min-width: 0;
+  overflow: visible;
+  align-items: start;
+  padding: 1.25rem 0;
+  gap: 80px;
+}
+
+.agent-card-stacked.layout-left-visual .agent-content-panel-stacked {
+  min-width: 0;
+  overflow: visible;
+  padding: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/* Right visual layout (Real Estate, HR) - text left, video right */
+  /* Wider: text 40%, video 60% */
+  /* Reduced gap */
+  /* Ensure top alignment */
+  /* No side padding - text moves to edge */
+.agent-card-stacked.layout-right-visual .agent-card-inner-stacked {
+  grid-template-columns: 0.4fr 0.6fr;
+  gap: 60px;
+  min-width: 0;
+  overflow: visible;
+  align-items: start;
+  padding: 1.25rem 0;
+}
+
+  /* Text moved to left edge */
+  /* No padding on left for right-visual */
+.agent-card-stacked.layout-right-visual .agent-content-panel-stacked {
+  min-width: 0;
+  overflow: visible;
+  padding: 0;
+  padding-right: 0;
+  padding-left: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+  /* No padding */
+  /* No margin, gap handles spacing */
+  /* Align video to right */
+.agent-card-stacked.layout-right-visual .agent-visual-panel-stacked {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  justify-content: flex-end;
+}
+
+
+/* Alternating order - video left for layout-left-visual, video right for layout-right-visual */
+  /* Video on left */
+.agent-card-stacked.layout-left-visual .agent-visual-panel-stacked {
+  order: 1;
+}
+
+  /* Text on right */
+.agent-card-stacked.layout-left-visual .agent-content-panel-stacked {
+  order: 2;
+}
+
+  /* Video on right */
+.agent-card-stacked.layout-right-visual .agent-visual-panel-stacked {
+  order: 2;
+}
+
+  /* Text on left */
+.agent-card-stacked.layout-right-visual .agent-content-panel-stacked {
+  order: 1;
+}
+
+/* Visual Panel - Square videos with Rounded Corners */
+  /* Align to top */
+  /* Auto height to match content */
+  /* Start from top */
+  /* Allow video container to show rounded corners */
+.agent-visual-panel-stacked {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  padding-top: 0;
+  overflow: visible;
+}
+
+/* Right visual layout - align video panel properly */
+  /* Align video to right */
+  /* Align to top */
+  /* Full width to occupy empty space */
+.agent-card-stacked.layout-right-visual .agent-visual-panel-stacked {
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Right visual layout - ensure video container is properly sized and rounded */
+  /* Full width to reduce horizontal gaps */
+  /* Rounded corners */
+  /* Auto height to match content */
+  /* Increased height for better proportions */
+  /* Subtle border to show container edges */
+.agent-card-stacked.layout-right-visual .agent-visual-panel-stacked .agent-video-container {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 24px !important;
+  height: auto;
+  min-height: 550px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden !important;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/* Left visual layout - SAME rules as right visual for consistency */
+  /* Full width to reduce horizontal gaps */
+  /* Rounded corners */
+  /* Auto height to match content */
+  /* Increased height for better proportions */
+  /* Subtle border to show container edges */
+.agent-card-stacked.layout-left-visual .agent-visual-panel-stacked .agent-video-container {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 24px !important;
+  height: auto;
+  min-height: 550px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden !important;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/* CFO card: nudge video a bit further left inside its column */
+.cfo-card .agent-visual-panel-stacked {
+  justify-content: flex-start;
+}
+
+/* Keep CFO video fully visible inside its column */
+  /* no horizontal shift to avoid clipping on the right */
+  /* Full width - wider videos */
+  /* Ensure rectangular format */
+.cfo-card.layout-left-visual .agent-visual-panel-stacked .agent-video-container {
+  margin-left: 0;
+  max-width: 100%;
+  aspect-ratio: 2.6;
+  min-height: 550px;
+}
+
+/* Align video top with subtitle (description) - account for title height + margin */
+  /* Full width to reduce horizontal gaps */
+  /* Full width to reduce horizontal gaps */
+  /* Auto height to match content */
+  /* Increased height for better proportions */
+  /* Maintain video aspect ratio */
+  /* Rounded corners */
+  /* Subtle border to show container edges */
+  /* Add horizontal spacing from text */
+  /* Start at top - align with content panel */
+  /* Create new stacking context */
+  /* Force hardware acceleration for border-radius */
+  /* Force rounded corners on webkit */
+.agent-visual-panel-stacked .agent-video-container {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 550px;
+  aspect-ratio: 2.6;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 12px;
+  margin-top: 0;
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/* Ensure all videos and images are rectangular and have rounded corners */
+.agent-visual-panel-stacked .agent-video-container video,
+  /* Cover to ensure proper filling and rounded corners */
+  /* Center the video */
+.agent-visual-panel-stacked .agent-video-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 24px !important;
+  display: block;
+  opacity: 1;
+}
+
+.agent-visual-panel-stacked .agent-video,
+  /* Fit perfectly without stretching or shrinking */
+  /* Center the video */
+  /* Rounded corners for all videos and images */
+.agent-visual-panel-stacked img.agent-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: transparent;
+  filter: none !important;
+  opacity: 1 !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* CFO video: cover for rounded corners */
+  /* Cover to ensure rounded corners work */
+  /* Center the video */
+.agent-visual-panel-stacked .cfo-video {
+  object-fit: cover !important;
+  object-position: center;
+  background: transparent;
+  border-radius: 24px !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* HR and Real Estate card video: cover for rounded corners */
+  /* Cover to ensure rounded corners work */
+  /* Center the video */
+.agent-visual-panel-stacked .hr-video {
+  object-fit: cover !important;
+  object-position: center;
+  background: transparent;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Sales card video: cover for rounded corners */
+  /* Cover to ensure rounded corners work */
+  /* Center the video */
+.agent-visual-panel-stacked .sales-video {
+  object-fit: cover !important;
+  object-position: center;
+  background: transparent;
+  border-radius: 24px !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+  /* Stack CFO features vertically with good spacing */
+  /* Reduced from 1rem */
+.cfo-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+  /* Remove default padding */
+.cfo-feature-item {
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  padding-left: 0;
+  list-style: none;
+  width: 100%;
+  overflow: visible;
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Add checkmark before CFO feature items - checkbox style */
+  /* Lighter checkmark color */
+  /* Subtle dark background */
+  /* Subtle border */
+  /* Rounded checkbox corners */
+  /* Align with text baseline */
+.cfo-feature-item::before {
+  content: '✓';
+  font-family: 'Geist', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+  /* Increased text size */
+  /* Allow wrapping instead of nowrap */
+.cfo-feature-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1rem;
+  text-align: left;
+  white-space: normal;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  overflow: visible;
+  word-wrap: break-word;
+  flex: 1;
+}
+
+/* Content Panel */
+  /* Heading at top */
+  /* Reduced gap since description is hidden */
+  /* Increased spacing between video and content */
+  /* Stretch to match video height */
+.agent-content-panel-stacked {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0;
+  padding-left: 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  align-self: stretch;
+}
+
+/* CFO card content - remove box alignment, improve text flow */
+  /* Reduced gap */
+.cfo-card .agent-content-panel-stacked {
+  padding: 0;
+  margin: 0;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1;
+  overflow: visible;
+}
+
+  /* Reduced margin */
+  /* Reduced font size */
+.cfo-card .agent-card-name {
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+  font-size: 2.5rem;
+}
+
+  /* Reduced size */
+.cfo-card .agent-card-description {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow: visible;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+/* Apply same styling to all agent cards (Real Estate, AI Sales, HR) */
+.agent-card-stacked.layout-left-visual .agent-content-panel-stacked,
+  /* Reduced gap */
+.agent-card-stacked.layout-right-visual .agent-content-panel-stacked {
+  padding: 0;
+  margin: 0;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1;
+  overflow: visible;
+}
+
+.agent-card-stacked.layout-left-visual .agent-card-name,
+  /* Reduced margin */
+  /* Reduced font size */
+.agent-card-stacked.layout-right-visual .agent-card-name {
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+  width: 100%;
+  font-size: 2.5rem;
+}
+
+.agent-card-stacked.layout-left-visual .agent-card-description,
+  /* Reduced size */
+.agent-card-stacked.layout-right-visual .agent-card-description {
+  margin: 0;
+  font-size: 1rem;
+  overflow: visible;
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.6;
+  width: 100%;
+}
+
+/* Apply same feature text styling to all agent cards */
+.agent-card-stacked.layout-left-visual .agent-feature-text,
+  /* Increased text size */
+  /* Allow wrapping instead of nowrap */
+.agent-card-stacked.layout-right-visual .agent-feature-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1rem;
+  text-align: left;
+  white-space: normal;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  overflow: visible;
+  word-wrap: break-word;
+}
+
+.agent-card-stacked.layout-left-visual .agent-feature-item,
+  /* Remove default padding */
+.agent-card-stacked.layout-right-visual .agent-feature-item {
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  padding-left: 0;
+  list-style: none;
+  width: 100%;
+  overflow: visible;
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Add checkmark before feature items for all layouts - checkbox style */
+.agent-card-stacked.layout-left-visual .agent-feature-item::before,
+  /* Lighter checkmark color */
+  /* Subtle dark background */
+  /* Subtle border */
+  /* Rounded checkbox corners */
+  /* Align with text baseline */
+.agent-card-stacked.layout-right-visual .agent-feature-item::before {
+  content: '✓';
+  font-family: 'Geist', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+.agent-card-stacked.layout-left-visual .agent-features,
+  /* Reduced from 1rem */
+.agent-card-stacked.layout-right-visual .agent-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+  /* Reduced font size */
+  /* Reduced space between title and description */
+  /* Title stays at top, doesn't shrink */
+.agent-content-panel-stacked .agent-card-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+  /* Hidden - description paragraphs removed as per design */
+.agent-content-panel-stacked .agent-card-description {
+  display: none;
+}
+
+  /* Gap between feature items */
+  /* Push features to center - creates space from heading */
+.agent-content-panel-stacked .agent-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  margin-top: auto;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+  /* Remove default padding */
+.agent-content-panel-stacked .agent-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 0;
+  position: relative;
+  padding-left: 0;
+}
+
+/* Add checkmark before feature items - checkbox style like reference */
+  /* Lighter checkmark color */
+  /* Subtle dark background */
+  /* Subtle border */
+  /* Rounded checkbox corners */
+  /* Align with text baseline */
+.agent-content-panel-stacked .agent-feature-item::before {
+  content: '✓';
+  font-family: 'Geist', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  margin-top: 2px;
+}
+
+  /* Increased text size */
+  /* Take remaining space */
+  /* Allow wrapping */
+  /* Allow text to wrap */
+.agent-content-panel-stacked .agent-feature-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1rem;
+  color: #c0c0c0;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+  /* Space between features and button */
+  /* Push remaining space below button - centers features + button as a group */
+  /* Reduced padding */
+  /* Reduced font size */
+.agent-content-panel-stacked .agent-more-about-button {
+  margin-top: 1.5rem;
+  margin-bottom: auto;
+  padding: 0.75rem 1.5rem;
+  background: var(--btn-purple-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.agent-content-panel-stacked .agent-more-about-button:hover {
+  background: var(--btn-purple-gradient);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* 14px padding on mobile */
+.agent-demo-container {
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+
+    /* 14px padding from sides on mobile */
+.agent-card-inner-stacked {
+    padding: 1.5rem 14px;
+  }
+
+    /* 14px padding from sides on mobile */
+.cfo-card .agent-card-inner-stacked {
+    padding: 1.5rem 14px;
+  }
+
+    /* 14px padding from sides on mobile */
+.agent-card-stacked.layout-left-visual .agent-card-inner-stacked {
+    padding: 2rem 14px;
+  }
+
+    /* 14px padding from sides on mobile */
+.agent-card-stacked.layout-right-visual .agent-card-inner-stacked {
+    padding: 2rem 14px;
+  }
+
+    /* Prevent text cutoff on mobile */
+.agent-demo-header {
+    margin-bottom: 3rem;
+    text-align: center;
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+    /* Further reduced from 2.5rem to ensure no cut-off */
+    /* Allow wrapping on mobile */
+    /* Reduced padding slightly to give more text space */
+.agent-demo-title {
+    font-size: 2.5rem;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: visible;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
+    line-height: 1.3;
+  }
+  
+  .agent-demo-subtitle {
+    display: block;
+    font-size: 1.1rem;
+    padding: 0 16px;
+    margin-top: 1rem;
+  }
+
+    /* Only hide horizontal overflow on mobile */
+    /* Allow vertical overflow for text on mobile */
+    /* Reset negative margin to prevent cut-off */
+    /* Add padding to compensate */
+.agent-demo-section {
+    overflow-x: hidden;
+    overflow-y: visible;
+    margin-top: 0 !important;
+    padding-top: 4rem;
+  }
+
+    /* Prevent text cutoff on mobile */
+.agent-demo-container {
+    overflow: visible;
+  }
+
+    /* Remove subtext for mobile */
+.agent-demo-subtitle {
+    display: none;
+  }
+
+    /* 16px padding from sides */
+.agent-card-inner-stacked {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+    padding: 2rem 16px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+.agent-card-stacked {
+    min-height: auto;
+  }
+
+  /* Mobile layout: VIDEO FIRST -> Title -> Features -> CTA button */
+  .agent-card-stacked.layout-left-visual .agent-content-panel-stacked,
+  .agent-card-stacked.layout-right-visual .agent-content-panel-stacked,
+    /* Content panel comes AFTER video */
+    /* Remove horizontal padding on mobile */
+.cfo-card .agent-content-panel-stacked {
+    order: 2;
+    width: 100%;
+    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .agent-card-stacked.layout-left-visual .agent-visual-panel-stacked,
+  .agent-card-stacked.layout-right-visual .agent-visual-panel-stacked,
+    /* VIDEO COMES FIRST */
+.cfo-card .agent-visual-panel-stacked {
+    order: 1;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+.agent-visual-panel-stacked {
+    max-width: 100%;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+    /* Full width videos on mobile */
+    /* Square aspect ratio */
+    /* Compact square look on mobile */
+.agent-visual-panel-stacked .agent-video-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    aspect-ratio: 1;
+    min-height: auto !important;
+    max-height: 250px !important;
+    height: 250px !important;
+    margin: 0;
+    border-radius: 16px !important;
+  }
+
+  /* Override desktop min-height for all layout variations */
+  .agent-card-stacked.layout-left-visual .agent-visual-panel-stacked .agent-video-container,
+  .agent-card-stacked.layout-right-visual .agent-visual-panel-stacked .agent-video-container,
+.cfo-card .agent-visual-panel-stacked .agent-video-container {
+    min-height: auto !important;
+    max-height: 250px !important;
+    height: 250px !important;
+    aspect-ratio: 1;
+  }
+
+  /* Ensure video element itself respects the container */
+.agent-visual-panel-stacked .agent-video-container video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+.agent-content-panel-stacked {
+    padding: 0;
+    margin-left: 0;
+    gap: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hide description on mobile */
+.agent-content-panel-stacked .agent-card-description {
+    display: none;
+  }
+
+    /* TITLE comes first in content panel (after video) */
+.agent-content-panel-stacked .agent-card-name {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+    margin-top: 0;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+    order: 1;
+  }
+
+    /* Features come after title */
+.agent-content-panel-stacked .agent-features {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    order: 2;
+  }
+
+.agent-content-panel-stacked .agent-feature-item {
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+.agent-content-panel-stacked .agent-feature-text {
+    font-size: 0.85rem;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+    /* Center the button on mobile */
+    /* CTA button comes last */
+.agent-content-panel-stacked .agent-more-about-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    width: auto;
+    align-self: center;
+    order: 4;
+  }
+
+    /* 16px padding from sides */
+    /* Only hide horizontal overflow on mobile */
+    /* Allow vertical overflow for text on mobile */
+.agent-demo-section {
+    padding: 3rem 16px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+    /* Prevent text cutoff on mobile */
+.agent-demo-header {
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+    /* Increased size for tablet */
+    /* Allow wrapping on mobile */
+    /* Add small padding to prevent edge cutoff on mobile */
+.agent-demo-title {
+    font-size: 5.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: visible;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 100%;
+    line-height: 1.2;
+  }
+
+    /* Prevent text cutoff on mobile */
+.agent-demo-container {
+    overflow: visible;
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+
+    /* Remove subtext for mobile */
+.agent-demo-subtitle {
+    display: none;
+  }
+
+    /* 16px padding from sides */
+.agent-card-inner-stacked {
+    padding: 1.5rem 16px;
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+.agent-visual-panel-stacked {
+    margin-bottom: 1.25rem;
+  }
+
+    /* Fixed compact height for small screens */
+.agent-visual-panel-stacked .agent-video-container {
+    max-height: 180px !important;
+    height: 180px !important;
+    min-height: auto !important;
+  }
+
+  /* Override for all layout variations on small screens */
+  .agent-card-stacked.layout-left-visual .agent-visual-panel-stacked .agent-video-container,
+  .agent-card-stacked.layout-right-visual .agent-visual-panel-stacked .agent-video-container,
+.cfo-card .agent-visual-panel-stacked .agent-video-container {
+    min-height: auto !important;
+    max-height: 220px !important;
+    height: 220px !important;
+    aspect-ratio: 1;
+  }
+
+.agent-content-panel-stacked {
+    gap: 1rem;
+  }
+
+  /* Hide description on mobile */
+.agent-content-panel-stacked .agent-card-description {
+    display: none;
+  }
+
+    /* TITLE comes first in content panel (after video) */
+.agent-content-panel-stacked .agent-card-name {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    margin-top: 0;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+    order: 1;
+  }
+
+    /* Features come after title */
+.agent-content-panel-stacked .agent-features {
+    margin-top: 0;
+    margin-bottom: 0;
+    gap: 0.75rem;
+    width: 100%;
+    order: 2;
+  }
+
+.agent-content-panel-stacked .agent-feature-item {
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+.agent-content-panel-stacked .agent-feature-text {
+    font-size: 0.8rem;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+    /* Center the button on mobile */
+    /* CTA button comes last */
+.agent-content-panel-stacked .agent-more-about-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    width: auto;
+    align-self: center;
+    order: 4;
+  }
+}
+
+  /* Reduced spacing */
+  /* Reduced top spacing */
+.agent-demo-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  padding: 0 32px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+  /* Reduced from 6rem */
+  /* Grey and white gradient */
+  /* Fallback */
+  /* Restored for desktop - no wrapping */
+.agent-demo-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 7.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 30%, #b0b0b0 60%, #808080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: visible;
+  word-wrap: normal;
+  text-overflow: clip;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 1.1;
+}
+
+/* Remove purple gradient - use grey and white gradient instead */
+.gradient-purple-text {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 30%, #b0b0b0 60%, #808080 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.agent-demo-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.8rem;
+  color: #b0b0b0;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  padding: 0 24px;
+  box-sizing: border-box;
+  overflow: visible;
+  word-wrap: break-word;
+}
+
+/* Carousel Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-arrow-left {
+  left: 1rem;
+}
+
+.carousel-arrow-right {
+  right: 1rem;
+}
+
+.carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+.carousel-arrow-left {
+    left: 0.5rem;
+  }
+
+.carousel-arrow-right {
+    right: 0.5rem;
+  }
+
+/* Carousel Wrapper */
+  /* Prevent touch scrolling */
+.agent-cards-carousel-wrapper {
+  width: 100%;
+  overflow: visible !important;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  min-height: 600px;
+}
+
+  /* Prevent touch scrolling */
+  /* Prevent text selection during drag */
+.agent-cards-carousel {
+  display: flex;
+  gap: 2rem;
+  overflow: visible !important;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: none;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: 0;
+  scroll-padding: 0;
+  width: max-content;
+  min-width: 100%;
+  position: relative;
+  align-items: stretch;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.agent-cards-carousel::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.agent-cards-carousel-wrapper::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.carousel-card {
+  flex: 0 0 850px;
+  scroll-snap-align: start;
+  max-width: 850px;
+  width: 850px;
+  height: 600px;
+  min-height: 600px;
+  transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
+  display: flex;
+  align-items: stretch;
+}
+
+.carousel-card.blurred {
+  filter: blur(4px) !important;
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+.carousel-card.active {
+  filter: blur(0) !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.carousel-card.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.carousel-card.active,
+.carousel-card.blurred {
+  opacity: 1;
+  visibility: visible;
+}
+
+.agent-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out;
+}
+
+.agent-cards-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.agent-card {
+  width: 100%;
+  max-width: 850px;
+  flex: 0 0 850px;
+  scroll-snap-align: start;
+  position: relative;
+  opacity: 0;
+  transform: translateY(0);
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.2s);
+  transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
+  height: 600px;
+  min-height: 600px;
+}
+
+.agent-card.blurred {
+  filter: blur(4px) !important;
+  opacity: 0.6;
+  transform: scale(0.95) translateY(0);
+}
+
+.agent-card.active .agent-video,
+.agent-card.active video {
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.agent-card.active .agent-card-inner::after {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Remove grey tint from videos - ensure they're clear */
+.agent-video,
+video.agent-video {
+  filter: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+}
+
+.agent-visual-panel .agent-video,
+.ai-sales-gtm-visual-panel video {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.agent-card.active {
+  filter: blur(0) !important;
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+.agent-card.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.agent-card.active,
+.agent-card.blurred {
+  opacity: 1;
+  visibility: visible;
+}
+
+.agent-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border: 3px solid #808080;
+  border-radius: 24px;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+}
+
+.agent-card-inner.reversed-layout {
+  grid-template-columns: 1fr 1fr;
+}
+
+.agent-card-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 24px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure videos are above the overlay */
+.agent-visual-panel-wrapper,
+.agent-visual-panel,
+.agent-video-container,
+.agent-video,
+video {
+  position: relative;
+  z-index: 2;
+}
+
+  /* Remove purple tint on hover */
+.agent-card-inner::before {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.agent-card-inner:hover {
+  transform: translateY(-8px);
+  border-color: #808080;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.agent-card-inner:hover::after {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Visual Panel Wrapper */
+.agent-visual-panel-wrapper {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.agent-visual-panel {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 100%;
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.agent-visual-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.agent-visual-panel .agent-video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  z-index: 2;
+}
+
+.agent-visual-panel .video-overlay {
+  z-index: 3;
+}
+
+.agent-visual-panel .play-button {
+  z-index: 4;
+}
+
+.agent-visual-panel .agent-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+  background: transparent;
+}
+
+.agent-card-inner:hover .agent-visual-panel .agent-video {
+  transform: scale(1);
+}
+
+.agent-visual-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, transparent 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 0 16px 16px 0;
+}
+
+
+.agent-video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+  display: block;
+  background: transparent;
+}
+
+.agent-card-inner:hover .agent-video {
+  transform: scale(1);
+}
+
+/* Video Overlay */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.video-overlay.playing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+  /* Don't pause video on hover - only allow click to play or pause */
+.video-overlay:not(.playing):hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Play Button */
+.play-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+.play-button:active {
+  transform: scale(0.95);
+}
+
+.play-button svg circle {
+  transition: fill 0.3s ease;
+}
+
+.play-button:hover svg circle {
+  fill: rgba(255, 255, 255, 1);
+}
+
+/* Mute Button */
+.mute-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.mute-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.mute-button:active {
+  transform: scale(0.95);
+}
+
+/* Content Wrapper */
+.agent-content-wrapper {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.agent-content {
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.agent-card-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  line-height: 1.2;
+  overflow: visible;
+  word-wrap: break-word;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.agent-card-inner:hover .agent-card-name {
+  text-shadow: none;
+}
+
+.agent-card-description {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.agent-card-inner:hover .agent-card-description {
+  color: #d0d0d0;
+}
+
+/* Features List */
+.agent-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.agent-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s ease;
+}
+
+.agent-feature-item:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.agent-feature-item:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.agent-feature-item:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.agent-feature-item:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.agent-feature-icon {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.agent-feature-item:hover .agent-feature-icon {
+  transform: scale(1.1);
+}
+
+.agent-feature-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.95rem;
+  color: #b0b0b0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.agent-feature-item:hover .agent-feature-text {
+  color: #ffffff;
+}
+
+/* Play Button Container */
+.agent-play-button-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  position: relative;
+}
+
+.agent-play-button-container:hover {
+  transform: translateX(5px);
+}
+
+.agent-play-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.agent-play-button:hover {
+  transform: scale(1.1);
+}
+
+.agent-play-button:active {
+  transform: scale(0.95);
+}
+
+.agent-play-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.agent-play-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.agent-play-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.875rem;
+  color: #b0b0b0;
+  line-height: 1.2;
+}
+
+/* More About Button */
+.agent-more-about-button {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--btn-purple-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.875rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+}
+
+.agent-more-about-button:hover {
+  background: var(--btn-purple-gradient);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.agent-more-about-button:active {
+  transform: translateY(0);
+}
+
+/* Typing Animation Cursor */
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: rgba(255, 255, 255, 0.9);
+  animation: blink-cursor 1s step-end infinite;
+  font-weight: 300;
+}
+
+@keyframes blink-cursor {
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agent-card-inner {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+.agent-visual-panel-wrapper {
+    min-height: 400px;
+    order: 1;
+  }
+
+.agent-visual-panel {
+    min-height: 400px;
+  }
+
+.agent-content-wrapper {
+    width: 100%;
+    order: 2;
+  }
+
+.agent-card-name {
+    font-size: 2.5rem;
+    padding: 0 12px;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+.agent-card-description {
+    font-size: 1rem;
+  }
+
+.ai-sales-gtm-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Mobile layout: Heading -> Video -> Features -> CTA button */
+.ai-sales-gtm-left {
+    order: 2;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+.ai-sales-gtm-right {
+    order: 1;
+    min-height: 400px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+.ai-sales-gtm-visual-panel {
+    min-height: 400px;
+  }
+
+  /* Hide tagline and description on mobile */
+.ai-sales-gtm-tagline {
+    display: none;
+  }
+
+.ai-sales-gtm-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+    /* Title comes first in content */
+.ai-sales-gtm-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+    order: 1;
+  }
+
+    /* Features come after title */
+.ai-sales-gtm-features {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    order: 2;
+  }
+
+.ai-sales-gtm-feature-item {
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+.ai-sales-gtm-feature-item span {
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+    /* Button comes last */
+.ai-sales-gtm-button {
+    margin-top: 1rem;
+    width: auto;
+    align-self: flex-start;
+    order: 3;
+  }
+
+.agent-demo-section {
+    padding: 3rem 1rem;
+  }
+
+.agent-demo-title {
+    font-size: 2.25rem;
+    padding: 0 16px;
+    line-height: 1.3;
+  }
+
+.agent-demo-subtitle {
+    font-size: 1rem;
+    padding: 0 16px;
+    margin-top: 0.75rem;
+    display: block;
+  }
+
+.agent-cards-container {
+    gap: 2rem;
+  }
+
+.agent-card-inner {
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+.agent-visual-panel-wrapper {
+    min-height: 250px;
+    order: 1;
+  }
+
+.agent-visual-panel {
+    min-height: 250px;
+  }
+
+.agent-content-wrapper {
+    order: 2;
+  }
+
+.agent-card-name {
+    font-size: 2.25rem;
+    padding: 0 12px;
+    overflow: visible;
+    word-wrap: break-word;
+    margin-bottom: 1rem;
+  }
+
+.agent-card-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+.agent-features {
+    gap: 0.75rem;
+  }
+
+.agent-feature-text {
+    font-size: 0.875rem;
+  }
+
+.agent-play-button-container {
+    margin-top: 1.5rem;
+  }
+
+.agent-more-about-button {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    margin-top: 1rem;
+  }
+
+.ai-sales-gtm-section {
+    padding: 1.5rem 1rem;
+    margin-bottom: 3rem;
+  }
+
+.ai-sales-gtm-content {
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Mobile layout: Heading -> Video -> Features -> CTA button */
+.ai-sales-gtm-left {
+    order: 2;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+.ai-sales-gtm-right {
+    order: 1;
+    min-height: 250px;
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+.ai-sales-gtm-visual-panel {
+    min-height: 250px;
+  }
+
+  /* Hide tagline and description on mobile */
+.ai-sales-gtm-tagline {
+    display: none;
+  }
+
+.ai-sales-gtm-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+    /* Title comes first in content */
+.ai-sales-gtm-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+    order: 1;
+  }
+
+    /* Features come after title */
+.ai-sales-gtm-features {
+    gap: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    order: 2;
+  }
+
+.ai-sales-gtm-feature-item {
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+.ai-sales-gtm-feature-item span {
+    font-size: 0.8rem;
+    width: 100%;
+    overflow: visible;
+    word-wrap: break-word;
+  }
+
+    /* Button comes last */
+.ai-sales-gtm-button {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.25rem;
+    margin-top: 0.75rem;
+    width: auto;
+    align-self: flex-start;
+    order: 3;
+  }
+
+  /* Carousel adjustments for mobile */
+.agent-cards-carousel {
+    padding: 0 1rem;
+    scroll-padding: 0 1rem;
+    gap: 1rem;
+  }
+
+.carousel-card {
+    flex: 0 0 calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+
+.agent-card {
+    flex: 0 0 calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+
+.agent-demo-section {
+    padding: 2rem 0.75rem;
+  }
+
+.agent-demo-header {
+    margin-bottom: 3rem;
+  }
+
+.agent-demo-title {
+    font-size: 3rem;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    line-height: 1.3;
+  }
+
+.agent-demo-subtitle {
+    font-size: 1.1rem;
+    padding: 0 20px;
+    margin-top: 1rem;
+  }
+
+.agent-card-inner {
+    padding: 1.25rem;
+    gap: 1.5rem;
+  }
+
+.agent-card-name {
+    font-size: 2rem;
+    padding: 0 12px;
+    overflow: visible;
+    word-wrap: break-word;
+    margin-bottom: 0.75rem;
+  }
+
+.agent-card-description {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+.agent-feature-item {
+    gap: 0.5rem;
+  }
+
+.agent-feature-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
+
+.agent-feature-text {
+    font-size: 0.8rem;
+  }
+
+.agent-visual-panel-wrapper {
+    min-height: 200px;
+    order: 1;
+  }
+
+.agent-visual-panel {
+    min-height: 200px;
+  }
+
+.agent-content-wrapper {
+    order: 2;
+  }
+
+.ai-sales-gtm-section {
+    padding: 1.25rem 0.75rem;
+  }
+
+.ai-sales-gtm-left {
+    order: 2;
+  }
+
+.ai-sales-gtm-right {
+    order: 1;
+  }
+
+.ai-sales-gtm-title {
+    font-size: 1.5rem;
+  }
+
+.ai-sales-gtm-tagline {
+    font-size: 0.95rem;
+  }
+
+.ai-sales-gtm-feature-item {
+    gap: 0.75rem;
+  }
+
+.ai-sales-gtm-checkmark {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
+
+.ai-sales-gtm-feature-item span {
+    font-size: 0.8rem;
+  }
+
+.ai-sales-gtm-right {
+    min-height: 200px;
+  }
+
+.ai-sales-gtm-visual-panel {
+    min-height: 200px;
+  }
+
+.carousel-card {
+    flex: 0 0 calc(100vw - 1.5rem);
+    max-width: calc(100vw - 1.5rem);
+  }
+
+.agent-card {
+    flex: 0 0 calc(100vw - 1.5rem);
+    max-width: calc(100vw - 1.5rem);
+  }
+
+.agent-cards-carousel {
+    padding: 0 0.75rem;
+    scroll-padding: 0 0.75rem;
+  }

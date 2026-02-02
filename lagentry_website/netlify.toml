@@ -1,0 +1,58 @@
+[build]
+  command = "npm ci && GENERATE_SOURCEMAP=false npm run build"
+  publish = "build"
+  
+[build.environment]
+  GENERATE_SOURCEMAP = "false"
+
+# Headers for video files to ensure proper MIME types and caching
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Accept-Ranges = "bytes"
+    X-Content-Type-Options = "nosniff"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.MP4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Accept-Ranges = "bytes"
+    X-Content-Type-Options = "nosniff"
+    Access-Control-Allow-Origin = "*"
+
+# Headers for image files - allow revalidation to prevent stale cache
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Content-Type = "image/webp"
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Content-Type = "image/png"
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Content-Type = "image/jpeg"
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Content-Type = "image/jpeg"
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+# Note: SPA redirects are handled in public/_redirects file
+# This ensures static files (like videos) are served correctly
+

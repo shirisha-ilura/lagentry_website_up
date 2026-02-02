@@ -1,0 +1,15 @@
+.settings-container{background:#07070a;min-height:100vh;padding:120px 16px 80px;}
+.settings-card{max-width:1100px;margin:0 auto;background:#0e0f14;border:1px solid #212230;border-radius:16px;padding:28px;color:#e6e9ef}
+.settings-title{margin:0 0 6px 0}
+.settings-subtitle{color:#9aa3b2;margin:0 0 18px 0}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.settings-section{background:rgba(255,255,255,.02);border:1px solid #212230;border-radius:12px;padding:18px}
+.form-field{display:flex;flex-direction:column;margin:10px 0}
+.form-field label{color:#c3c9d4;margin-bottom:6px;font-size:13px}
+.form-field input{background:#0b0c12;border:1px solid #23283a;color:#e6e9ef;border-radius:10px;padding:12px 14px}
+.form-field input:focus{border-color:#6a5acd;box-shadow:0 0 0 3px rgba(106,90,205,.25);outline:none}
+.actions{margin-top:14px;text-align:right}
+.save-button{background:linear-gradient(135deg,#9b5cff,#6a5acd);color:#fff;border:0;border-radius:12px;padding:12px 16px;font-weight:700}
+@media(max-width:900px){.settings-grid{grid-template-columns:1fr}}
+
+

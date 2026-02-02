@@ -1,0 +1,327 @@
+.gmail-section {
+  margin: 20px 0 4px;
+  position: relative;
+}
+
+.gmail-frame-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.gmail-video {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: none;
+  object-fit: cover;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.gmail-video:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 30px rgba(138, 43, 226, 0.36);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Email Form Styles */
+.email-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  pointer-events: all;
+}
+
+.email-form-container {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.email-form-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 28px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+  font-family: 'Geist', sans-serif;
+}
+
+.email-form-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.email-form-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+}
+
+.email-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.email-form-field label {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.email-form-field {
+  position: relative;
+}
+
+.email-form-field-input-wrapper {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout style paint;
+  /* Force background to always be visible */
+  will-change: background-color;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.email-form-field-input-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  backdrop-filter: blur(0px);
+}
+
+.email-form-field input {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  padding: 12px;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none;
+  color: #ffffff !important;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: normal;
+  caret-color: #ffffff;
+  /* Force no background image or gradient */
+  background-image: none !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-position: 0% 0% !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+}
+
+.email-form-field-input-wrapper:focus-within {
+  border-color: rgba(139, 92, 246, 0.6);
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.email-form-field-input-wrapper:focus-within::after {
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.email-form-field input:focus,
+.email-form-field input:active,
+.email-form-field input:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Fix text selection color */
+.email-form-field input::selection {
+  background-color: rgba(139, 92, 246, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.email-form-field input::-moz-selection {
+  background-color: rgba(139, 92, 246, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.email-form-field input:focus {
+  outline: none;
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.email-form-field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Prevent autocomplete/autofill from changing background color - Input is transparent, wrapper has background */
+.email-form-field input:-webkit-autofill,
+.email-form-field input:-webkit-autofill:hover,
+.email-form-field input:-webkit-autofill:focus,
+.email-form-field input:-webkit-autofill:active,
+.email-form-field input:-webkit-autofill-selected,
+.email-form-field input[type="email"]:-webkit-autofill,
+.email-form-field input[type="text"]:-webkit-autofill,
+.email-form-field input[type="email"]:-webkit-autofill:focus,
+.email-form-field input[type="text"]:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 100000px transparent inset !important;
+  box-shadow: 0 0 0px 100000px transparent inset !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  transition: background-color 5000s ease-in-out 0s, background 5000s ease-in-out 0s !important;
+  caret-color: #ffffff !important;
+  filter: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.email-form-field input:autofill,
+.email-form-field input[autocomplete]:not([autocomplete="off"]) {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 100000px transparent inset !important;
+  box-shadow: 0 0 0px 100000px transparent inset !important;
+}
+
+.email-form-submit {
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  background: var(--btn-purple-gradient);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.email-form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.email-form-submit:active {
+  transform: translateY(0);
+}
+
+.email-form-message {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .gmail-section {
+    margin: 15px 0 2px;
+  }
+
+  .gmail-video {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+  }
+
+  .email-form-overlay {
+    padding: 15px;
+  }
+
+  .email-form-container {
+    max-width: 100%;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gmail-video {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+  }
+
+  .email-form-container {
+    padding: 20px;
+  }
+
+  .email-form-title {
+    font-size: 1.25rem;
+  }
+}
+
+
