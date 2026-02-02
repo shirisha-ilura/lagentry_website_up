@@ -57,11 +57,11 @@ const Chatbot: React.FC = () => {
         history: messages
       };
 
-      const response = await fetch('/api/chat/message', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch('/api/chat', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload),
+});
 
       const data = await response.json().catch(() => ({}));
 
