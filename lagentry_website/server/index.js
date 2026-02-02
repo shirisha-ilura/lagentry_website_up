@@ -2790,16 +2790,20 @@ Always prefer specific, high-signal answers over long, generic ones.
 
 // New lightweight chat endpoint - wrapper over OpenAI using JSON knowledge base
 app.post('/api/chat', async (req, res) => {
+  console.log('📥 /api/chat endpoint hit');
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
 
+    console.log('🔑 Checking OpenAI API key...');
     if (!OPENAI_API_KEY) {
+      console.error('❌ OpenAI API key is missing!');
       return res.status(500).json({
         success: false,
         error: 'Chat is not configured yet. Missing OpenAI API key on the server.'
       });
     }
+    console.log('✅ OpenAI API key found:', OPENAI_API_KEY.substring(0, 7) + '...' + OPENAI_API_KEY.slice(-4));
 
     const { message, history } = req.body || {};
 
@@ -2836,6 +2840,7 @@ app.post('/api/chat', async (req, res) => {
       max_tokens: 600
     };
 
+    console.log('📤 Calling OpenAI API with model: gpt-4o');
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -2845,22 +2850,31 @@ app.post('/api/chat', async (req, res) => {
       body: JSON.stringify(payload)
     });
 
+    console.log('📥 OpenAI API response status:', openaiResponse.status);
+
     if (!openaiResponse.ok) {
       const text = await openaiResponse.text();
-      console.error('OpenAI API error (lightweight chat):', openaiResponse.status, text);
+      console.error('❌ OpenAI API error (lightweight chat):', openaiResponse.status);
+      console.error('❌ Response body:', text);
       
       let errorMessage = 'Failed to get a response from the assistant.';
       try {
         const errorData = JSON.parse(text);
+        console.error('❌ Parsed error data:', JSON.stringify(errorData, null, 2));
+        
         if (errorData.error?.code === 'insufficient_quota') {
           errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings.';
+        } else if (errorData.error?.code === 'invalid_api_key') {
+          errorMessage = 'Invalid OpenAI API key. Please check your server environment variables.';
         } else if (errorData.error?.message) {
           errorMessage = `OpenAI API error: ${errorData.error.message}`;
         }
       } catch (e) {
-        // If parsing fails, use default message
+        console.error('❌ Failed to parse error response:', e);
+        console.error('❌ Raw error text:', text);
       }
       
+      setCORSHeaders(res, origin);
       return res.status(500).json({
         success: false,
         error: errorMessage
@@ -2872,14 +2886,18 @@ app.post('/api/chat', async (req, res) => {
       json?.choices?.[0]?.message?.content?.trim() ||
       "I'm here to answer questions about Lagentry based on the knowledge I have.";
 
+    console.log('✅ Successfully got response from OpenAI');
+    setCORSHeaders(res, origin);
     return res.json({ success: true, reply });
   } catch (error) {
-    console.error('Error in /api/chat (server):', error);
+    console.error('❌ Error in /api/chat (server):', error);
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Error stack:', error.stack);
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
     return res.status(500).json({
       success: false,
-      error: 'Unexpected error while processing your message. Please try again.'
+      error: error.message || 'Unexpected error while processing your message. Please try again.'
     });
   }
 });
@@ -3327,6 +3345,7 @@ if (process.env.VERCEL || process.env.NOW) {
     console.log(`Server running on port ${PORT}`);
     console.log(`Voice call API available at http://localhost:${PORT}/api/start-voice-call`);
     console.log(`Chatbot API available at http://localhost:${PORT}/api/chat/message`);
+    console.log(`Lightweight chat API available at http://localhost:${PORT}/api/chat`);
 
     // Using fixed assistant IDs - no initialization needed
     console.log('Using fixed assistant IDs:');
