@@ -173,6 +173,7 @@ module.exports = async (req, res) => {
       max_tokens: 600
     };
 
+    console.log('📤 Calling OpenAI API with model: gpt-4o');
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -182,24 +183,33 @@ module.exports = async (req, res) => {
       body: JSON.stringify(payload)
     });
 
+    console.log('📥 OpenAI API response status:', response.status);
+
     if (!response.ok) {
       const text = await response.text();
-      console.error('❌ OpenAI API error:', response.status, text);
+      console.error('❌ OpenAI API error:', response.status);
+      console.error('❌ Response body:', text);
       
       let errorMessage = 'Failed to get a response from the assistant.';
       try {
         const errorData = JSON.parse(text);
+        console.error('❌ Parsed error data:', JSON.stringify(errorData, null, 2));
+        
         if (errorData.error?.code === 'insufficient_quota') {
           errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings.';
         } else if (errorData.error?.code === 'invalid_api_key') {
           errorMessage = 'Invalid OpenAI API key. Please check your Vercel environment variables.';
+        } else if (errorData.error?.code === 'model_not_found') {
+          errorMessage = 'OpenAI model not found. Please check the model name.';
         } else if (errorData.error?.message) {
           errorMessage = `OpenAI API error: ${errorData.error.message}`;
         }
       } catch (e) {
-        // If parsing fails, use default message
+        console.error('❌ Failed to parse error response:', e);
+        console.error('❌ Raw error text:', text);
       }
       
+      setCORSHeaders(res, origin);
       return res.status(500).json({
         success: false,
         error: errorMessage
@@ -211,16 +221,20 @@ module.exports = async (req, res) => {
       json?.choices?.[0]?.message?.content?.trim() ||
       "I'm here to answer questions about Lagentry based on the knowledge I have.";
 
+    console.log('✅ Successfully got response from OpenAI');
+    setCORSHeaders(res, origin);
     return res.status(200).json({
       success: true,
       reply
     });
   } catch (error) {
-    console.error('Error in /api/chat:', error);
+    console.error('❌ Error in /api/chat:', error);
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Error stack:', error.stack);
     setCORSHeaders(res, origin);
     return res.status(500).json({
       success: false,
-      error: 'Unexpected error while processing your message. Please try again.'
+      error: error.message || 'Unexpected error while processing your message. Please try again.'
     });
   }
 };
