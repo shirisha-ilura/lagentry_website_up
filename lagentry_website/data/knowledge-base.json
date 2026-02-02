@@ -1,0 +1,54 @@
+{
+  "company": {
+    "name": "Lagentry",
+    "tagline": "AI Employee Platform for MENA",
+    "description": "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with AI employees for customer support, real estate, HR, and more.",
+    "region_focus": "UAE and MENA",
+    "waitlist_size": "5000+",
+    "website": "https://lagentry.com",
+    "join_waitlist_url": "https://lagentry.com/waitlist"
+  },
+  "contacts": {
+    "support_email": "support@lagentry.com",
+    "sales_email": "sales@lagentry.com",
+    "phone": "+971-XX-XXX-XXXX"
+  },
+  "agents": {
+    "phase_one": [
+      "Customer Support AI Employee",
+      "Real Estate AI Employee",
+      "HR / Recruitment AI Employee"
+    ],
+    "channels": [
+      "Website chat",
+      "WhatsApp",
+      "Email",
+      "Voice",
+      "API and integrations"
+    ]
+  },
+  "capabilities": {
+    "integrations": [
+      "WhatsApp integration",
+      "Email automation",
+      "CRM integration",
+      "Jira / ticketing tools",
+      "MCP integrations"
+    ],
+    "ai_features": [
+      "Voice AI and phone agents",
+      "OCR for reading documents and images (conceptual capability)",
+      "Multi-language support (Arabic and English as primary, others possible)",
+      "Website embedding (widgets and chat on site)"
+    ]
+  },
+  "positioning": {
+    "core_idea": "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
+    "target_users": [
+      "SMEs in the UAE",
+      "MENA businesses that need Arabic + English support",
+      "Teams that want AI to behave like employees (support, HR, real estate, sales)"
+    ]
+  }
+}
+

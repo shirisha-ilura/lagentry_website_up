@@ -1,196 +1,97 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Chatbot.css';
 
-interface Message {
+type ChatMessage = {
   id: string;
-  role: 'user' | 'assistant' | 'admin';
+  role: 'user' | 'assistant';
   content: string;
-  timestamp: Date;
-  isPending?: boolean;
-}
+};
 
-interface ChatbotProps {
-  conversationId?: string;
-}
-
-const Chatbot: React.FC<ChatbotProps> = ({ conversationId: initialConversationId }) => {
+const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: 'welcome',
+      role: 'assistant',
+      content: "Hi, I'm Lagentry AI assistant. Ask me anything about our AI employees, pricing, or capabilities."
+    }
+  ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(initialConversationId || null);
+  const [error, setError] = useState<string | null>(null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll to bottom when messages change
+  // Auto scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isLoading]);
 
-  // Focus input when chat opens
+  // Autofocus when opened
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
-  // Load conversation history if conversationId exists
-  useEffect(() => {
-    if (conversationId && isOpen) {
-      loadConversationHistory();
-      
-      // Poll for new messages (admin replies) every 3 seconds
-      const pollInterval = setInterval(() => {
-        loadConversationHistory();
-      }, 3000);
-      
-      return () => clearInterval(pollInterval);
-    }
-  }, [conversationId, isOpen]);
-
-  const loadConversationHistory = async () => {
-    if (!conversationId) return;
-    
-    try {
-      const response = await fetch(`/api/chat/conversation/${conversationId}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.messages) {
-          const loadedMessages = data.messages.map((msg: any) => {
-            // Safely parse timestamp
-            let timestamp = new Date();
-            if (msg.created_at) {
-              timestamp = new Date(msg.created_at);
-            } else if (msg.timestamp) {
-              timestamp = new Date(msg.timestamp);
-            }
-            // Validate date
-            if (isNaN(timestamp.getTime())) {
-              timestamp = new Date();
-            }
-            
-            return {
-              id: msg.id,
-              role: msg.role === 'admin' ? 'admin' : msg.role, // Keep admin role for display
-              content: msg.content,
-              timestamp: timestamp,
-            };
-          });
-          
-          // Only update if messages changed (to avoid unnecessary re-renders)
-          setMessages(prev => {
-            if (prev.length !== loadedMessages.length || 
-                prev[prev.length - 1]?.id !== loadedMessages[loadedMessages.length - 1]?.id) {
-              return loadedMessages;
-            }
-            return prev;
-          });
-        }
-      }
-    } catch (error) {
-      console.error('Error loading conversation history:', error);
-    }
-  };
-
-  const handleSendMessage = async (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim() || isLoading) return;
+    const trimmed = inputValue.trim();
+    if (!trimmed || isLoading) return;
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
+    const userMessage: ChatMessage = {
+      id: `user-${Date.now()}`,
       role: 'user',
-      content: inputValue.trim(),
-      timestamp: new Date(),
+      content: trimmed
     };
 
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
+    setError(null);
 
     try {
-      const response = await fetch('/api/chat/message', {
+      const payload = {
+        message: trimmed,
+        history: messages
+      };
+
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          message: userMessage.content,
-          conversationId: conversationId,
-        }),
+        body: JSON.stringify(payload)
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Failed to send message' }));
-        throw new Error(errorData.error || `Server error: ${response.status}`);
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to get a response from the assistant.');
       }
 
-      const data = await response.json();
-      
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to get response');
-      }
-      
-      // Set conversation ID if this is a new conversation
-      if (data.conversationId && !conversationId) {
-        setConversationId(data.conversationId);
-      }
-
-      // Check if human has taken over
-      if (data.handoff_status === 'human') {
-        const handoffMessage: Message = {
-          id: 'handoff-' + Date.now(),
-          role: 'assistant',
-          content: 'A human agent has joined the conversation. They will respond shortly.',
-          timestamp: new Date(),
-        };
-        setMessages((prev) => [...prev, handoffMessage]);
-        return; // Don't add bot response
-      }
-
-      // Add assistant response only if there's a response
-      if (data.response) {
-        const assistantMessage: Message = {
-          id: data.messageId || Date.now().toString(),
-          role: 'assistant',
-          content: data.response,
-          timestamp: new Date(),
-        };
-
-        setMessages((prev) => [...prev, assistantMessage]);
-      }
-    } catch (error: any) {
-      console.error('Error sending message:', error);
-      console.error('Error details:', error.message);
-      
-      const errorMessage: Message = {
-        id: Date.now().toString(),
+      const assistantReply: ChatMessage = {
+        id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: error.message || 'Sorry, I encountered an error. Please try again later.',
-        timestamp: new Date(),
+        content: data.reply || "I'm here to help with questions about Lagentry."
       };
-      setMessages((prev) => [...prev, errorMessage]);
+
+      setMessages((prev) => [...prev, assistantReply]);
+    } catch (err: any) {
+      console.error('Chat error:', err);
+      setError(err?.message || 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
   const toggleChat = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen && messages.length === 0) {
-      // Add welcome message when opening for the first time
-      const welcomeMessage: Message = {
-        id: 'welcome',
-        role: 'assistant',
-        content: 'Hello! 👋 I\'m here to help you learn about Lagentry. How can I assist you today?',
-        timestamp: new Date(),
-      };
-      setMessages([welcomeMessage]);
-    }
+    setIsOpen((open) => !open);
   };
 
   return (
     <>
-      {/* Chat Button */}
       <button
         className={`chatbot-toggle ${isOpen ? 'chatbot-toggle-open' : ''}`}
         onClick={toggleChat}
@@ -202,30 +103,26 @@ const Chatbot: React.FC<ChatbotProps> = ({ conversationId: initialConversationId
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         ) : (
-          <img 
-            src="/images/lagentry-Logo.png" 
-            alt="Lagentry" 
+          <img
+            src="/images/lagentry-Logo.png"
+            alt="Lagentry"
             className="chatbot-toggle-logo"
           />
         )}
-        {!isOpen && messages.length > 0 && (
-          <span className="chatbot-notification-badge">{messages.length}</span>
-        )}
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
         <div className="chatbot-window">
           <div className="chatbot-header">
             <div className="chatbot-header-left">
-              <img 
-                src="/images/lagentry-Logo.png" 
-                alt="Lagentry Logo" 
+              <img
+                src="/images/lagentry-Logo.png"
+                alt="Lagentry Logo"
                 className="chatbot-logo"
               />
               <div className="chatbot-header-info">
                 <h3>Lagentry Assistant</h3>
-                <p>Ask me anything about Lagentry</p>
+                <p>Ask anything about the platform</p>
               </div>
             </div>
             <button
@@ -241,44 +138,14 @@ const Chatbot: React.FC<ChatbotProps> = ({ conversationId: initialConversationId
           </div>
 
           <div className="chatbot-messages">
-            {messages.map((message) => {
-              // Check if this is a system message about handoff
-              const isHandoffMessage = message.content.includes('human agent has joined') || 
-                                      message.content.includes('returned to the AI assistant');
-              
-              // Show admin messages as human messages
-              const displayRole = message.role === 'admin' ? 'human' : message.role;
-              
-              return (
-                <div
-                  key={message.id}
-                  className={`chatbot-message chatbot-message-${displayRole} ${isHandoffMessage ? 'chatbot-message-handoff' : ''} ${message.role === 'admin' ? 'chatbot-message-human' : ''}`}
-                >
-                  {isHandoffMessage && (
-                    <div className="handoff-indicator">👤</div>
-                  )}
-                  {message.role === 'admin' && !isHandoffMessage && (
-                    <div className="handoff-indicator">👤</div>
-                  )}
-                  <div className="chatbot-message-content">
-                    {message.content}
-                  </div>
-                  <div className="chatbot-message-time">
-                    {message.timestamp && !isNaN(message.timestamp.getTime())
-                      ? message.timestamp.toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true,
-                        })
-                      : new Date().toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true,
-                        })}
-                  </div>
-                </div>
-              );
-            })}
+            {messages.map((m) => (
+              <div
+                key={m.id}
+                className={`chatbot-message chatbot-message-${m.role}`}
+              >
+                <div className="chatbot-message-content">{m.content}</div>
+              </div>
+            ))}
             {isLoading && (
               <div className="chatbot-message chatbot-message-assistant">
                 <div className="chatbot-message-content">
@@ -293,12 +160,14 @@ const Chatbot: React.FC<ChatbotProps> = ({ conversationId: initialConversationId
             <div ref={messagesEndRef} />
           </div>
 
-          <form className="chatbot-input-form" onSubmit={handleSendMessage}>
+          {error && <div className="chatbot-error">{error}</div>}
+
+          <form className="chatbot-input-form" onSubmit={handleSend}>
             <input
               ref={inputRef}
               type="text"
               className="chatbot-input"
-              placeholder="Type your message..."
+              placeholder="Type your question about Lagentry..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               disabled={isLoading}
@@ -318,7 +187,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ conversationId: initialConversationId
       )}
     </>
   );
-};
+}
 
 export default Chatbot;
 
