@@ -19,7 +19,13 @@ module.exports = function(app) {
       },
       onProxyReq: (proxyReq, req, res) => {
         // Log proxy requests for debugging
-        console.log('Proxying request to backend:', req.method, req.url);
+        console.log('✅ Proxy working: Proxying', req.method, req.url, '→ http://localhost:5001' + req.url);
+      },
+      onProxyRes: (proxyRes, req, res) => {
+        // Log response status
+        if (proxyRes.statusCode >= 400) {
+          console.log('⚠️ Backend returned:', proxyRes.statusCode, 'for', req.url);
+        }
       },
     })
   );

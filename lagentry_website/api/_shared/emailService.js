@@ -76,10 +76,17 @@ function buildBrandedEmailTemplate({
         .wrapper { width: 100% !important; }
         .card { padding: 24px 18px !important; }
         .hero-title { font-size: 24px !important; line-height: 1.2 !important; }
+        .cta-container { display: block !important; }
+        .cta-cell { 
+          display: block !important; 
+          width: 100% !important; 
+          padding: 0 0 12px 0 !important; 
+        }
         .cta-primary, .cta-secondary {
           display: block !important;
           width: 100% !important;
           margin: 0 0 12px 0 !important;
+          text-align: center !important;
         }
       }
     </style>
@@ -156,11 +163,11 @@ function buildBrandedEmailTemplate({
                     (secondaryCtaLabel && secondaryCtaUrl)
                       ? `<tr>
                     <td align="center" style="padding:4px 28px 24px 28px;">
-                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="cta-container" style="width:100%;">
                         <tr>
                           ${
                             primaryCtaLabel && primaryCtaUrl
-                              ? `<td align="center" style="padding:0 6px 8px 0;">
+                              ? `<td align="center" class="cta-cell" style="padding:0 6px 8px 0; width:auto;">
                             <a href="${primaryCtaUrl}" class="cta-primary" style="background-color:${accentColor}; color:#0B1020 !important; text-decoration:none; padding:11px 22px; border-radius:999px; font-size:13px; font-weight:600; display:inline-block; border:none;">
                               ✨ ${primaryCtaLabel}
                             </a>
@@ -169,7 +176,7 @@ function buildBrandedEmailTemplate({
                           }
                           ${
                             secondaryCtaLabel && secondaryCtaUrl
-                              ? `<td align="center" style="padding:0 0 8px 6px;">
+                              ? `<td align="center" class="cta-cell" style="padding:0 0 8px 6px; width:auto;">
                             <a href="${secondaryCtaUrl}" class="cta-secondary" style="background-color:transparent; color:#E5E7EB !important; text-decoration:none; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:500; display:inline-block; border:1px solid rgba(148,163,184,0.55);">
                               ${secondaryCtaLabel}
                             </a>

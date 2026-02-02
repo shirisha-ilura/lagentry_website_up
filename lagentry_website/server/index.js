@@ -6,7 +6,61 @@ const fetch = require('node-fetch');
 const WebSocket = require('ws');
 const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
-const knowledgeBase = require('../data/knowledge-base.json');
+
+// Knowledge base (inline for reliability)
+const knowledgeBase = {
+  company: {
+    name: "Lagentry",
+    tagline: "AI Employee Platform for MENA",
+    description: "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with AI employees for customer support, real estate, HR, and more.",
+    region_focus: "UAE and MENA",
+    waitlist_size: "5000+",
+    website: "https://lagentry.com",
+    join_waitlist_url: "https://lagentry.com/waitlist"
+  },
+  contacts: {
+    support_email: "support@lagentry.com",
+    sales_email: "sales@lagentry.com",
+    phone: "+971-XX-XXX-XXXX"
+  },
+  agents: {
+    phase_one: [
+      "Customer Support AI Employee",
+      "Real Estate AI Employee",
+      "HR / Recruitment AI Employee"
+    ],
+    channels: [
+      "Website chat",
+      "WhatsApp",
+      "Email",
+      "Voice",
+      "API and integrations"
+    ]
+  },
+  capabilities: {
+    integrations: [
+      "WhatsApp integration",
+      "Email automation",
+      "CRM integration",
+      "Jira / ticketing tools",
+      "MCP integrations"
+    ],
+    ai_features: [
+      "Voice AI and phone agents",
+      "OCR for reading documents and images (conceptual capability)",
+      "Multi-language support (Arabic and English as primary, others possible)",
+      "Website embedding (widgets and chat on site)"
+    ]
+  },
+  positioning: {
+    core_idea: "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
+    target_users: [
+      "SMEs in the UAE",
+      "MENA businesses that need Arabic + English support",
+      "Teams that want AI to behave like employees (support, HR, real estate, sales)"
+    ]
+  }
+};
 const {
   sendWaitlistConfirmationEmail,
   sendNewsletterWelcomeEmail,
@@ -2794,9 +2848,22 @@ app.post('/api/chat', async (req, res) => {
     if (!openaiResponse.ok) {
       const text = await openaiResponse.text();
       console.error('OpenAI API error (lightweight chat):', openaiResponse.status, text);
+      
+      let errorMessage = 'Failed to get a response from the assistant.';
+      try {
+        const errorData = JSON.parse(text);
+        if (errorData.error?.code === 'insufficient_quota') {
+          errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings.';
+        } else if (errorData.error?.message) {
+          errorMessage = `OpenAI API error: ${errorData.error.message}`;
+        }
+      } catch (e) {
+        // If parsing fails, use default message
+      }
+      
       return res.status(500).json({
         success: false,
-        error: 'Failed to get a response from the assistant.'
+        error: errorMessage
       });
     }
 
