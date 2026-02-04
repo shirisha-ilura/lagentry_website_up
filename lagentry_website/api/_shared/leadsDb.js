@@ -34,7 +34,14 @@ async function upsertLead({ email, source, name, phone, company, message }) {
   }
 
   // Only allow known sources to avoid random junk in DB
-  const allowedSources = ['waitlist', 'newsletter', 'book_meeting', 'lead_qualification'];
+  const allowedSources = [
+    'waitlist',
+    'newsletter',
+    'book_meeting',
+    'lead_qualification',
+    'customer_support_call',
+    'real_estate_call',
+  ];
   if (!allowedSources.includes(trimmedSource)) {
     throw new Error(`Invalid lead source: ${trimmedSource}`);
   }

@@ -103,17 +103,29 @@ module.exports = async (req, res) => {
       variables.customer_name = userName.trim();
     }
 
-    // Save lead for lead qualification calls
+    // Save lead for voice calls (all agents)
     try {
-      if (agentType === 'lead-qualification' && userEmail && typeof userEmail === 'string') {
-        await upsertLead({
-          email: userEmail.trim(),
-          source: 'lead_qualification',
-          name: userName?.trim() || null,
-          phone: userPhone?.trim() || null,
-          company: null,
-          message: prompt?.trim() || null,
-        });
+      if (userEmail && typeof userEmail === 'string') {
+        let source = null;
+
+        if (agentType === 'lead-qualification') {
+          source = 'lead_qualification';
+        } else if (agentType === 'customer-support') {
+          source = 'customer_support_call';
+        } else if (agentType === 'real-estate') {
+          source = 'real_estate_call';
+        }
+
+        if (source) {
+          await upsertLead({
+            email: userEmail.trim(),
+            source,
+            name: userName?.trim() || null,
+            phone: userPhone?.trim() || null,
+            company: null,
+            message: prompt?.trim() || null,
+          });
+        }
       }
     } catch (dbErr) {
       console.error('❌ Failed to save lead_qualification lead to Postgres:', dbErr);
