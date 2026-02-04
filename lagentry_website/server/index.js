@@ -1,4 +1,10 @@
-require('dotenv').config();
+// Load environment variables from .env file
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+// Log .env file location for debugging
+console.log('📁 Looking for .env file at:', path.join(__dirname, '.env'));
+console.log('📁 Current working directory:', process.cwd());
 
 const express = require('express');
 const cors = require('cors');
@@ -860,6 +866,198 @@ app.get('/api/test-cors', (req, res) => {
     origin: origin,
     allowed: isOriginAllowed(origin)
   });
+});
+
+// Test network connectivity to Composio
+app.get('/api/test-composio-connectivity', async (req, res) => {
+  try {
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+
+    // Use the same default base URL as our Composio integrations,
+    // but without relying on environment variables so we can detect
+    // DNS / connectivity issues even when COMPOSIO_APPS_URL is unset.
+    const testUrl = 'https://backend.composio.dev/api/v1/apps?limit=1';
+    
+    try {
+      const response = await fetch(testUrl, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Lagentry-Verification/1.0',
+        },
+        // Add a short timeout
+        signal: AbortSignal.timeout(5000),
+      });
+      
+      return res.status(200).json({
+        success: true,
+        reachable: true,
+        message: 'Successfully connected to Composio API servers',
+        details: {
+          url: testUrl,
+          status: response.status,
+        },
+      });
+    } catch (error) {
+      return res.status(200).json({
+        success: false,
+        reachable: false,
+        message: 'Cannot reach Composio API servers',
+        error: error.message,
+        details: {
+          url: testUrl,
+          troubleshooting: {
+            issue: 'Network connectivity problem',
+            steps: [
+              'Check your internet connection',
+              'Test DNS: nslookup backend.composio.dev',
+              'Check firewall/proxy settings',
+              'Verify outbound HTTPS (port 443) is allowed',
+            ],
+          },
+        },
+      });
+    }
+  } catch (error) {
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// Verify Composio API key connection
+app.get('/api/verify-composio', async (req, res) => {
+  try {
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+
+    const apiKey = process.env.COMPOSIO_API_KEY;
+    
+    // Check if key exists
+    if (!apiKey) {
+      return res.status(200).json({
+        success: false,
+        connected: false,
+        error: 'COMPOSIO_API_KEY is not configured',
+        message: 'The Composio API key is not set in your environment variables.',
+        details: {
+          keyExists: false,
+          keyLength: 0,
+          keyPrefix: null,
+        },
+      });
+    }
+
+    // Check key format (basic validation)
+    const keyLength = apiKey.length;
+    const keyPrefix = apiKey.substring(0, 10);
+
+    // Try to verify the key by making a test API call
+    const baseUrl =
+      process.env.COMPOSIO_APPS_URL ||
+      'https://backend.composio.dev/api/v1/apps';
+    
+    // Make a minimal API call to verify the key works
+    const testUrl = `${baseUrl}?limit=1`;
+    
+    try {
+      const response = await fetch(testUrl, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return res.status(200).json({
+          success: true,
+          connected: true,
+          message: 'Composio API key is valid and connected successfully!',
+          details: {
+            keyExists: true,
+            keyLength: keyLength,
+            keyPrefix: keyPrefix + '...',
+            apiEndpoint: baseUrl,
+            testResponse: {
+              status: response.status,
+              statusText: response.statusText,
+              hasData: !!data,
+            },
+          },
+        });
+      } else {
+        const errorText = await response.text();
+        return res.status(200).json({
+          success: false,
+          connected: false,
+          error: `Composio API returned error: ${response.status}`,
+          message: 'The Composio API key exists but the API call failed.',
+          details: {
+            keyExists: true,
+            keyLength: keyLength,
+            keyPrefix: keyPrefix + '...',
+            apiEndpoint: baseUrl,
+            apiError: {
+              status: response.status,
+              statusText: response.statusText,
+              message: errorText.substring(0, 200), // Limit error message length
+            },
+          },
+        });
+      }
+    } catch (fetchError) {
+      // Check if it's a DNS/network error
+      const isNetworkError = fetchError.message.includes('ENOTFOUND') || 
+                            fetchError.message.includes('ECONNREFUSED') ||
+                            fetchError.message.includes('getaddrinfo');
+      
+      return res.status(200).json({
+        success: false,
+        connected: false,
+        error: isNetworkError ? 'Network connectivity issue' : 'Failed to connect to Composio API',
+        message: isNetworkError 
+          ? 'The API key is configured, but your server cannot reach Composio\'s API servers. This is likely a network/DNS/firewall issue, not an API key problem.'
+          : 'The API key exists but we could not verify it with Composio servers.',
+        details: {
+          keyExists: true,
+          keyLength: keyLength,
+          keyPrefix: keyPrefix + '...',
+          apiEndpoint: baseUrl,
+          networkError: fetchError.message,
+          troubleshooting: isNetworkError ? {
+            issue: 'DNS/Network connectivity problem',
+            possibleCauses: [
+              'Firewall blocking outbound HTTPS requests',
+              'DNS resolution failure for api.composio.dev',
+              'Corporate network/proxy restrictions',
+              'No internet connection from server'
+            ],
+            solutions: [
+              'Check if your server has internet access',
+              'Test DNS resolution: nslookup api.composio.dev or ping api.composio.dev',
+              'Check firewall/proxy settings',
+              'Try from a different network to isolate the issue',
+              'The API key appears to be correctly configured (length: ' + keyLength + ', prefix: ' + keyPrefix + '...)'
+            ]
+          } : null
+        },
+      });
+    }
+  } catch (error) {
+    console.error('❌ Error in /api/verify-composio:', error);
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+    return res.status(500).json({
+      success: false,
+      connected: false,
+      error: error.message || 'Failed to verify Composio connection',
+    });
+  }
 });
 
 // Contact form endpoint
@@ -2762,9 +2960,14 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY || process.env.LAGENTRY_OPENAI
 // Log OpenAI API key status (without exposing the key)
 if (OPENAI_API_KEY) {
   console.log('✅ OpenAI API key loaded successfully');
+  console.log('   Key starts with:', OPENAI_API_KEY.substring(0, 10) + '...');
+  console.log('   Key length:', OPENAI_API_KEY.length);
 } else {
-  console.warn('⚠️ OpenAI API key not found in environment variables');
-  console.warn('   Chatbot will use fallback responses. Set OPENAI_API_KEY in .env file.');
+  console.error('❌ OpenAI API key not found in environment variables');
+  console.error('   Checked: OPENAI_API_KEY =', process.env.OPENAI_API_KEY ? 'SET' : 'NOT SET');
+  console.error('   Checked: LAGENTRY_OPENAI_API_KEY =', process.env.LAGENTRY_OPENAI_API_KEY ? 'SET' : 'NOT SET');
+  console.error('   Chatbot will not work. Set OPENAI_API_KEY in .env file.');
+  console.error('   .env file should be at: lagentry_website/server/.env');
 }
 
 // Lightweight chat system prompt for knowledge-base wrapper
@@ -2788,9 +2991,19 @@ When relevant, you can:
 Always prefer specific, high-signal answers over long, generic ones.
 `;
 
+// Test endpoint to verify server is working
+app.get('/api/chat/test', (req, res) => {
+  const origin = req.headers.origin;
+  setCORSHeaders(res, origin);
+  res.json({ success: true, message: 'Chat API server is running!' });
+});
+
 // New lightweight chat endpoint - wrapper over OpenAI using JSON knowledge base
 app.post('/api/chat', async (req, res) => {
   console.log('📥 /api/chat endpoint hit');
+  console.log('📥 Request method:', req.method);
+  console.log('📥 Request URL:', req.url);
+  console.log('📥 Request headers:', JSON.stringify(req.headers, null, 2));
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
@@ -2805,14 +3018,19 @@ app.post('/api/chat', async (req, res) => {
     }
     console.log('✅ OpenAI API key found:', OPENAI_API_KEY.substring(0, 7) + '...' + OPENAI_API_KEY.slice(-4));
 
+    console.log('📦 Request body:', JSON.stringify(req.body, null, 2));
     const { message, history } = req.body || {};
 
     if (!message || typeof message !== 'string') {
+      console.error('❌ Invalid message:', message);
+      setCORSHeaders(res, origin);
       return res.status(400).json({
         success: false,
         error: 'Message is required'
       });
     }
+    
+    console.log('✅ Message received:', message.substring(0, 50) + '...');
 
     const historyMessages = Array.isArray(history)
       ? history
@@ -2862,8 +3080,8 @@ app.post('/api/chat', async (req, res) => {
         const errorData = JSON.parse(text);
         console.error('❌ Parsed error data:', JSON.stringify(errorData, null, 2));
         
-        if (errorData.error?.code === 'insufficient_quota') {
-          errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings.';
+        if (errorData.error?.code === 'insufficient_quota' || errorData.error?.message?.includes('quota') || errorData.error?.message?.includes('exceeded')) {
+          errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings at https://platform.openai.com/account/billing.';
         } else if (errorData.error?.code === 'invalid_api_key') {
           errorMessage = 'Invalid OpenAI API key. Please check your server environment variables.';
         } else if (errorData.error?.message) {

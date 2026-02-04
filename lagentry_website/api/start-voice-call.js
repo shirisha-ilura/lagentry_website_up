@@ -4,6 +4,7 @@
 // VAPI configuration from environment variables (set these in Vercel)
 const VAPI_API_KEY = process.env.VAPI_API_KEY || 'f59d5ef2-204a-4b3a-9b99-2f2552a45a08';
 const VAPI_PUBLIC_KEY = process.env.VAPI_PUBLIC_KEY || 'a40eb25c-29c0-44c6-a381-24d7587f572b';
+const { upsertLead } = require('./_shared/leadsDb');
 
 if (!process.env.VAPI_API_KEY || !process.env.VAPI_PUBLIC_KEY) {
   console.warn('⚠️ VAPI_API_KEY or VAPI_PUBLIC_KEY not set in environment variables. Using fallback values.');
@@ -100,6 +101,23 @@ module.exports = async (req, res) => {
     const variables = {};
     if (userName && userName.trim()) {
       variables.customer_name = userName.trim();
+    }
+
+    // Save lead for lead qualification calls
+    try {
+      if (agentType === 'lead-qualification' && userEmail && typeof userEmail === 'string') {
+        await upsertLead({
+          email: userEmail.trim(),
+          source: 'lead_qualification',
+          name: userName?.trim() || null,
+          phone: userPhone?.trim() || null,
+          company: null,
+          message: prompt?.trim() || null,
+        });
+      }
+    } catch (dbErr) {
+      console.error('❌ Failed to save lead_qualification lead to Postgres:', dbErr);
+      // Do not fail the call if DB write fails
     }
 
     // Return response for WebRTC connection (frontend will use VAPI SDK)

@@ -42,7 +42,7 @@ async function fetchComposioApps({ query, limit }) {
   // based on your Composio account / API version.
   const baseUrl =
     process.env.COMPOSIO_APPS_URL ||
-    'https://api.composio.dev/v1/apps';
+    'https://backend.composio.dev/api/v1/apps';
 
   const url = new URL(baseUrl);
   if (query) {

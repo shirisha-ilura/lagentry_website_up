@@ -195,8 +195,8 @@ module.exports = async (req, res) => {
         const errorData = JSON.parse(text);
         console.error('❌ Parsed error data:', JSON.stringify(errorData, null, 2));
         
-        if (errorData.error?.code === 'insufficient_quota') {
-          errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings.';
+        if (errorData.error?.code === 'insufficient_quota' || errorData.error?.message?.includes('quota') || errorData.error?.message?.includes('exceeded')) {
+          errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings at https://platform.openai.com/account/billing.';
         } else if (errorData.error?.code === 'invalid_api_key') {
           errorMessage = 'Invalid OpenAI API key. Please check your Vercel environment variables.';
         } else if (errorData.error?.code === 'model_not_found') {
