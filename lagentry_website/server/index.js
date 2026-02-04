@@ -22,48 +22,197 @@ const knowledgeBase = {
     region_focus: "UAE and MENA",
     waitlist_size: "5000+",
     website: "https://lagentry.com",
-    join_waitlist_url: "https://lagentry.com/waitlist"
+    join_waitlist_url: "https://lagentry.com/waitlist",
+    pricing_url: "https://lagentry.com/pricing"
   },
   contacts: {
     support_email: "support@lagentry.com",
     sales_email: "sales@lagentry.com",
-    phone: "+971-XX-XXX-XXXX"
+    info_email: "info@lagentry.com",
+    phone: "+971-XX-XXX-XXXX",
+    contact_page: "https://lagentry.com/contact",
+    book_demo_url: "https://lagentry.com/book-demo"
+  },
+  pricing: {
+    plans: [
+      {
+        id: "basic-free",
+        name: "Basic",
+        price: "$0",
+        period: "month",
+        description: "Perfect for individuals exploring AI Employees for the first time",
+        features: [
+          "1,000 credits on signup",
+          "Chat with any 1 AI Employee",
+          "Voice agents",
+          "Try conversational flows",
+          "Test knowledge base uploads",
+          "Insights & usage report",
+          "Community support",
+          "Access to Lagentry Marketplace",
+          "1000+ integrations"
+        ],
+        whoIsItFor: "Individuals, freelancers, and early testers who want to understand how Lagentry AI Employees work before committing."
+      },
+      {
+        id: "hobby-20",
+        name: "Hobby",
+        price: "$20",
+        period: "month",
+        description: "Ideal for small teams & solo founders getting started with automation",
+        features: [
+          "Everything in Basic, plus",
+          "Use any 2 AI Employees at a time",
+          "10,000 monthly credits",
+          "Deploy agents with chat widget + dashboard",
+          "Access to AI Employee templates",
+          "Voice agents",
+          "Multilingual support",
+          "Workflow editor",
+          "Analytics dashboard",
+          "Email integration",
+          "File upload for internal knowledge",
+          "1000+ integrations"
+        ],
+        whoIsItFor: "Small founders, early-stage startups, individual agents who want automation without heavy setup."
+      },
+      {
+        id: "startup-80",
+        name: "Startup",
+        price: "$80",
+        period: "month",
+        description: "For growing teams ready to deploy AI Employees into real workflows",
+        features: [
+          "Everything in Hobby, plus",
+          "Use up to 5 AI Employees at a time",
+          "50,000 monthly credits",
+          "Iframe Embeds",
+          "Voice agents",
+          "1000+ integrations",
+          "Advanced analytics & custom dashboards",
+          "Fine-tuning knowledge base",
+          "Team collaboration",
+          "Agent personality customization",
+          "Multi-language skill pack"
+        ],
+        whoIsItFor: "Startups & small businesses wanting to create automated workflows: customer support, property management, sales outreach automation, ticketing."
+      },
+      {
+        id: "growth-100",
+        name: "Growth",
+        price: "$100",
+        period: "month",
+        description: "Best for businesses scaling operations with multiple AI Employees",
+        features: [
+          "Everything in Startup, plus",
+          "Use up to 10 AI Employees at a time",
+          "100,000 monthly credits",
+          "Custom AI Employee builder",
+          "Priority access to new AI employee templates",
+          "Private deployment",
+          "Collaboration for up to 10 users",
+          "Voice agents",
+          "Full access to voice cloning",
+          "Advanced workflow automations",
+          "API access",
+          "Webhooks",
+          "CRM bi-directional sync",
+          "Advanced security: encryption, audit logs",
+          "1000+ integrations"
+        ],
+        whoIsItFor: "Agencies, operations teams, SME businesses scaling their support, sales, HR, finance, and real-estate flows using AI Employees."
+      }
+    ],
+    yearly_discount: "Save 2 months when paying yearly (10 months for the price of 12)",
+    note: "All plans include access to 1000+ integrations via Composio. Pricing is competitive compared to alternatives charging $99-$400 per seat or per agent."
   },
   agents: {
     phase_one: [
-      "Customer Support AI Employee",
-      "Real Estate AI Employee",
-      "HR / Recruitment AI Employee"
+      {
+        name: "Customer Support AI Employee",
+        description: "Handles customer inquiries, support tickets, and provides 24/7 assistance",
+        use_cases: ["Customer support", "Help desk", "FAQ handling", "Ticket management"]
+      },
+      {
+        name: "Real Estate AI Employee",
+        description: "Manages property inquiries, lead qualification, viewing scheduling",
+        use_cases: ["Property inquiries", "Lead qualification", "Viewing scheduling", "Client communication"]
+      },
+      {
+        name: "HR / Recruitment AI Employee",
+        description: "Handles recruitment, candidate screening, and HR workflows",
+        use_cases: ["Job screening", "Candidate interviews", "HR automation", "Recruitment workflows"]
+      },
+      {
+        name: "Lead Qualification AI Employee (Layla)",
+        description: "Qualifies leads, understands business needs, and guides prospects",
+        use_cases: ["Sales outreach", "Lead qualification", "Business needs assessment", "Prospect engagement"]
+      }
+    ],
+    additional_agents: [
+      "Finance Agent",
+      "CFO Assistant",
+      "Debt Collection Agent",
+      "Healthcare Assistant",
+      "Automotive Agent"
     ],
     channels: [
       "Website chat",
       "WhatsApp",
       "Email",
-      "Voice",
+      "Voice calling",
       "API and integrations"
+    ],
+    capabilities: [
+      "24/7 availability",
+      "Multilingual support (500+ languages)",
+      "Voice cloning",
+      "Customizable scripts",
+      "Workflow automation",
+      "Knowledge base integration"
     ]
   },
   capabilities: {
     integrations: [
       "WhatsApp integration",
       "Email automation",
-      "CRM integration",
+      "CRM integration (HubSpot, Salesforce, etc.)",
       "Jira / ticketing tools",
-      "MCP integrations"
+      "MCP integrations",
+      "1000+ apps via Composio",
+      "Slack",
+      "Payment processors",
+      "Gmail",
+      "And many more"
     ],
     ai_features: [
       "Voice AI and phone agents",
-      "OCR for reading documents and images (conceptual capability)",
-      "Multi-language support (Arabic and English as primary, others possible)",
-      "Website embedding (widgets and chat on site)"
+      "OCR for reading documents and images",
+      "Multi-language support (Arabic and English as primary, 500+ languages supported)",
+      "Website embedding (widgets and chat on site)",
+      "Voice cloning",
+      "Custom agent personalities",
+      "Workflow automation",
+      "Analytics and reporting"
     ]
   },
   positioning: {
     core_idea: "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
+    unique_selling_proposition: "Lagentry replaces multiple expensive tools in ONE platform — for only $20 per month. Instead of paying for 4-6 separate platforms, you pay the price of a coffee and get fully working AI employees.",
     target_users: [
       "SMEs in the UAE",
       "MENA businesses that need Arabic + English support",
-      "Teams that want AI to behave like employees (support, HR, real estate, sales)"
+      "Teams that want AI to behave like employees (support, HR, real estate, sales)",
+      "Small founders and early-stage startups",
+      "Agencies and operations teams"
+    ],
+    advantages: [
+      "One unified system: Chat agents, voice agents, workflow automations — all inside one platform",
+      "Arabic-First / MENA-Native: Cultural & regulatory alignment",
+      "Enterprise integrations: 1000+ platforms",
+      "No-code: Absolutely no technical knowledge required",
+      "Business-ready workflows out of the box",
+      "Real-time deployment — agents go live instantly"
     ]
   }
 };
@@ -2928,27 +3077,86 @@ Lagentry represents the future of work, where AI agents operate as reliable, sca
 // Chatbot system prompt
 const CHATBOT_SYSTEM_PROMPT = `You are a helpful and knowledgeable assistant for Lagentry, an enterprise AI agents platform. Your role is to help visitors understand Lagentry's capabilities, answer questions about the platform, and guide them toward booking demos or getting started.
 
-Key Information:
-- Lagentry is an enterprise-grade AI agents platform for SMEs in the MENA region
-- It offers ready-made, pre-trained AI agents that require minimal setup
-- Pricing starts at $20/month with a free trial available
-- Supports Arabic-first, multilingual communication
-- Integrates with 1000+ platforms
-- Offers voice calling agents, web chat, WhatsApp deployment
+IMPORTANT: You have access to comprehensive information about Lagentry including pricing, contact details, available agents, and features. Always provide specific, accurate information when asked.
+
+Key Information You Can Share:
+
+PRICING PLANS:
+- Basic Plan: FREE - 1,000 credits on signup, chat with 1 AI Employee, voice agents, community support, access to marketplace, 1000+ integrations. Perfect for individuals exploring AI Employees.
+- Hobby Plan: $20/month - Use any 2 AI Employees, 10,000 monthly credits, deploy agents with chat widget + dashboard, workflow editor, analytics, email integration, multilingual support. Ideal for small teams & solo founders.
+- Startup Plan: $80/month - Use up to 5 AI Employees, 50,000 monthly credits, iframe embeds, advanced analytics, team collaboration, agent personality customization. For growing teams ready to deploy AI Employees.
+- Growth Plan: $100/month - Use up to 10 AI Employees, 100,000 monthly credits, custom AI Employee builder, private deployment, collaboration for up to 10 users, API access, webhooks, CRM sync, advanced security. Best for businesses scaling operations.
+- Yearly plans: Save 2 months when paying yearly (10 months for the price of 12)
+- All plans include 1000+ integrations via Composio
+- Pricing is competitive - competitors charge $99-$400 per seat or per agent
+
+CONTACT INFORMATION:
+- Support Email: support@lagentry.com
+- Sales Email: sales@lagentry.com
+- General Email: info@lagentry.com
+- Website: https://lagentry.com
+- Pricing Page: https://lagentry.com/pricing
+- Book Demo: https://lagentry.com/book-demo
+- Waitlist: https://lagentry.com/waitlist
+
+AVAILABLE AI EMPLOYEES (AGENTS):
+Phase 1 Agents:
+1. Customer Support AI Employee - Handles customer inquiries, support tickets, provides 24/7 assistance
+2. Real Estate AI Employee - Manages property inquiries, lead qualification, viewing scheduling
+3. HR / Recruitment AI Employee - Handles recruitment, candidate screening, HR workflows
+4. Lead Qualification AI Employee (Layla) - Qualifies leads, understands business needs, guides prospects
+
+Additional Agents Available:
+- Finance Agent / CFO Assistant
+- Debt Collection Agent
+- Healthcare Assistant
+- Automotive Agent
+
+All agents support: Website chat, WhatsApp, Email, Voice calling, API integrations
+
+FEATURES & CAPABILITIES:
+- 1000+ integrations (WhatsApp, Gmail, CRM, Jira, Slack, payment processors, etc.)
+- Voice AI and phone agents with voice cloning
+- Multilingual support (500+ languages, Arabic-first)
+- No-code setup - absolutely no technical knowledge required
+- Real-time deployment - agents go live instantly
+- Analytics and reporting dashboards
+- Workflow automation
+- Knowledge base integration
+- Custom agent personalities
 
 Your tone should be:
 - Professional yet friendly
 - Helpful and informative
 - Conversational, not robotic
 - Focused on helping users understand value
+- Specific and accurate when providing pricing, contact, or feature information
 
 Always guide users toward:
-- Booking a demo if they're interested
+- Booking a demo if they're interested (https://lagentry.com/book-demo)
 - Exploring specific agents that match their needs
-- Understanding pricing and plans
-- Getting started with the platform
+- Understanding pricing and plans (https://lagentry.com/pricing)
+- Getting started with the platform (https://lagentry.com/waitlist)
+- Contacting support (support@lagentry.com) or sales (sales@lagentry.com) for specific questions
 
-If you don't know something specific, acknowledge it and offer to help them find the information or connect them with the team.
+When asked about pricing:
+- Provide specific plan details and prices
+- Explain what each plan includes
+- Mention the yearly discount option
+- Compare to competitors if relevant
+- Direct them to https://lagentry.com/pricing for full details
+
+When asked about contact:
+- Provide specific email addresses (support@lagentry.com, sales@lagentry.com, info@lagentry.com)
+- Mention the website and relevant pages
+- Offer to help them book a demo
+
+When asked about agents:
+- List available agents with descriptions
+- Explain use cases for each
+- Mention deployment channels (web, WhatsApp, voice, email, API)
+
+If you don't know something specific, acknowledge it and offer to help them find the information or connect them with the team via support@lagentry.com or sales@lagentry.com.
 
 Knowledge Base:
 ${LAGENTRY_KNOWLEDGE_BASE}
@@ -2972,21 +3180,28 @@ if (OPENAI_API_KEY) {
 
 // Lightweight chat system prompt for knowledge-base wrapper
 const LIGHT_CHAT_SYSTEM_PROMPT = `
-You are Lagentry AI assistant.
+You are Lagentry AI assistant. You have comprehensive information about Lagentry including pricing, contact details, available agents, and features.
 
-You answer questions ONLY using the knowledge base provided to you.
-If something is not in the knowledge base, clearly say you don't have that information
-and gently guide users to contact the team or visit the website.
+You answer questions using the knowledge base provided to you. Always provide specific, accurate information when asked.
+
+KEY INFORMATION YOU CAN SHARE:
+
+PRICING: Basic (FREE), Hobby ($20/month), Startup ($80/month), Growth ($100/month). Yearly plans save 2 months. All include 1000+ integrations. Visit https://lagentry.com/pricing for details.
+
+CONTACT: Support: support@lagentry.com | Sales: sales@lagentry.com | General: info@lagentry.com | Website: https://lagentry.com | Book Demo: https://lagentry.com/book-demo
+
+AGENTS: Customer Support, Real Estate, HR/Recruitment, Lead Qualification (Layla), plus Finance, CFO Assistant, Debt Collection, Healthcare, Automotive. All support web, WhatsApp, email, voice, API.
+
+FEATURES: 1000+ integrations, voice AI with cloning, multilingual (500+ languages), no-code setup, real-time deployment, analytics, workflow automation.
 
 Your tone:
 - Clear and confident
 - Friendly and concise
 - Helpful, not salesy
+- Specific and accurate
 
-When relevant, you can:
-- Mention that Lagentry is an AI Employee platform focused on UAE / MENA.
-- Highlight multi-channel agents (web, WhatsApp, voice, email).
-- Emphasize that Phase 1 AI employees include Customer Support, Real Estate, and HR.
+When asked about pricing, contact, or agents: Provide specific details from the knowledge base.
+If something is not in the knowledge base, guide users to support@lagentry.com or https://lagentry.com.
 
 Always prefer specific, high-signal answers over long, generic ones.
 `;

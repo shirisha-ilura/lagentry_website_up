@@ -4,6 +4,39 @@ This guide explains how to check if your Composio API key is connected and worki
 
 ## Quick Verification Methods
 
+### Method 0: Test with cURL (Manual Test)
+
+You can test the Composio API directly using curl:
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://backend.composio.dev/api/v1/apps
+```
+
+Replace `YOUR_API_KEY` with your actual Composio API key (e.g., `ak_hCl3N7IQ0ROUZeQBSSVu`).
+
+**Expected Response (Success):**
+```json
+[
+  {
+    "id": "...",
+    "name": "...",
+    "description": "...",
+    ...
+  },
+  ...
+]
+```
+
+**Expected Response (401 Unauthorized):**
+```json
+{
+  "error": "Failed to fetch apps from downstream service"
+}
+```
+
+If you get 401, your API key may not have the right permissions or may be invalid.
+
 ### Method 1: Use the Verification Endpoint (Recommended)
 
 A verification endpoint has been created at `/api/verify-composio` that checks:

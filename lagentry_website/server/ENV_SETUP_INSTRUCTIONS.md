@@ -22,6 +22,11 @@ EMAIL_PASSWORD=your-gmail-app-password-here
 EMAIL_FROM=info@lagentry.com
 EMAIL_FROM_NAME=Zoya – Founder, Lagentry
 COMPANY_EMAIL=info@lagentry.com
+
+# Composio Configuration
+COMPOSIO_API_KEY=your-composio-api-key-here
+COMPOSIO_APPS_URL=https://backend.composio.dev/api/v1/apps
+COMPOSIO_PROJECT_ID=pr_B8v_tiLROByW
 ```
 
 ### Step 2: Get Gmail App Password
