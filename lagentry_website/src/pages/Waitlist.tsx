@@ -23,6 +23,7 @@ const initialState: FormState = {
 const Waitlist: React.FC = () => {
   const [form, setForm] = useState<FormState>(initialState);
   const [submitting, setSubmitting] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState<number>(5784);
   const [introPlaying, setIntroPlaying] = useState(false);
   const [canvasWidth, setCanvasWidth] = useState<number>(window.innerWidth);
   const [canvasHeight, setCanvasHeight] = useState<number>(window.innerHeight);
@@ -48,6 +49,42 @@ const Waitlist: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Load current waitlist count from backend
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCount() {
+      try {
+        const response = await fetch('/api/waitlist-count', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (!isMounted) return;
+
+        if (data && typeof data.displayCount === 'number') {
+          setWaitlistCount(data.displayCount);
+        } else if (typeof data.count === 'number' && typeof data.base === 'number') {
+          setWaitlistCount(data.base + data.count);
+        }
+      } catch (err) {
+        console.warn('Failed to load waitlist count', err);
+        // Fallback: keep default marketing number
+      }
+    }
+
+    loadCount();
+
+    return () => {
+      isMounted = false;
     };
   }, []);
 
@@ -157,6 +194,9 @@ const Waitlist: React.FC = () => {
       // Email will be sent by the backend automatically
       setSuccess("You've successfully joined the Lagentry waitlist! Stay tuned for updates.");
       setForm(initialState);
+
+      // Optimistically increment visible waitlist count
+      setWaitlistCount((prev) => prev + 1);
     } catch (err: any) {
       console.error('Waitlist submission error:', err);
       setError(err?.message || 'Submission failed, please try again.');
@@ -188,7 +228,9 @@ const Waitlist: React.FC = () => {
           {/* Top stats pill */}
           <div className="join-stats">
             <div className="join-pill">
-              <span className="join-pill-text">Join 5,784 others already on the waitlist</span>
+              <span className="join-pill-text">
+                Join {waitlistCount.toLocaleString('en-US')} others already on the waitlist
+              </span>
             </div>
           </div>
           <div className="join-header">
