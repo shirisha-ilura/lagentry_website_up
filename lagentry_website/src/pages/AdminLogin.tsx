@@ -11,8 +11,8 @@ const AdminLogin: React.FC = () => {
 
   // Admin credentials - in production, these should be in environment variables
   // For now, using simple hardcoded credentials (can be changed)
-  const ADMIN_USERNAME = process.env.REACT_APP_ADMIN_USERNAME || 'admin';
-  const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'lagentry2024';
+  const ADMIN_USERNAME = process.env.REACT_APP_ADMIN_USERNAME || 'zoya';
+  const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'A@bc503261064';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

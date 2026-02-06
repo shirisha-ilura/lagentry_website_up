@@ -19,6 +19,7 @@ const Chatbot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [conversationId, setConversationId] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,12 +53,17 @@ const Chatbot: React.FC = () => {
     setError(null);
 
     try {
-      const payload = {
+      const payload: any = {
         message: trimmed,
-        history: messages
       };
 
-      const response = await fetch('/api/chat', {
+      // If we already have a conversation, send its ID so the backend
+      // can attach messages to the same conversation that the admin sees
+      if (conversationId) {
+        payload.conversationId = conversationId;
+      }
+
+      const response = await fetch('/api/chat/message', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -70,10 +76,15 @@ const Chatbot: React.FC = () => {
         throw new Error(data.error || 'Failed to get a response from the assistant.');
       }
 
+      // Store conversationId returned from the server
+      if (data.conversationId && typeof data.conversationId === 'string') {
+        setConversationId(data.conversationId);
+      }
+
       const assistantReply: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: data.reply || "I'm here to help with questions about Lagentry."
+        content: data.response || data.reply || "I'm here to help with questions about Lagentry."
       };
 
       setMessages((prev) => [...prev, assistantReply]);
