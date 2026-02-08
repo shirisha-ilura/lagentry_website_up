@@ -44,7 +44,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  overflow: visible; /* Prevent clipping */
+  overflow: visible !important; /* Prevent clipping - force visible */
   box-sizing: border-box;
 }
 
@@ -71,8 +71,8 @@
 .footer-lagentry-section {
   width: 100%;
   text-align: center;
-  overflow: visible; /* Prevent any clipping */
-  padding: 0 20px; /* Add horizontal padding */
+  overflow: visible !important; /* Prevent any clipping - force visible */
+  padding: 0 40px; /* Increased horizontal padding to prevent logo cutoff */
   box-sizing: border-box;
 }
 
@@ -95,21 +95,23 @@
   justify-content: center;
   margin-top: -0.75rem; /* lift the logo slightly higher in the footer */
   margin-bottom: 1.5rem;
-  padding: 20px 40px; /* Increased padding to prevent letter cutoff */
-  overflow: visible; /* Ensure no clipping */
+  padding: 20px 60px; /* Increased horizontal padding to prevent G and Y cutoff */
+  overflow: visible !important; /* Ensure no clipping - force visible */
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 }
 
 .footer-logo-image {
   width: auto;
   height: 120px; /* larger logo in Contact section */
-  max-width: 100%;
+  max-width: calc(100% - 120px); /* Account for padding to prevent cutoff */
   object-fit: contain;
   object-position: center;
-  padding: 0 20px; /* Additional padding around the image */
+  padding: 0 30px; /* Increased padding around the image to prevent letter cutoff */
   box-sizing: content-box;
-  overflow: visible;
+  overflow: visible !important; /* Force visible overflow */
+  display: block;
 }
 
 .logo-l {
@@ -458,19 +460,19 @@
 
   .footer-lagentry-section {
     text-align: center;
-    padding: 0 16px; /* Mobile padding */
-    overflow: visible;
+    padding: 0 24px; /* Increased mobile padding to prevent logo cutoff */
+    overflow: visible !important;
   }
   
   .footer-logo {
-    padding: 16px 24px; /* Mobile padding */
-    overflow: visible;
+    padding: 16px 40px; /* Increased mobile padding to prevent cutoff */
+    overflow: visible !important;
   }
   
   .footer-logo-image {
     height: 100px; /* Slightly smaller on mobile */
-    padding: 0 16px; /* Mobile padding */
-    max-width: calc(100% - 32px); /* Account for padding */
+    padding: 0 24px; /* Increased mobile padding to prevent G and Y cutoff */
+    max-width: calc(100% - 48px); /* Account for increased padding */
   }
   
   .footer-description {
@@ -507,19 +509,19 @@
   }
   
   .footer-lagentry-section {
-    padding: 0 12px; /* Extra small mobile padding */
-    overflow: visible;
+    padding: 0 20px; /* Increased extra small mobile padding to prevent logo cutoff */
+    overflow: visible !important;
   }
   
   .footer-logo {
-    padding: 12px 20px; /* Extra small mobile padding */
-    overflow: visible;
+    padding: 12px 32px; /* Increased extra small mobile padding to prevent cutoff */
+    overflow: visible !important;
   }
   
   .footer-logo-image {
     height: 90px; /* Smaller on extra small screens */
-    padding: 0 12px; /* Extra small mobile padding */
-    max-width: calc(100% - 24px); /* Account for padding */
+    padding: 0 20px; /* Increased extra small mobile padding to prevent G and Y cutoff */
+    max-width: calc(100% - 40px); /* Account for increased padding */
   }
   
   .logo-l,

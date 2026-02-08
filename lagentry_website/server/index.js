@@ -1,5 +1,6 @@
 // Load environment variables from .env file
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 // Log .env file location for debugging
@@ -13,8 +14,18 @@ const WebSocket = require('ws');
 const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
 
-// Knowledge base (inline for reliability)
-const knowledgeBase = {
+// Load knowledge base from JSON file
+let knowledgeBase;
+try {
+  const knowledgeBasePath = path.join(__dirname, '..', 'data', 'knowledge-base.json');
+  const knowledgeBaseData = fs.readFileSync(knowledgeBasePath, 'utf8');
+  knowledgeBase = JSON.parse(knowledgeBaseData);
+  console.log('✅ Knowledge base loaded from:', knowledgeBasePath);
+} catch (error) {
+  console.error('❌ Failed to load knowledge base from JSON file:', error.message);
+  console.log('⚠️ Falling back to inline knowledge base');
+  // Fallback to inline knowledge base
+  knowledgeBase = {
   company: {
     name: "Lagentry",
     tagline: "AI Employee Platform for MENA",
@@ -2996,88 +3007,87 @@ const chatStorage = {
   }
 };
 
-// Knowledge base content (from user-provided document)
-const LAGENTRY_KNOWLEDGE_BASE = `
-Lagentry – Enterprise AI Agents Platform
+// Format knowledge base from JSON for system prompt
+function formatKnowledgeBaseForPrompt(kb) {
+  if (!kb) return '';
+  
+  let formatted = `\n=== LAGENTRY KNOWLEDGE BASE ===\n\n`;
+  
+  // Company Info
+  if (kb.company) {
+    formatted += `COMPANY:\n`;
+    formatted += `- Name: ${kb.company.name}\n`;
+    formatted += `- Tagline: ${kb.company.tagline}\n`;
+    formatted += `- Description: ${kb.company.description}\n`;
+    formatted += `- Region Focus: ${kb.company.region_focus}\n`;
+    formatted += `- Waitlist Size: ${kb.company.waitlist_size}\n`;
+    formatted += `- Website: ${kb.company.website}\n`;
+    formatted += `- Join Waitlist: ${kb.company.join_waitlist_url}\n`;
+    formatted += `- Pricing: ${kb.company.pricing_url}\n`;
+    formatted += `- Book Demo: ${kb.company.book_demo_url}\n\n`;
+  }
+  
+  // Contacts
+  if (kb.contacts) {
+    formatted += `CONTACT INFORMATION:\n`;
+    formatted += `- Support Email: ${kb.contacts.support_email}\n`;
+    formatted += `- Sales Email: ${kb.contacts.sales_email}\n`;
+    formatted += `- Info Email: ${kb.contacts.info_email}\n`;
+    formatted += `- Phone: ${kb.contacts.phone}\n`;
+    formatted += `- Website: ${kb.contacts.website}\n\n`;
+  }
+  
+  // Agents
+  if (kb.agents) {
+    formatted += `AVAILABLE AI EMPLOYEES (Phase 1):\n`;
+    if (kb.agents.phase_one && Array.isArray(kb.agents.phase_one)) {
+      kb.agents.phase_one.forEach((agent, idx) => {
+        if (typeof agent === 'object') {
+          formatted += `${idx + 1}. ${agent.name}: ${agent.description}\n`;
+          if (agent.use_cases) {
+            formatted += `   Use Cases: ${agent.use_cases.join(', ')}\n`;
+          }
+        } else {
+          formatted += `${idx + 1}. ${agent}\n`;
+        }
+      });
+    }
+    formatted += `\nDeployment Channels: ${kb.agents.channels ? kb.agents.channels.join(', ') : 'N/A'}\n\n`;
+  }
+  
+  // Capabilities
+  if (kb.capabilities) {
+    formatted += `CAPABILITIES:\n`;
+    if (kb.capabilities.integrations) {
+      formatted += `Integrations: ${kb.capabilities.integrations.join(', ')}\n`;
+    }
+    if (kb.capabilities.ai_features) {
+      formatted += `AI Features: ${kb.capabilities.ai_features.join(', ')}\n`;
+    }
+    formatted += `\n`;
+  }
+  
+  // Positioning
+  if (kb.positioning) {
+    formatted += `POSITIONING:\n`;
+    formatted += `- Core Idea: ${kb.positioning.core_idea}\n`;
+    if (kb.positioning.unique_selling_proposition) {
+      formatted += `- USP: ${kb.positioning.unique_selling_proposition}\n`;
+    }
+    if (kb.positioning.target_users) {
+      formatted += `- Target Users: ${kb.positioning.target_users.join(', ')}\n`;
+    }
+  }
+  
+  return formatted;
+}
 
-A comprehensive knowledge base for SMEs in the MENA region
-
-1. Introduction
-
-Lagentry is an enterprise-grade AI agents platform built to help small and mid-sized businesses deploy production-ready AI employees instantly. The platform was originally launched as a no-code AI agent builder but evolved after recognizing that most businesses do not want to design agents from scratch. Instead, they want immediate value. Lagentry now offers ready-made, pre-trained AI agents that require minimal to no setup.
-
-Lagentry is designed with a strong focus on the MENA region, supporting Arabic-first, multilingual communication while remaining globally scalable. It enables businesses to automate operations, improve customer experience, and scale efficiently without increasing headcount.
-
-2. Platform Vision & Philosophy
-
-Lagentry is built on a simple philosophy: businesses should be able to deploy AI the same way they hire employees. No technical complexity, no long onboarding cycles, and no fragmented tools. Each AI agent on Lagentry behaves like a professional employee with a clear role, defined responsibilities, and the ability to interact with systems and customers.
-
-The platform prioritizes reliability, professionalism, and enterprise readiness. Unlike generic chatbots, Lagentry agents are trained for real business workflows, making them suitable for production use from day one.
-
-3. Core Platform Capabilities
-
-• Plug-and-play AI agents with no-code setup
-• Pre-trained domain-specific intelligence
-• Custom proprietary Large Language Model (LLM)
-• Multilingual support with Arabic-first design
-• Voice calling agents with realistic speech and voice cloning
-• WhatsApp, web chat, and omnichannel deployment
-• Website and mobile app embedding
-• Integration with 1000+ enterprise and SaaS platforms
-• Secure, scalable, enterprise-grade infrastructure
-• Real-time monitoring, analytics, and logging
-
-4. AI Agent Architecture
-
-Each Lagentry agent is powered by a proprietary Large Language Model optimized for business workflows. Agents operate with structured reasoning, contextual memory, and tool execution capabilities. They can retrieve information, make decisions, and perform actions across connected systems.
-
-Agents are deployed with guardrails, ensuring compliance, accuracy, and controlled behavior. Human escalation and override mechanisms can be configured where required.
-
-5. Voice Calling Agents
-
-Lagentry offers enterprise-grade voice calling agents capable of handling inbound and outbound calls. These agents can speak naturally, understand caller intent, and respond in real time. Voice cloning enables businesses to maintain brand consistency across voice interactions.
-
-Use cases include sales outreach, customer support hotlines, appointment confirmations, lead qualification, and follow-ups. Voice agents operate 24/7 and scale instantly.
-
-6. AI Agents by Domain
-
-Recruitment & HR: Candidate screening, interview automation, scheduling, HR policy assistance.
-
-Sales: Lead qualification, follow-ups, pipeline automation, meeting booking.
-
-Customer Support: FAQ handling, issue resolution, ticket creation, escalation.
-
-Finance: Invoice reminders, reporting, auditing, financial query handling.
-
-Real Estate: Property inquiries, lead qualification, viewing scheduling.
-
-Healthcare: Appointment scheduling, patient queries, reminders.
-
-7. Integrations & Automation
-
-Lagentry integrates with over 1000 platforms including CRMs, ERPs, databases, messaging platforms, email systems, and internal tools. Agents can execute actions such as creating tickets, sending emails, updating records, and triggering workflows.
-
-8. Security, Privacy & Compliance
-
-Lagentry is built with enterprise-grade security, including encryption, access control, data residency options, and compliance with global data protection standards. The platform ensures businesses maintain full control over their data and AI behavior.
-
-9. Pricing & Plans
-
-Lagentry offers a free trial to allow businesses to experience the platform. Paid plans start at $20 per month and go up to $100 per month. Annual subscriptions include two months free, providing cost-effective scaling.
-
-10. Why Lagentry
-
-Lagentry eliminates AI complexity, reduces operational costs, and enables businesses to deploy AI employees instantly. It is purpose-built for SMEs, optimized for MENA, and designed for real-world production use.
-
-11. Conclusion
-
-Lagentry represents the future of work, where AI agents operate as reliable, scalable digital employees. Businesses using Lagentry gain speed, efficiency, and a competitive edge without increasing operational burden.
-`;
+const LAGENTRY_KNOWLEDGE_BASE = formatKnowledgeBaseForPrompt(knowledgeBase);
 
 // Chatbot system prompt
-const CHATBOT_SYSTEM_PROMPT = `You are a helpful and knowledgeable assistant for Lagentry, an enterprise AI agents platform. Your role is to help visitors understand Lagentry's capabilities, answer questions about the platform, and guide them toward booking demos or getting started.
+const CHATBOT_SYSTEM_PROMPT = `You are Lagentry AI assistant. You have comprehensive information about Lagentry including pricing, contact details, available agents, and features.
 
-IMPORTANT: You have access to comprehensive information about Lagentry including pricing, contact details, available agents, and features. Always provide specific, accurate information when asked.
+IMPORTANT: Use ONLY the provided knowledge base to answer questions. Always provide specific, accurate information when asked.
 
 Key Information You Can Share:
 

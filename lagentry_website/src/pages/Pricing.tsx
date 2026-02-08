@@ -148,9 +148,12 @@ const Pricing: React.FC = () => {
     setLoadingPlan(tier.id);
     
     try {
+      // Use the correct API endpoint
       const apiUrl = process.env.REACT_APP_BACKEND_URL 
         ? `${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session`
         : '/api/create-checkout-session';
+
+      console.log('Creating checkout session for plan:', tier.id, 'Yearly:', isYearly);
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -163,19 +166,24 @@ const Pricing: React.FC = () => {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success && data.url) {
         // Redirect to Stripe checkout
+        console.log('Redirecting to Stripe checkout:', data.url);
         window.location.href = data.url;
       } else {
         console.error('Failed to create checkout session:', data.error);
-        alert('Failed to start checkout. Please try again or contact support.');
+        alert(data.error || 'Failed to start checkout. Please try again or contact support.');
         setLoadingPlan(null);
       }
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      alert('An error occurred. Please try again or contact support.');
+      alert('An error occurred. Please check your connection and try again. If the problem persists, contact support.');
       setLoadingPlan(null);
     }
   };

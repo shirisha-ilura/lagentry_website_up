@@ -18,19 +18,31 @@
   height: 0;
   margin-top: 0;
   opacity: 0;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible to allow 2025 to show */
   transition: height 1s ease-out, opacity 1s ease-out, margin-top 1s ease-out;
+  pointer-events: none; /* Prevent interaction when hidden */
 }
 
-/* Ensure 2025 text remains visible during transition */
+/* Ensure 2025 text remains visible during transition - positioned outside header flow */
 .header.header-hidden .background-lagentry-text.visible {
-  opacity: 1;
-  transition: opacity 1.5s ease-out;
+  opacity: 1 !important;
+  position: fixed !important; /* Fixed position so it stays visible when header hides */
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  z-index: 9999 !important; /* High z-index to ensure it's on top of everything */
+  transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none; /* Prevent interaction */
+  filter: blur(0px) !important; /* Ensure no blur when visible */
 }
 
 .header.header-hidden .lagentry-year {
-  opacity: 1;
-  transition: opacity 1.5s ease-out;
+  opacity: 1 !important;
+  transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(1) !important;
 }
 
 .header.lagentry-fullscreen {
@@ -104,7 +116,8 @@
   filter: blur(20px);
   transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
               transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              filter 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+              filter 2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              position 0s ease-out 1.5s; /* Smooth transition to fixed position */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,12 +173,13 @@
   color: #ffffff;
   margin-bottom: 0.75rem;
   opacity: 0.9;
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
   will-change: opacity, transform;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   display: block;
   white-space: nowrap;
+  position: relative; /* Ensure it stays in flow */
 }
 
   /* Increased padding significantly to prevent cutoff when AI Employees zooms to 1.6x */

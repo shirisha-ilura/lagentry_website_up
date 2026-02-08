@@ -2262,7 +2262,7 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
                 isCFOFinancePage ? "/images/CFO-dashboard.png" : 
                 isCustomerSupportPage ? "/images/Customer-dashboard.png" : 
                 isRealEstatePage ? "/images/Property-dashboard.png" : 
-                isHealthcarePage ? "/images/Healthcare-dashboard.png" : 
+                isHealthcarePage ? "/images/Customer-dashboard.png" : 
                 isHRRecruitmentPage ? "/images/HR-dashboard.png" : 
                 "/images/HR-dashboard.png"
               } 

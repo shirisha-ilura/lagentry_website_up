@@ -136,7 +136,7 @@ const AgentDemoCards: React.FC = () => {
         navigate('/agents/real-estate');
         break;
       case 'agent-4':
-        navigate('/agents/healthcare');
+        navigate('/agents/customer-support'); // Fixed: Changed from /agents/healthcare to /agents/customer-support
         break;
       default:
         navigate('/agents');

@@ -294,7 +294,7 @@ const WhyChooseLagentry: React.FC = () => {
 
                                 <div className="pes-row">
                                     <div className="pes-row-main">
-                                        <span className="pes-row-title">Healthcare Agent</span>
+                                        <span className="pes-row-title">Customer Support Agent</span>
                                         <div className="pes-row-logos">
                                             <img src="/images/eight1.webp" alt="Zocdoc" />
                                             <img src="/images/eight2.webp" alt="AthenaHealth" />

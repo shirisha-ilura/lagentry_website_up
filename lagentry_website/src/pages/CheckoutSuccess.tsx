@@ -8,9 +8,16 @@ const CheckoutSuccess: React.FC = () => {
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    // Redirect to home page (which includes Dashboard component) after 2 seconds
+    // Redirect to home page and scroll to Dashboard section after 2 seconds
     const timer = setTimeout(() => {
       navigate('/');
+      // Scroll to dashboard section after navigation
+      setTimeout(() => {
+        const dashboardElement = document.querySelector('.dashboard-container, .dashboard, [class*="dashboard"]');
+        if (dashboardElement) {
+          dashboardElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -29,7 +36,16 @@ const CheckoutSuccess: React.FC = () => {
         )}
         <button 
           className="dashboard-button" 
-          onClick={() => navigate('/')}
+          onClick={() => {
+            navigate('/');
+            // Scroll to dashboard section after navigation
+            setTimeout(() => {
+              const dashboardElement = document.querySelector('.dashboard-container, .dashboard, [class*="dashboard"]');
+              if (dashboardElement) {
+                dashboardElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 100);
+          }}
         >
           Go to Dashboard
         </button>

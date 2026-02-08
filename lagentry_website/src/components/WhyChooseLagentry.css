@@ -747,80 +747,118 @@
 .pes-row-logos {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: nowrap;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
   justify-content: flex-start;
   width: 100%;
 }
 
-/* Desktop and laptop view - logos in single line */
-@media (min-width: 768px) {
-  .pes-row-logos {
-    gap: 6px;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    justify-content: flex-start;
-  }
-  
-  .pes-row-logos img {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    max-width: 36px;
-    min-height: 36px;
-    max-height: 36px;
-    flex-shrink: 0;
-  }
-}
-
-/* Mobile view - smaller logos in single line */
-@media (max-width: 767px) {
-  .pes-row-logos {
-    flex-wrap: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-    gap: 4px;
-    justify-content: flex-start;
-  }
-  
-  .pes-row-logos img {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    max-width: 32px;
-    min-height: 32px;
-    max-height: 32px;
-    padding: 4px;
-    flex-shrink: 0;
-  }
-}
-
+/* Base logo container - square frame with uniform sizing */
 .pes-row-logos img {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  max-width: 36px;
-  min-height: 36px;
-  max-height: 36px;
+  /* Square container dimensions */
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  
+  /* Block element for proper rendering */
+  display: block;
+  box-sizing: border-box;
+  
+  /* Uniform padding inside container */
+  padding: 8px;
+  
+  /* Image fitting - ensures logos fit within square frame */
   object-fit: contain;
   object-position: center;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 4px;
-  box-sizing: border-box;
-  position: relative;
-  transition: transform 0.2s ease, z-index 0.2s ease, box-shadow 0.2s ease;
+  
+  /* Transparent background */
+  background: transparent;
+  
+  /* Clean border for visual consistency */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  
+  /* Smooth transitions */
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  
+  /* Prevent shrinking */
   flex-shrink: 0;
-  display: block;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Ensure proper rendering */
+  position: relative;
+  filter: brightness(0.95) contrast(1.05);
 }
 
+/* Hover effect - subtle and professional */
 .pes-row-logos img:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  filter: brightness(1) contrast(1.1);
   z-index: 5;
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Desktop and laptop view - larger logos */
+@media (min-width: 768px) {
+  .pes-row-logos {
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow: visible;
+    justify-content: flex-start;
+  }
+  
+  .pes-row-logos img {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    max-width: 52px;
+    min-height: 52px;
+    max-height: 52px;
+    padding: 10px;
+  }
+}
+
+/* Tablet view - medium logos */
+@media (min-width: 480px) and (max-width: 767px) {
+  .pes-row-logos {
+    gap: 8px;
+  }
+  
+  .pes-row-logos img {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    max-width: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    padding: 8px;
+  }
+}
+
+/* Mobile view - smaller but still uniform logos */
+@media (max-width: 479px) {
+  .pes-row-logos {
+    flex-wrap: nowrap;
+    overflow: visible;
+    max-width: 100%;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+  
+  .pes-row-logos img {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    padding: 6px;
+  }
 }
 
 .pes-row-price {

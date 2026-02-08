@@ -60,7 +60,7 @@
 }
 
 .dashboard-title-line2 {
-  margin-left: 0.5em;
+  margin-left: 0.75em; /* Increased spacing between "Analytics" and "Dashboard" */
 }
 
 @keyframes gradient-shift {

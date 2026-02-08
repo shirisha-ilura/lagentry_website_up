@@ -203,19 +203,6 @@ const Navigation: React.FC = () => {
                     </div>
                   </div>
                 </button>
-                <button type="button" onClick={(e) => handleAgentItemClick('/agents/healthcare', e)}>
-                  <div className="agents-dropdown-pill">
-                    <div className="agents-dropdown-blob">
-                      <img src="/images/ChatGPT_Image_Oct_8__2025_at_03_27_37_PM-removebg-preview.png" alt="Customer Support Agent" className="agents-dropdown-image" />
-                    </div>
-                    <div className="agents-dropdown-copy">
-                      <span className="agents-dropdown-title">Customer Support</span>
-                      <span className="agents-dropdown-subtitle">
-                        Automate tickets, resolve queries, and manage multi-channel conversations.
-                      </span>
-                    </div>
-                  </div>
-                </button>
               </div>
             </div>
           </div>
@@ -257,7 +244,6 @@ const Navigation: React.FC = () => {
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/cfo-finance', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>CFO & Finance</div>
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/customer-support', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Customer Support</div>
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/real-estate', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Real Estate</div>
-                <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/healthcare', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Customer Support</div>
               </div>
             )}
           </div>

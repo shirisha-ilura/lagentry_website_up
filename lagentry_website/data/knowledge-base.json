@@ -2,28 +2,44 @@
   "company": {
     "name": "Lagentry",
     "tagline": "AI Employee Platform for MENA",
-    "description": "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with AI employees for customer support, real estate, HR, and more.",
+    "description": "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with multi-channel AI employees for customer support, real estate, HR, and more.",
     "region_focus": "UAE and MENA",
-    "waitlist_size": "5000+",
+    "waitlist_size": "5,000+",
     "website": "https://lagentry.com",
-    "join_waitlist_url": "https://lagentry.com/waitlist"
+    "join_waitlist_url": "https://lagentry.com/waitlist",
+    "pricing_url": "https://lagentry.com/pricing",
+    "book_demo_url": "https://lagentry.com/book-demo"
   },
   "contacts": {
     "support_email": "support@lagentry.com",
     "sales_email": "sales@lagentry.com",
-    "phone": "+971-XX-XXX-XXXX"
+    "info_email": "info@lagentry.com",
+    "phone": "+971 50 3261064",
+    "website": "https://lagentry.com"
   },
   "agents": {
     "phase_one": [
-      "Customer Support AI Employee",
-      "Real Estate AI Employee",
-      "HR / Recruitment AI Employee"
+      {
+        "name": "Customer Support AI Employee",
+        "description": "Handles customer inquiries, support tickets, and provides 24/7 assistance",
+        "use_cases": ["Customer support", "Help desk", "FAQ handling", "Ticket management"]
+      },
+      {
+        "name": "Real Estate AI Employee",
+        "description": "Manages property inquiries, lead qualification, viewing scheduling",
+        "use_cases": ["Property inquiries", "Lead qualification", "Viewing scheduling", "Client communication"]
+      },
+      {
+        "name": "HR / Recruitment AI Employee",
+        "description": "Handles recruitment, candidate screening, and HR workflows",
+        "use_cases": ["Job screening", "Candidate interviews", "HR automation", "Recruitment workflows"]
+      }
     ],
     "channels": [
       "Website chat",
       "WhatsApp",
       "Email",
-      "Voice",
+      "Voice calling",
       "API and integrations"
     ]
   },
@@ -31,24 +47,35 @@
     "integrations": [
       "WhatsApp integration",
       "Email automation",
-      "CRM integration",
-      "Jira / ticketing tools",
-      "MCP integrations"
+      "CRM integration (HubSpot, Salesforce, etc.)",
+      "Jira / Ticketing",
+      "Voice AI",
+      "OCR (Optical Character Recognition)",
+      "Multi-language (Arabic/English primary, 500+ languages supported)",
+      "Embed on website (widgets and chat)",
+      "MCP integrations",
+      "1000+ apps via Composio"
     ],
     "ai_features": [
       "Voice AI and phone agents",
-      "OCR for reading documents and images (conceptual capability)",
-      "Multi-language support (Arabic and English as primary, others possible)",
-      "Website embedding (widgets and chat on site)"
+      "OCR for reading documents and images",
+      "Multi-language support (Arabic and English as primary, 500+ languages supported)",
+      "Website embedding (widgets and chat on site)",
+      "Voice cloning",
+      "Custom agent personalities",
+      "Workflow automation",
+      "Analytics and reporting"
     ]
   },
   "positioning": {
     "core_idea": "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
+    "unique_selling_proposition": "Lagentry replaces multiple expensive tools in ONE platform — for only $20 per month. Instead of paying for 4-6 separate platforms, you pay the price of a coffee and get fully working AI employees.",
     "target_users": [
       "SMEs in the UAE",
       "MENA businesses that need Arabic + English support",
-      "Teams that want AI to behave like employees (support, HR, real estate, sales)"
+      "Teams that want AI to behave like employees (support, HR, real estate, sales)",
+      "Small founders and early-stage startups",
+      "Agencies and operations teams"
     ]
   }
 }
-

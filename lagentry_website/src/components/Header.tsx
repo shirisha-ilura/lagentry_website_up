@@ -359,9 +359,23 @@ const Header: React.FC = () => {
     el.style.setProperty('--glowOpacity', '0');
   };
 
-  // If intro is no longer active (already played this load), render nothing.
-  if (!isActive) {
+  // If intro is no longer active (already played this load), but keepYearVisible is true,
+  // render only the 2025 element to keep it visible
+  if (!isActive && !keepYearVisible) {
     return null;
+  }
+  
+  // If keepYearVisible is true but header should be hidden, render only the 2025 element
+  if (!isActive && keepYearVisible && hideHeader) {
+    return (
+      <div className="header header-hidden lagentry-fullscreen" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999, pointerEvents: 'none' }}>
+        <div className="header-background">
+          <div className="background-lagentry-text visible">
+            <span className="lagentry-year">2025</span>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

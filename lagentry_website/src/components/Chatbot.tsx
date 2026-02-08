@@ -90,7 +90,16 @@ const Chatbot: React.FC = () => {
       setMessages((prev) => [...prev, assistantReply]);
     } catch (err: any) {
       console.error('Chat error:', err);
-      setError(err?.message || 'Something went wrong. Please try again.');
+      const errorMessage = err?.message || 'Something went wrong. Please try again.';
+      setError(errorMessage);
+      
+      // Add error message to chat for visibility
+      const errorMessageObj: ChatMessage = {
+        id: `error-${Date.now()}`,
+        role: 'assistant',
+        content: `Sorry, I encountered an error: ${errorMessage}. Please try again or contact support@lagentry.com for assistance.`
+      };
+      setMessages((prev) => [...prev, errorMessageObj]);
     } finally {
       setIsLoading(false);
     }
@@ -170,7 +179,18 @@ const Chatbot: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {error && <div className="chatbot-error">{error}</div>}
+          {error && (
+            <div className="chatbot-error">
+              {error}
+              <button 
+                className="chatbot-error-dismiss" 
+                onClick={() => setError(null)}
+                aria-label="Dismiss error"
+              >
+                ×
+              </button>
+            </div>
+          )}
 
           <form className="chatbot-input-form" onSubmit={handleSend}>
             <input
