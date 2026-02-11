@@ -13,6 +13,7 @@ const fetch = require('node-fetch');
 const WebSocket = require('ws');
 const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Load knowledge base from JSON file
 let knowledgeBase;
@@ -1010,6 +1011,96 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Price IDs mapping (these need to be created in Stripe Dashboard)
+const PRICE_IDS = {
+  'hobby-20-monthly': process.env.STRIPE_PRICE_ID_HOBBY_MONTHLY || 'price_hobby_monthly',
+  'hobby-20-yearly': process.env.STRIPE_PRICE_ID_HOBBY_YEARLY || 'price_hobby_yearly',
+  'startup-80-monthly': process.env.STRIPE_PRICE_ID_STARTUP_MONTHLY || 'price_startup_monthly',
+  'startup-80-yearly': process.env.STRIPE_PRICE_ID_STARTUP_YEARLY || 'price_startup_yearly',
+  'growth-100-monthly': process.env.STRIPE_PRICE_ID_GROWTH_MONTHLY || 'price_growth_monthly',
+  'growth-100-yearly': process.env.STRIPE_PRICE_ID_GROWTH_YEARLY || 'price_growth_yearly',
+};
+
+// Stripe Checkout Endpoint
+app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+
+    const { planId, isYearly, email } = req.body;
+
+    if (!planId) {
+      return res.status(400).json({
+        success: false,
+        error: 'Plan ID is required',
+      });
+    }
+
+    // Check if Stripe is configured
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.error('❌ Stripe secret key not configured');
+      return res.status(500).json({
+        success: false,
+        error: 'Payment processing is not configured. Please contact support.',
+      });
+    }
+
+    // Get the price ID based on plan and billing period
+    const priceKey = `${planId}-${isYearly ? 'yearly' : 'monthly'}`;
+    const priceId = PRICE_IDS[priceKey];
+
+    if (!priceId) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid plan: ${planId}`,
+      });
+    }
+
+    // Get base URL for success/cancel URLs
+    const baseUrl = process.env.FRONTEND_URL ||
+      (origin ? new URL(origin).origin : 'https://lagentry.com');
+
+    console.log(`💳 Creating Stripe session for ${priceKey} (${priceId})`);
+
+    // Create Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      mode: 'subscription',
+      success_url: `${baseUrl}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/pricing`,
+      customer_email: email || undefined,
+      metadata: {
+        planId,
+        isYearly: isYearly ? 'true' : 'false',
+      },
+    });
+
+    console.log('✅ Stripe checkout session created:', session.id);
+
+    return res.json({
+      success: true,
+      sessionId: session.id,
+      url: session.url,
+    });
+  } catch (error) {
+    console.error('❌ Error creating Stripe checkout session:', error);
+    const origin = req.headers.origin;
+    setCORSHeaders(res, origin);
+
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to create checkout session',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+    });
+  }
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
