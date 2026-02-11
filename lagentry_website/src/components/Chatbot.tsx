@@ -63,12 +63,12 @@ const Chatbot: React.FC = () => {
         payload.conversationId = conversationId;
       }
 
-      const response = await fetch('/api/chat/message', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      
+
 
       const data = await response.json().catch(() => ({}));
 
@@ -92,7 +92,7 @@ const Chatbot: React.FC = () => {
       console.error('Chat error:', err);
       const errorMessage = err?.message || 'Something went wrong. Please try again.';
       setError(errorMessage);
-      
+
       // Add error message to chat for visibility
       const errorMessageObj: ChatMessage = {
         id: `error-${Date.now()}`,
@@ -182,8 +182,8 @@ const Chatbot: React.FC = () => {
           {error && (
             <div className="chatbot-error">
               {error}
-              <button 
-                className="chatbot-error-dismiss" 
+              <button
+                className="chatbot-error-dismiss"
                 onClick={() => setError(null)}
                 aria-label="Dismiss error"
               >
