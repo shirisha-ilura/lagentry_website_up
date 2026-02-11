@@ -26,207 +26,207 @@ try {
   console.log('⚠️ Falling back to inline knowledge base');
   // Fallback to inline knowledge base
   knowledgeBase = {
-  company: {
-    name: "Lagentry",
-    tagline: "AI Employee Platform for MENA",
-    description: "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with AI employees for customer support, real estate, HR, and more.",
-    region_focus: "UAE and MENA",
-    waitlist_size: "5000+",
-    website: "https://lagentry.com",
-    join_waitlist_url: "https://lagentry.com/waitlist",
-    pricing_url: "https://lagentry.com/pricing"
-  },
-  contacts: {
-    support_email: "support@lagentry.com",
-    sales_email: "sales@lagentry.com",
-    info_email: "info@lagentry.com",
-    phone: "+971-XX-XXX-XXXX",
-    contact_page: "https://lagentry.com/contact",
-    book_demo_url: "https://lagentry.com/book-demo"
-  },
-  pricing: {
-    plans: [
-      {
-        id: "basic-free",
-        name: "Basic",
-        price: "$0",
-        period: "month",
-        description: "Perfect for individuals exploring AI Employees for the first time",
-        features: [
-          "1,000 credits on signup",
-          "Chat with any 1 AI Employee",
-          "Voice agents",
-          "Try conversational flows",
-          "Test knowledge base uploads",
-          "Insights & usage report",
-          "Community support",
-          "Access to Lagentry Marketplace",
-          "1000+ integrations"
-        ],
-        whoIsItFor: "Individuals, freelancers, and early testers who want to understand how Lagentry AI Employees work before committing."
-      },
-      {
-        id: "hobby-20",
-        name: "Hobby",
-        price: "$20",
-        period: "month",
-        description: "Ideal for small teams & solo founders getting started with automation",
-        features: [
-          "Everything in Basic, plus",
-          "Use any 2 AI Employees at a time",
-          "10,000 monthly credits",
-          "Deploy agents with chat widget + dashboard",
-          "Access to AI Employee templates",
-          "Voice agents",
-          "Multilingual support",
-          "Workflow editor",
-          "Analytics dashboard",
-          "Email integration",
-          "File upload for internal knowledge",
-          "1000+ integrations"
-        ],
-        whoIsItFor: "Small founders, early-stage startups, individual agents who want automation without heavy setup."
-      },
-      {
-        id: "startup-80",
-        name: "Startup",
-        price: "$80",
-        period: "month",
-        description: "For growing teams ready to deploy AI Employees into real workflows",
-        features: [
-          "Everything in Hobby, plus",
-          "Use up to 5 AI Employees at a time",
-          "50,000 monthly credits",
-          "Iframe Embeds",
-          "Voice agents",
-          "1000+ integrations",
-          "Advanced analytics & custom dashboards",
-          "Fine-tuning knowledge base",
-          "Team collaboration",
-          "Agent personality customization",
-          "Multi-language skill pack"
-        ],
-        whoIsItFor: "Startups & small businesses wanting to create automated workflows: customer support, property management, sales outreach automation, ticketing."
-      },
-      {
-        id: "growth-100",
-        name: "Growth",
-        price: "$100",
-        period: "month",
-        description: "Best for businesses scaling operations with multiple AI Employees",
-        features: [
-          "Everything in Startup, plus",
-          "Use up to 10 AI Employees at a time",
-          "100,000 monthly credits",
-          "Custom AI Employee builder",
-          "Priority access to new AI employee templates",
-          "Private deployment",
-          "Collaboration for up to 10 users",
-          "Voice agents",
-          "Full access to voice cloning",
-          "Advanced workflow automations",
-          "API access",
-          "Webhooks",
-          "CRM bi-directional sync",
-          "Advanced security: encryption, audit logs",
-          "1000+ integrations"
-        ],
-        whoIsItFor: "Agencies, operations teams, SME businesses scaling their support, sales, HR, finance, and real-estate flows using AI Employees."
-      }
-    ],
-    yearly_discount: "Save 2 months when paying yearly (10 months for the price of 12)",
-    note: "All plans include access to 1000+ integrations via Composio. Pricing is competitive compared to alternatives charging $99-$400 per seat or per agent."
-  },
-  agents: {
-    phase_one: [
-      {
-        name: "Customer Support AI Employee",
-        description: "Handles customer inquiries, support tickets, and provides 24/7 assistance",
-        use_cases: ["Customer support", "Help desk", "FAQ handling", "Ticket management"]
-      },
-      {
-        name: "Real Estate AI Employee",
-        description: "Manages property inquiries, lead qualification, viewing scheduling",
-        use_cases: ["Property inquiries", "Lead qualification", "Viewing scheduling", "Client communication"]
-      },
-      {
-        name: "HR / Recruitment AI Employee",
-        description: "Handles recruitment, candidate screening, and HR workflows",
-        use_cases: ["Job screening", "Candidate interviews", "HR automation", "Recruitment workflows"]
-      },
-      {
-        name: "Lead Qualification AI Employee (Layla)",
-        description: "Qualifies leads, understands business needs, and guides prospects",
-        use_cases: ["Sales outreach", "Lead qualification", "Business needs assessment", "Prospect engagement"]
-      }
-    ],
-    additional_agents: [
-      "Finance Agent",
-      "CFO Assistant",
-      "Debt Collection Agent",
-      "Healthcare Assistant",
-      "Automotive Agent"
-    ],
-    channels: [
-      "Website chat",
-      "WhatsApp",
-      "Email",
-      "Voice calling",
-      "API and integrations"
-    ],
-    capabilities: [
-      "24/7 availability",
-      "Multilingual support (500+ languages)",
-      "Voice cloning",
-      "Customizable scripts",
-      "Workflow automation",
-      "Knowledge base integration"
-    ]
-  },
-  capabilities: {
-    integrations: [
-      "WhatsApp integration",
-      "Email automation",
-      "CRM integration (HubSpot, Salesforce, etc.)",
-      "Jira / ticketing tools",
-      "MCP integrations",
-      "1000+ apps via Composio",
-      "Slack",
-      "Payment processors",
-      "Gmail",
-      "And many more"
-    ],
-    ai_features: [
-      "Voice AI and phone agents",
-      "OCR for reading documents and images",
-      "Multi-language support (Arabic and English as primary, 500+ languages supported)",
-      "Website embedding (widgets and chat on site)",
-      "Voice cloning",
-      "Custom agent personalities",
-      "Workflow automation",
-      "Analytics and reporting"
-    ]
-  },
-  positioning: {
-    core_idea: "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
-    unique_selling_proposition: "Lagentry replaces multiple expensive tools in ONE platform — for only $20 per month. Instead of paying for 4-6 separate platforms, you pay the price of a coffee and get fully working AI employees.",
-    target_users: [
-      "SMEs in the UAE",
-      "MENA businesses that need Arabic + English support",
-      "Teams that want AI to behave like employees (support, HR, real estate, sales)",
-      "Small founders and early-stage startups",
-      "Agencies and operations teams"
-    ],
-    advantages: [
-      "One unified system: Chat agents, voice agents, workflow automations — all inside one platform",
-      "Arabic-First / MENA-Native: Cultural & regulatory alignment",
-      "Enterprise integrations: 1000+ platforms",
-      "No-code: Absolutely no technical knowledge required",
-      "Business-ready workflows out of the box",
-      "Real-time deployment — agents go live instantly"
-    ]
-  }
-};
+    company: {
+      name: "Lagentry",
+      tagline: "AI Employee Platform for MENA",
+      description: "Lagentry is an AI Employee platform that lets businesses hire, deploy, and manage AI agents that behave like real employees. It focuses on SMEs in the UAE and wider MENA region, with AI employees for customer support, real estate, HR, and more.",
+      region_focus: "UAE and MENA",
+      waitlist_size: "5000+",
+      website: "https://lagentry.com",
+      join_waitlist_url: "https://lagentry.com/waitlist",
+      pricing_url: "https://lagentry.com/pricing"
+    },
+    contacts: {
+      support_email: "support@lagentry.com",
+      sales_email: "sales@lagentry.com",
+      info_email: "info@lagentry.com",
+      phone: "+971-XX-XXX-XXXX",
+      contact_page: "https://lagentry.com/contact",
+      book_demo_url: "https://lagentry.com/book-demo"
+    },
+    pricing: {
+      plans: [
+        {
+          id: "basic-free",
+          name: "Basic",
+          price: "$0",
+          period: "month",
+          description: "Perfect for individuals exploring AI Employees for the first time",
+          features: [
+            "1,000 credits on signup",
+            "Chat with any 1 AI Employee",
+            "Voice agents",
+            "Try conversational flows",
+            "Test knowledge base uploads",
+            "Insights & usage report",
+            "Community support",
+            "Access to Lagentry Marketplace",
+            "1000+ integrations"
+          ],
+          whoIsItFor: "Individuals, freelancers, and early testers who want to understand how Lagentry AI Employees work before committing."
+        },
+        {
+          id: "hobby-20",
+          name: "Hobby",
+          price: "$20",
+          period: "month",
+          description: "Ideal for small teams & solo founders getting started with automation",
+          features: [
+            "Everything in Basic, plus",
+            "Use any 2 AI Employees at a time",
+            "10,000 monthly credits",
+            "Deploy agents with chat widget + dashboard",
+            "Access to AI Employee templates",
+            "Voice agents",
+            "Multilingual support",
+            "Workflow editor",
+            "Analytics dashboard",
+            "Email integration",
+            "File upload for internal knowledge",
+            "1000+ integrations"
+          ],
+          whoIsItFor: "Small founders, early-stage startups, individual agents who want automation without heavy setup."
+        },
+        {
+          id: "startup-80",
+          name: "Startup",
+          price: "$80",
+          period: "month",
+          description: "For growing teams ready to deploy AI Employees into real workflows",
+          features: [
+            "Everything in Hobby, plus",
+            "Use up to 5 AI Employees at a time",
+            "50,000 monthly credits",
+            "Iframe Embeds",
+            "Voice agents",
+            "1000+ integrations",
+            "Advanced analytics & custom dashboards",
+            "Fine-tuning knowledge base",
+            "Team collaboration",
+            "Agent personality customization",
+            "Multi-language skill pack"
+          ],
+          whoIsItFor: "Startups & small businesses wanting to create automated workflows: customer support, property management, sales outreach automation, ticketing."
+        },
+        {
+          id: "growth-100",
+          name: "Growth",
+          price: "$100",
+          period: "month",
+          description: "Best for businesses scaling operations with multiple AI Employees",
+          features: [
+            "Everything in Startup, plus",
+            "Use up to 10 AI Employees at a time",
+            "100,000 monthly credits",
+            "Custom AI Employee builder",
+            "Priority access to new AI employee templates",
+            "Private deployment",
+            "Collaboration for up to 10 users",
+            "Voice agents",
+            "Full access to voice cloning",
+            "Advanced workflow automations",
+            "API access",
+            "Webhooks",
+            "CRM bi-directional sync",
+            "Advanced security: encryption, audit logs",
+            "1000+ integrations"
+          ],
+          whoIsItFor: "Agencies, operations teams, SME businesses scaling their support, sales, HR, finance, and real-estate flows using AI Employees."
+        }
+      ],
+      yearly_discount: "Save 2 months when paying yearly (10 months for the price of 12)",
+      note: "All plans include access to 1000+ integrations via Composio. Pricing is competitive compared to alternatives charging $99-$400 per seat or per agent."
+    },
+    agents: {
+      phase_one: [
+        {
+          name: "Customer Support AI Employee",
+          description: "Handles customer inquiries, support tickets, and provides 24/7 assistance",
+          use_cases: ["Customer support", "Help desk", "FAQ handling", "Ticket management"]
+        },
+        {
+          name: "Real Estate AI Employee",
+          description: "Manages property inquiries, lead qualification, viewing scheduling",
+          use_cases: ["Property inquiries", "Lead qualification", "Viewing scheduling", "Client communication"]
+        },
+        {
+          name: "HR / Recruitment AI Employee",
+          description: "Handles recruitment, candidate screening, and HR workflows",
+          use_cases: ["Job screening", "Candidate interviews", "HR automation", "Recruitment workflows"]
+        },
+        {
+          name: "Lead Qualification AI Employee (Layla)",
+          description: "Qualifies leads, understands business needs, and guides prospects",
+          use_cases: ["Sales outreach", "Lead qualification", "Business needs assessment", "Prospect engagement"]
+        }
+      ],
+      additional_agents: [
+        "Finance Agent",
+        "CFO Assistant",
+        "Debt Collection Agent",
+        "Healthcare Assistant",
+        "Automotive Agent"
+      ],
+      channels: [
+        "Website chat",
+        "WhatsApp",
+        "Email",
+        "Voice calling",
+        "API and integrations"
+      ],
+      capabilities: [
+        "24/7 availability",
+        "Multilingual support (500+ languages)",
+        "Voice cloning",
+        "Customizable scripts",
+        "Workflow automation",
+        "Knowledge base integration"
+      ]
+    },
+    capabilities: {
+      integrations: [
+        "WhatsApp integration",
+        "Email automation",
+        "CRM integration (HubSpot, Salesforce, etc.)",
+        "Jira / ticketing tools",
+        "MCP integrations",
+        "1000+ apps via Composio",
+        "Slack",
+        "Payment processors",
+        "Gmail",
+        "And many more"
+      ],
+      ai_features: [
+        "Voice AI and phone agents",
+        "OCR for reading documents and images",
+        "Multi-language support (Arabic and English as primary, 500+ languages supported)",
+        "Website embedding (widgets and chat on site)",
+        "Voice cloning",
+        "Custom agent personalities",
+        "Workflow automation",
+        "Analytics and reporting"
+      ]
+    },
+    positioning: {
+      core_idea: "Lagentry provides multi-channel AI employees that can handle entire workflows, not just answer FAQ-style questions.",
+      unique_selling_proposition: "Lagentry replaces multiple expensive tools in ONE platform — for only $20 per month. Instead of paying for 4-6 separate platforms, you pay the price of a coffee and get fully working AI employees.",
+      target_users: [
+        "SMEs in the UAE",
+        "MENA businesses that need Arabic + English support",
+        "Teams that want AI to behave like employees (support, HR, real estate, sales)",
+        "Small founders and early-stage startups",
+        "Agencies and operations teams"
+      ],
+      advantages: [
+        "One unified system: Chat agents, voice agents, workflow automations — all inside one platform",
+        "Arabic-First / MENA-Native: Cultural & regulatory alignment",
+        "Enterprise integrations: 1000+ platforms",
+        "No-code: Absolutely no technical knowledge required",
+        "Business-ready workflows out of the box",
+        "Real-time deployment — agents go live instantly"
+      ]
+    }
+  };
 }
 const {
   sendWaitlistConfirmationEmail,
@@ -247,13 +247,13 @@ const SUPABASE_URL = process.env.SUPABASE_URL || process.env.REACT_APP_SUPABASE_
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || process.env.REACT_APP_SUPABASE_ANON_KEY || '';
 
 // Initialize Supabase client
-const supabase = SUPABASE_KEY 
+const supabase = SUPABASE_KEY
   ? createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
-    })
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  })
   : null;
 
 if (!SUPABASE_KEY) {
@@ -969,7 +969,7 @@ function generateGoogleCalendarLink({ title, description, location, start, end }
   const formatDateForCalendar = (date) => {
     return date.toISOString().replace(/-|:|\.\d{3}/g, '');
   };
-  
+
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: title,
@@ -977,7 +977,7 @@ function generateGoogleCalendarLink({ title, description, location, start, end }
     details: description,
     location: location,
   });
-  
+
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
@@ -1039,7 +1039,7 @@ app.get('/api/test-composio-connectivity', async (req, res) => {
     // but without relying on environment variables so we can detect
     // DNS / connectivity issues even when COMPOSIO_APPS_URL is unset.
     const testUrl = 'https://backend.composio.dev/api/v1/apps?limit=1';
-    
+
     try {
       const response = await fetch(testUrl, {
         method: 'GET',
@@ -1049,7 +1049,7 @@ app.get('/api/test-composio-connectivity', async (req, res) => {
         // Add a short timeout
         signal: AbortSignal.timeout(5000),
       });
-      
+
       return res.status(200).json({
         success: true,
         reachable: true,
@@ -1096,7 +1096,7 @@ app.get('/api/verify-composio', async (req, res) => {
     setCORSHeaders(res, origin);
 
     const apiKey = process.env.COMPOSIO_API_KEY;
-    
+
     // Check if key exists
     if (!apiKey) {
       return res.status(200).json({
@@ -1120,10 +1120,10 @@ app.get('/api/verify-composio', async (req, res) => {
     const baseUrl =
       process.env.COMPOSIO_APPS_URL ||
       'https://backend.composio.dev/api/v1/apps';
-    
+
     // Make a minimal API call to verify the key works
     const testUrl = `${baseUrl}?limit=1`;
-    
+
     try {
       const response = await fetch(testUrl, {
         method: 'GET',
@@ -1173,15 +1173,15 @@ app.get('/api/verify-composio', async (req, res) => {
       }
     } catch (fetchError) {
       // Check if it's a DNS/network error
-      const isNetworkError = fetchError.message.includes('ENOTFOUND') || 
-                            fetchError.message.includes('ECONNREFUSED') ||
-                            fetchError.message.includes('getaddrinfo');
-      
+      const isNetworkError = fetchError.message.includes('ENOTFOUND') ||
+        fetchError.message.includes('ECONNREFUSED') ||
+        fetchError.message.includes('getaddrinfo');
+
       return res.status(200).json({
         success: false,
         connected: false,
         error: isNetworkError ? 'Network connectivity issue' : 'Failed to connect to Composio API',
-        message: isNetworkError 
+        message: isNetworkError
           ? 'The API key is configured, but your server cannot reach Composio\'s API servers. This is likely a network/DNS/firewall issue, not an API key problem.'
           : 'The API key exists but we could not verify it with Composio servers.',
         details: {
@@ -1226,7 +1226,7 @@ app.post('/api/contact', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { name, email } = req.body;
 
     // Validate input
@@ -1291,10 +1291,10 @@ app.post('/api/contact', async (req, res) => {
     }
 
     // Log the contact submission if Supabase is not configured
-    console.log('Contact form submission (not saved to DB):', { 
-      name, 
-      email, 
-      timestamp: new Date().toISOString() 
+    console.log('Contact form submission (not saved to DB):', {
+      name,
+      email,
+      timestamp: new Date().toISOString()
     });
 
     // Return success response
@@ -1318,7 +1318,7 @@ app.post('/api/waitlist', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { email, name, company, designation } = req.body;
 
     // Validate input
@@ -1371,7 +1371,7 @@ app.post('/api/waitlist', async (req, res) => {
               duplicate: true
             });
           }
-          
+
           // Check if it's a table not found error
           if (error.code === 'PGRST116' || error.message?.includes('relation') || error.message?.includes('does not exist')) {
             console.error('⚠️ Table "waitlist" does not exist in Supabase. Please create it first.');
@@ -1382,7 +1382,7 @@ app.post('/api/waitlist', async (req, res) => {
               hint: 'The waitlist table needs to be created in Supabase'
             });
           }
-          
+
           // Check if it's an RLS (Row Level Security) policy error
           if (error.code === '42501' || error.message?.includes('permission denied') || error.message?.includes('new row violates row-level security')) {
             console.error('⚠️ RLS Policy Error: Insert operation is blocked by Row Level Security.');
@@ -1395,7 +1395,7 @@ app.post('/api/waitlist', async (req, res) => {
               hint: 'Go to Supabase Dashboard > Table Editor > waitlist > RLS policies > Create policy to allow INSERT'
             });
           }
-          
+
           console.error('Full error object:', error);
           return res.status(500).json({
             success: false,
@@ -1408,23 +1408,25 @@ app.post('/api/waitlist', async (req, res) => {
         }
 
         console.log('✅ Waitlist entry saved to Supabase successfully:', data);
-        
-        // Send waitlist confirmation email (non-blocking)
+
+        // Send waitlist confirmation email (waited for Vercel reliability)
         console.log('📧 Attempting to send waitlist confirmation email to:', email.trim());
-        sendWaitlistConfirmationEmail({
-          email: email.trim(),
-          name: name?.trim() || ''
-        }).then(result => {
+        try {
+          const result = await sendWaitlistConfirmationEmail({
+            email: email.trim(),
+            name: name?.trim() || ''
+          });
+
           if (result.success) {
             console.log('✅ Waitlist confirmation email sent successfully! Message ID:', result.messageId);
           } else {
             console.error('❌ Failed to send waitlist confirmation email:', result.error);
           }
-        }).catch(err => {
+        } catch (err) {
           console.error('❌ Error sending waitlist confirmation email:', err);
           console.error('Error details:', err.message || err);
-        });
-        
+        }
+
         return res.json({
           success: true,
           message: 'Successfully joined the waitlist!',
@@ -1442,26 +1444,28 @@ app.post('/api/waitlist', async (req, res) => {
     }
 
     // Log the waitlist submission if Supabase is not configured
-    console.log('Waitlist submission (not saved to DB):', { 
+    console.log('Waitlist submission (not saved to DB):', {
       email: email.trim(),
-      timestamp: new Date().toISOString() 
+      timestamp: new Date().toISOString()
     });
 
-    // Send waitlist confirmation email even if DB is not configured (non-blocking)
+    // Send waitlist confirmation email even if DB is not configured (waited for Vercel reliability)
     console.log('📧 Attempting to send waitlist confirmation email to:', email.trim());
-    sendWaitlistConfirmationEmail({
-      email: email.trim(),
-      name: name?.trim() || ''
-    }).then(result => {
+    try {
+      const result = await sendWaitlistConfirmationEmail({
+        email: email.trim(),
+        name: name?.trim() || ''
+      });
+
       if (result.success) {
         console.log('✅ Waitlist confirmation email sent successfully! Message ID:', result.messageId);
       } else {
         console.error('❌ Failed to send waitlist confirmation email:', result.error);
       }
-    }).catch(err => {
+    } catch (err) {
       console.error('❌ Error sending waitlist confirmation email:', err);
       console.error('Error details:', err.message || err);
-    });
+    }
 
     // Return success response even if DB is not configured
     res.json({
@@ -1483,7 +1487,7 @@ app.post('/api/waitlist', async (req, res) => {
 function getBackendUrl(req) {
   // First try environment variables
   let backendUrl = process.env.BACKEND_URL || process.env.SERVER_URL;
-  
+
   if (!backendUrl) {
     // Try to use Vercel URL if available
     if (process.env.VERCEL_URL) {
@@ -1500,13 +1504,13 @@ function getBackendUrl(req) {
         backendUrl = `${protocol}://${host}`;
       }
     }
-    
+
     // Final fallbacks
     if (!backendUrl) {
       backendUrl = process.env.FRONTEND_URL || 'https://lagentry.com';
     }
   }
-  
+
   return backendUrl;
 }
 
@@ -1515,18 +1519,18 @@ app.post('/api/book-demo', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
-    const { 
-      name, 
-      email, 
-      phone, 
-      company, 
-      companySize, 
+
+    const {
+      name,
+      email,
+      phone,
+      company,
+      companySize,
       agentOfInterest,
-      message, 
-      bookingDate, 
-      bookingTime, 
-      bookingDateTime 
+      message,
+      bookingDate,
+      bookingTime,
+      bookingDateTime
     } = req.body;
 
     // Validate required fields
@@ -1579,11 +1583,11 @@ app.post('/api/book-demo', async (req, res) => {
                 .from('user_submissions')
                 .insert([insertData])
                 .select(),
-              new Promise((_, reject) => 
+              new Promise((_, reject) =>
                 setTimeout(() => reject(new Error('Connection timeout after 20 seconds')), 20000)
               )
             ]);
-            
+
             data = result.data;
             error = result.error;
             break; // Success, exit retry loop
@@ -1612,7 +1616,7 @@ app.post('/api/book-demo', async (req, res) => {
           console.error('Error message:', error.message);
           console.error('Error details:', JSON.stringify(error, null, 2));
           console.warn('⚠️ Database save failed, but continuing to send emails...');
-          
+
           // Don't return early - continue to send emails even if DB fails
         } else {
           console.log('✅ Demo booking saved to Supabase successfully');
@@ -1635,7 +1639,7 @@ app.post('/api/book-demo', async (req, res) => {
         meetingDate.setHours(parseInt(hours), parseInt(minutes || '0'), 0);
         const endDate = new Date(meetingDate);
         endDate.setHours(endDate.getHours() + 1); // 1 hour meeting
-        
+
         const meetingLink = generateGoogleCalendarLink({
           title: 'Lagentry Demo',
           description: `Demo for ${name.trim()} - Agent: ${agentOfInterest || 'General'}`,
@@ -1648,51 +1652,55 @@ app.post('/api/book-demo', async (req, res) => {
         const backendUrl = getBackendUrl(req);
         const rescheduleLink = `${backendUrl}/reschedule-demo?token=${bookingInfo}`;
         const cancelLink = `${backendUrl}/cancel-demo?token=${bookingInfo}`;
-        
+
         console.log('🔗 Generated reschedule/cancel links:', { backendUrl, rescheduleLink, cancelLink });
 
-        // Send confirmation email to user (non-blocking) - ALWAYS send, even if DB failed
+        // Send confirmation email to user (waited for Vercel reliability) - ALWAYS send, even if DB failed
         console.log('📧 Attempting to send demo confirmation email to user:', email.trim());
-        sendDemoConfirmationEmail({
-          email: email.trim(),
-          name: name.trim(),
-          dateTime: bookingDateTime || meetingDate.toISOString(),
-          meetingLink: meetingLink,
-          agentName: agentOfInterest || 'General',
-          userRequirement: message?.trim() || '',
-          rescheduleLink: rescheduleLink,
-          cancelLink: cancelLink
-        }).then(result => {
+        try {
+          const result = await sendDemoConfirmationEmail({
+            email: email.trim(),
+            name: name.trim(),
+            dateTime: bookingDateTime || meetingDate.toISOString(),
+            meetingLink: meetingLink,
+            agentName: agentOfInterest || 'General',
+            userRequirement: message?.trim() || '',
+            rescheduleLink: rescheduleLink,
+            cancelLink: cancelLink
+          });
+
           if (result.success) {
             console.log('✅ Demo confirmation email sent to user successfully! Message ID:', result.messageId);
           } else {
             console.error('❌ Failed to send demo confirmation email to user:', result.error);
           }
-        }).catch(err => {
+        } catch (err) {
           console.error('❌ Error sending demo confirmation email to user:', err);
-        });
+        }
 
-        // Send notification email to internal team (non-blocking) - ALWAYS send, even if DB failed
+        // Send notification email to internal team (waited for Vercel reliability) - ALWAYS send, even if DB failed
         console.log('📧 Attempting to send demo notification email to company:', COMPANY_EMAIL);
-        sendDemoInternalNotification({
-          name: name.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
-          company: company?.trim() || '',
-          companySize: companySize?.trim() || '',
-          dateTime: bookingDateTime || meetingDate.toISOString(),
-          meetingLink: meetingLink,
-          agentName: agentOfInterest || 'General',
-          userRequirement: message?.trim() || ''
-        }).then(result => {
+        try {
+          const result = await sendDemoInternalNotification({
+            name: name.trim(),
+            email: email.trim(),
+            phone: phone.trim(),
+            company: company?.trim() || '',
+            companySize: companySize?.trim() || '',
+            dateTime: bookingDateTime || meetingDate.toISOString(),
+            meetingLink: meetingLink,
+            agentName: agentOfInterest || 'General',
+            userRequirement: message?.trim() || ''
+          });
+
           if (result.success) {
             console.log('✅ Demo internal notification email sent successfully! Message ID:', result.messageId);
           } else {
             console.error('❌ Failed to send demo internal notification email:', result.error);
           }
-        }).catch(err => {
+        } catch (err) {
           console.error('❌ Error sending demo internal notification email:', err);
-        });
+        }
 
         // Return success even if DB failed (emails are more important)
         if (error) {
@@ -1722,14 +1730,14 @@ app.post('/api/book-demo', async (req, res) => {
     }
 
     // Log the booking if Supabase is not configured
-    console.log('Demo booking (not saved to DB):', { 
+    console.log('Demo booking (not saved to DB):', {
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
       company: company?.trim() || '',
       bookingDate,
       bookingTime,
-      timestamp: new Date().toISOString() 
+      timestamp: new Date().toISOString()
     });
 
     // Generate booking token for reschedule/cancel links
@@ -1747,7 +1755,7 @@ app.post('/api/book-demo', async (req, res) => {
     meetingDate.setHours(parseInt(hours), parseInt(minutes || '0'), 0);
     const endDate = new Date(meetingDate);
     endDate.setHours(endDate.getHours() + 1); // 1 hour meeting
-    
+
     const meetingLink = generateGoogleCalendarLink({
       title: 'Lagentry Demo',
       description: `Demo for ${name.trim()} - Agent: ${agentOfInterest || 'General'}`,
@@ -1760,51 +1768,55 @@ app.post('/api/book-demo', async (req, res) => {
     const backendUrl = getBackendUrl(req);
     const rescheduleLink = `${backendUrl}/reschedule-demo?token=${bookingInfo}`;
     const cancelLink = `${backendUrl}/cancel-demo?token=${bookingInfo}`;
-    
+
     console.log('🔗 Generated reschedule/cancel links:', { backendUrl, rescheduleLink, cancelLink });
 
-    // Send confirmation email to user (non-blocking)
+    // Send confirmation email to user (waited for Vercel reliability)
     console.log('📧 Attempting to send demo confirmation email to user:', email.trim());
-    sendDemoConfirmationEmail({
-      email: email.trim(),
-      name: name.trim(),
-      dateTime: bookingDateTime || meetingDate.toISOString(),
-      meetingLink: meetingLink,
-      agentName: agentOfInterest || 'General',
-      userRequirement: message?.trim() || '',
-      rescheduleLink: rescheduleLink,
-      cancelLink: cancelLink
-    }).then(result => {
+    try {
+      const result = await sendDemoConfirmationEmail({
+        email: email.trim(),
+        name: name.trim(),
+        dateTime: bookingDateTime || meetingDate.toISOString(),
+        meetingLink: meetingLink,
+        agentName: agentOfInterest || 'General',
+        userRequirement: message?.trim() || '',
+        rescheduleLink: rescheduleLink,
+        cancelLink: cancelLink
+      });
+
       if (result.success) {
         console.log('✅ Demo confirmation email sent to user successfully! Message ID:', result.messageId);
       } else {
         console.error('❌ Failed to send demo confirmation email to user:', result.error);
       }
-    }).catch(err => {
+    } catch (err) {
       console.error('❌ Error sending demo confirmation email to user:', err);
-    });
+    }
 
-    // Send notification email to internal team (non-blocking)
+    // Send notification email to internal team (waited for Vercel reliability)
     console.log('📧 Attempting to send demo notification email to company:', COMPANY_EMAIL);
-    sendDemoInternalNotification({
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      company: company?.trim() || '',
-      companySize: companySize?.trim() || '',
-      dateTime: bookingDateTime || meetingDate.toISOString(),
-      meetingLink: meetingLink,
-      agentName: agentOfInterest || 'General',
-      userRequirement: message?.trim() || ''
-    }).then(result => {
+    try {
+      const result = await sendDemoInternalNotification({
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        company: company?.trim() || '',
+        companySize: companySize?.trim() || '',
+        dateTime: bookingDateTime || meetingDate.toISOString(),
+        meetingLink: meetingLink,
+        agentName: agentOfInterest || 'General',
+        userRequirement: message?.trim() || ''
+      });
+
       if (result.success) {
         console.log('✅ Demo internal notification email sent successfully! Message ID:', result.messageId);
       } else {
         console.error('❌ Failed to send demo internal notification email:', result.error);
       }
-    }).catch(err => {
+    } catch (err) {
       console.error('❌ Error sending demo internal notification email:', err);
-    });
+    }
 
     // Return success response even if DB is not configured
     res.json({
@@ -1827,7 +1839,7 @@ app.post('/api/newsletter', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { email, name } = req.body;
 
     // Validate input
@@ -1879,13 +1891,15 @@ app.post('/api/newsletter', async (req, res) => {
       }
     }
 
-    // Send newsletter welcome email (non-blocking)
-    sendNewsletterWelcomeEmail({
-      email: email.trim(),
-      name: name?.trim() || ''
-    }).catch(err => {
+    // Send newsletter welcome email (waited for Vercel reliability)
+    try {
+      await sendNewsletterWelcomeEmail({
+        email: email.trim(),
+        name: name?.trim() || ''
+      });
+    } catch (err) {
       console.error('Failed to send newsletter welcome email:', err);
-    });
+    }
 
     res.json({
       success: true,
@@ -1907,9 +1921,9 @@ app.get('/api/available-slots', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { date } = req.query;
-    
+
     if (!date) {
       return res.status(400).json({
         success: false,
@@ -1942,13 +1956,13 @@ app.get('/api/available-slots', async (req, res) => {
 
     // Filter out past slots
     let availableSlots = allTimeSlots;
-    
+
     // If selected date is today, filter out past times
     if (selectedDay.getTime() === today.getTime()) {
       const currentHour = now.getHours();
       const currentMinute = now.getMinutes();
       const currentTime = currentHour * 60 + currentMinute; // minutes since midnight
-      
+
       availableSlots = allTimeSlots.filter(slot => {
         const [hours, minutes] = slot.split(':').map(Number);
         const slotTime = hours * 60 + minutes;
@@ -1962,7 +1976,7 @@ app.get('/api/available-slots', async (req, res) => {
       try {
         // Format date for query (YYYY-MM-DD)
         const dateStr = selectedDate.toISOString().split('T')[0];
-        
+
         const { data, error } = await supabase
           .from('user_submissions')
           .select('selected_time, status')
@@ -2036,7 +2050,7 @@ app.get('/reschedule-demo', async (req, res) => {
         </html>
       `);
     }
-    
+
     // Decode booking info
     let bookingInfo;
     try {
@@ -2044,7 +2058,7 @@ app.get('/reschedule-demo', async (req, res) => {
     } catch (e) {
       return res.status(400).send('<html><body><h1>Invalid token</h1></body></html>');
     }
-    
+
     // Return reschedule page with calendar and available slots
     const backendUrl = getBackendUrl(req);
     res.send(`
@@ -2317,7 +2331,7 @@ app.post('/api/reschedule-demo', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { email, name, dateTime, meetingLink, bookingId, bookingDate, bookingTime } = req.body;
 
     // Validate input
@@ -2354,7 +2368,7 @@ app.post('/api/reschedule-demo', async (req, res) => {
     // Generate meeting link (always generate new one for rescheduled time)
     let finalMeetingLink = meetingLink;
     let meetingDate;
-    
+
     // Use bookingDate and bookingTime if provided (from calendar selection)
     if (bookingDate && bookingTime) {
       meetingDate = new Date(bookingDate);
@@ -2364,11 +2378,11 @@ app.post('/api/reschedule-demo', async (req, res) => {
       // Fallback to dateTime if bookingDate/Time not provided
       meetingDate = new Date(dateTime);
     }
-    
+
     if (meetingDate && !finalMeetingLink) {
       const endDate = new Date(meetingDate);
       endDate.setHours(endDate.getHours() + 1);
-      
+
       finalMeetingLink = generateGoogleCalendarLink({
         title: 'Lagentry Demo',
         description: `Demo for ${name || 'Guest'}`,
@@ -2426,7 +2440,7 @@ app.get('/cancel-demo', async (req, res) => {
         </html>
       `);
     }
-    
+
     // Decode booking info
     let bookingInfo;
     try {
@@ -2434,7 +2448,7 @@ app.get('/cancel-demo', async (req, res) => {
     } catch (e) {
       return res.status(400).send('<html><body><h1>Invalid token</h1></body></html>');
     }
-    
+
     // Return simple cancel confirmation page
     res.send(`
       <!DOCTYPE html>
@@ -2497,7 +2511,7 @@ app.post('/api/cancel-demo', async (req, res) => {
   try {
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     const { email, name, bookingId } = req.body;
 
     // Validate input
@@ -2657,7 +2671,7 @@ app.post('/api/start-voice-call', async (req, res) => {
 
     // Use fixed assistant IDs instead of creating new assistants
     const agentId = FIXED_ASSISTANT_IDS[agentType];
-    
+
     if (!agentId) {
       return res.status(400).json({
         success: false,
@@ -2666,7 +2680,7 @@ app.post('/api/start-voice-call', async (req, res) => {
     }
 
     console.log(`Using fixed assistant ID for ${agentType}:`, agentId);
-    
+
     // If userName is provided, we'll pass it as {{customer_name}} to the agent
     // The agent prompt should handle this variable
     if (userName && userName.trim()) {
@@ -2867,7 +2881,7 @@ app.post('/api/end-conversation/:conversationId', (req, res) => {
 // Simple in-memory storage for conversations (can be replaced with file-based storage if needed)
 const chatStorage = {
   conversations: new Map(), // conversationId -> { id, status, created_at, updated_at, handoff_status, messages: [] }
-  
+
   // Get or create conversation
   getOrCreateConversation(conversationId) {
     if (!this.conversations.has(conversationId)) {
@@ -2885,7 +2899,7 @@ const chatStorage = {
     }
     return this.conversations.get(conversationId);
   },
-  
+
   // Take over conversation (human handoff)
   takeOver(conversationId, adminEmail) {
     const conv = this.getOrCreateConversation(conversationId);
@@ -2895,7 +2909,7 @@ const chatStorage = {
     conv.updated_at = new Date().toISOString();
     return conv;
   },
-  
+
   // Release conversation back to bot
   releaseToBot(conversationId) {
     const conv = this.getOrCreateConversation(conversationId);
@@ -2905,32 +2919,32 @@ const chatStorage = {
     conv.updated_at = new Date().toISOString();
     return conv;
   },
-  
+
   // Check if conversation needs human attention
   needsHumanAttention(conversationId) {
     const conv = this.conversations.get(conversationId);
     if (!conv) return false;
-    
+
     // Check for escalation triggers in recent messages
     const recentMessages = conv.messages.slice(-5);
     const userMessages = recentMessages.filter(m => m.role === 'user');
-    
+
     // Check for explicit human requests
     const humanRequestKeywords = [
-      'human', 'person', 'agent', 'representative', 'support', 
+      'human', 'person', 'agent', 'representative', 'support',
       'talk to someone', 'speak with', 'help me', 'escalate'
     ];
-    
+
     for (const msg of userMessages) {
       const content = msg.content.toLowerCase();
       if (humanRequestKeywords.some(keyword => content.includes(keyword))) {
         return true;
       }
     }
-    
+
     return false;
   },
-  
+
   // Add message to conversation
   addMessage(conversationId, role, content) {
     const conv = this.getOrCreateConversation(conversationId);
@@ -2944,13 +2958,13 @@ const chatStorage = {
     conv.updated_at = new Date().toISOString();
     return message;
   },
-  
+
   // Get conversation messages
   getMessages(conversationId) {
     const conv = this.conversations.get(conversationId);
     return conv ? conv.messages : [];
   },
-  
+
   // Get all conversations
   getAllConversations() {
     return Array.from(this.conversations.values()).map(conv => ({
@@ -2961,7 +2975,7 @@ const chatStorage = {
       messageCount: conv.messages.length
     })).sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
   },
-  
+
   // Take over conversation (human handoff)
   takeOver(conversationId, adminEmail) {
     const conv = this.getOrCreateConversation(conversationId);
@@ -2971,7 +2985,7 @@ const chatStorage = {
     conv.updated_at = new Date().toISOString();
     return conv;
   },
-  
+
   // Release conversation back to bot
   releaseToBot(conversationId) {
     const conv = this.getOrCreateConversation(conversationId);
@@ -2981,29 +2995,29 @@ const chatStorage = {
     conv.updated_at = new Date().toISOString();
     return conv;
   },
-  
+
   // Check if conversation needs human attention
   needsHumanAttention(conversationId) {
     const conv = this.conversations.get(conversationId);
     if (!conv) return false;
-    
+
     // Check for escalation triggers in recent messages
     const recentMessages = conv.messages.slice(-5);
     const userMessages = recentMessages.filter(m => m.role === 'user');
-    
+
     // Check for explicit human requests
     const humanRequestKeywords = [
-      'human', 'person', 'agent', 'representative', 'support', 
+      'human', 'person', 'agent', 'representative', 'support',
       'talk to someone', 'speak with', 'help me', 'escalate'
     ];
-    
+
     for (const msg of userMessages) {
       const content = msg.content.toLowerCase();
       if (humanRequestKeywords.some(keyword => content.includes(keyword))) {
         return true;
       }
     }
-    
+
     return false;
   }
 };
@@ -3011,9 +3025,9 @@ const chatStorage = {
 // Format knowledge base from JSON for system prompt
 function formatKnowledgeBaseForPrompt(kb) {
   if (!kb) return '';
-  
+
   let formatted = `\n=== LAGENTRY KNOWLEDGE BASE ===\n\n`;
-  
+
   // Company Info
   if (kb.company) {
     formatted += `COMPANY:\n`;
@@ -3027,7 +3041,7 @@ function formatKnowledgeBaseForPrompt(kb) {
     formatted += `- Pricing: ${kb.company.pricing_url}\n`;
     formatted += `- Book Demo: ${kb.company.book_demo_url}\n\n`;
   }
-  
+
   // Contacts
   if (kb.contacts) {
     formatted += `CONTACT INFORMATION:\n`;
@@ -3037,7 +3051,7 @@ function formatKnowledgeBaseForPrompt(kb) {
     formatted += `- Phone: ${kb.contacts.phone}\n`;
     formatted += `- Website: ${kb.contacts.website}\n\n`;
   }
-  
+
   // Agents
   if (kb.agents) {
     formatted += `AVAILABLE AI EMPLOYEES (Phase 1):\n`;
@@ -3055,7 +3069,7 @@ function formatKnowledgeBaseForPrompt(kb) {
     }
     formatted += `\nDeployment Channels: ${kb.agents.channels ? kb.agents.channels.join(', ') : 'N/A'}\n\n`;
   }
-  
+
   // Capabilities
   if (kb.capabilities) {
     formatted += `CAPABILITIES:\n`;
@@ -3067,7 +3081,7 @@ function formatKnowledgeBaseForPrompt(kb) {
     }
     formatted += `\n`;
   }
-  
+
   // Positioning
   if (kb.positioning) {
     formatted += `POSITIONING:\n`;
@@ -3079,7 +3093,7 @@ function formatKnowledgeBaseForPrompt(kb) {
       formatted += `- Target Users: ${kb.positioning.target_users.join(', ')}\n`;
     }
   }
-  
+
   return formatted;
 }
 
@@ -3255,16 +3269,16 @@ app.post('/api/chat', async (req, res) => {
         error: 'Message is required'
       });
     }
-    
+
     console.log('✅ Message received:', message.substring(0, 50) + '...');
 
     const historyMessages = Array.isArray(history)
       ? history
-          .slice(-6)
-          .map((m) => ({
-            role: m.role === 'assistant' ? 'assistant' : 'user',
-            content: String(m.content || '').slice(0, 2000)
-          }))
+        .slice(-6)
+        .map((m) => ({
+          role: m.role === 'assistant' ? 'assistant' : 'user',
+          content: String(m.content || '').slice(0, 2000)
+        }))
       : [];
 
     const payload = {
@@ -3300,12 +3314,12 @@ app.post('/api/chat', async (req, res) => {
       const text = await openaiResponse.text();
       console.error('❌ OpenAI API error (lightweight chat):', openaiResponse.status);
       console.error('❌ Response body:', text);
-      
+
       let errorMessage = 'Failed to get a response from the assistant.';
       try {
         const errorData = JSON.parse(text);
         console.error('❌ Parsed error data:', JSON.stringify(errorData, null, 2));
-        
+
         if (errorData.error?.code === 'insufficient_quota' || errorData.error?.message?.includes('quota') || errorData.error?.message?.includes('exceeded')) {
           errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing and quota settings at https://platform.openai.com/account/billing.';
         } else if (errorData.error?.code === 'invalid_api_key') {
@@ -3317,7 +3331,7 @@ app.post('/api/chat', async (req, res) => {
         console.error('❌ Failed to parse error response:', e);
         console.error('❌ Raw error text:', text);
       }
-      
+
       setCORSHeaders(res, origin);
       return res.status(500).json({
         success: false,
@@ -3351,211 +3365,211 @@ app.post(
   ['/api/chat/message', '/api/chat/message/'],
   async (req, res) => {
 
-  let currentConversationId = null;
-  
-  try {
-    const origin = req.headers.origin;
-    setCORSHeaders(res, origin);
+    let currentConversationId = null;
 
-    const { message, conversationId } = req.body;
+    try {
+      const origin = req.headers.origin;
+      setCORSHeaders(res, origin);
 
-    if (!message || typeof message !== 'string') {
-      return res.status(400).json({
-        success: false,
-        error: 'Message is required',
-      });
-    }
+      const { message, conversationId } = req.body;
 
-    // Get or create conversation ID
-    currentConversationId = conversationId;
-    const isNewConversation = !currentConversationId;
-    if (!currentConversationId) {
-      currentConversationId = crypto.randomUUID();
-    }
-
-    // Get conversation to check handoff status
-    const conversation = chatStorage.getOrCreateConversation(currentConversationId);
-    
-    // If human has taken over, don't process with bot
-    if (conversation.handoff_status === 'human') {
-      // Save user message but don't process with AI
-      chatStorage.addMessage(currentConversationId, 'user', message);
-      
-      return res.json({
-        success: true,
-        conversationId: currentConversationId,
-        messageId: crypto.randomUUID(),
-        response: null, // No bot response - waiting for human
-        handoff_status: 'human',
-      });
-    }
-
-    // Save user message to storage
-    chatStorage.addMessage(currentConversationId, 'user', message);
-    
-    // Send email notification for new conversations
-    if (isNewConversation) {
-      try {
-        const { sendChatNotificationEmail } = require('./emailService');
-        if (sendChatNotificationEmail) {
-          await sendChatNotificationEmail({
-            conversationId: currentConversationId,
-            userMessage: message,
-            timestamp: new Date().toISOString(),
-          });
-        }
-      } catch (emailError) {
-        console.error('Failed to send chat notification email:', emailError);
-        // Don't fail the request if email fails
+      if (!message || typeof message !== 'string') {
+        return res.status(400).json({
+          success: false,
+          error: 'Message is required',
+        });
       }
-    }
-    
-    // Check if conversation needs human attention
-    const needsHuman = chatStorage.needsHumanAttention(currentConversationId);
-    if (needsHuman && conversation.handoff_status === 'bot') {
-      // Auto-escalate to human (optional - can be disabled)
-      // For now, just flag it but continue with bot response
-      console.log(`⚠️ Conversation ${currentConversationId} may need human attention`);
-    }
 
-    // Get conversation history
-    const conversationMessages = chatStorage.getMessages(currentConversationId);
-    const conversationHistory = conversationMessages
-      .slice(-20) // Last 20 messages for context
-      .map(msg => ({
-        role: msg.role,
-        content: msg.content,
-      }));
-
-    // Prepare messages for OpenAI
-    const messages = [
-      { role: 'system', content: CHATBOT_SYSTEM_PROMPT },
-      ...conversationHistory,
-      { role: 'user', content: message },
-    ];
-
-    // Call OpenAI API
-    if (!OPENAI_API_KEY) {
-      console.warn('⚠️ OpenAI API key not configured. Using fallback response.');
-      return res.json({
-        success: true,
-        conversationId: currentConversationId,
-        messageId: crypto.randomUUID(),
-        response: 'I apologize, but the AI service is currently being configured. Please contact us at info@lagentry.com for assistance, or visit our website to learn more about Lagentry.',
-      });
-    }
-
-    console.log('Calling OpenAI API...');
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 500,
-      }),
-    });
-
-    if (!openaiResponse.ok) {
-      const errorData = await openaiResponse.text();
-      console.error('❌ OpenAI API error response:', openaiResponse.status, openaiResponse.statusText);
-      console.error('❌ Error details:', errorData);
-      
-      // Try to parse error for better message
-      let errorMessage = 'Failed to get AI response';
-      let errorCode = null;
-      let isQuotaError = false;
-      
-      try {
-        const errorJson = JSON.parse(errorData);
-        errorMessage = errorJson.error?.message || errorMessage;
-        errorCode = errorJson.error?.code || null;
-        isQuotaError = openaiResponse.status === 429 || 
-                      errorCode === 'insufficient_quota' || 
-                      errorMessage.toLowerCase().includes('quota') ||
-                      errorMessage.toLowerCase().includes('billing');
-        console.error('❌ Parsed error:', errorMessage);
-        console.error('❌ Error code:', errorCode);
-      } catch (e) {
-        console.error('❌ Could not parse error response');
+      // Get or create conversation ID
+      currentConversationId = conversationId;
+      const isNewConversation = !currentConversationId;
+      if (!currentConversationId) {
+        currentConversationId = crypto.randomUUID();
       }
-      
-      // Handle quota errors gracefully with a fallback response
-      if (isQuotaError) {
-        console.warn('⚠️ OpenAI quota exceeded. Using fallback response.');
-        const fallbackResponse = `I apologize, but I'm currently experiencing high demand. Please feel free to reach out to us directly at info@lagentry.com, or visit our website to learn more about Lagentry's AI employees for MENA.`;
-        
-        // Save fallback response to conversation
-        const savedMessage = chatStorage.addMessage(currentConversationId, 'assistant', fallbackResponse);
-        
+
+      // Get conversation to check handoff status
+      const conversation = chatStorage.getOrCreateConversation(currentConversationId);
+
+      // If human has taken over, don't process with bot
+      if (conversation.handoff_status === 'human') {
+        // Save user message but don't process with AI
+        chatStorage.addMessage(currentConversationId, 'user', message);
+
         return res.json({
           success: true,
           conversationId: currentConversationId,
-          messageId: savedMessage.id,
-          response: fallbackResponse,
+          messageId: crypto.randomUUID(),
+          response: null, // No bot response - waiting for human
+          handoff_status: 'human',
         });
       }
-      
-      throw new Error(`OpenAI API error: ${errorMessage}`);
-    }
 
-    const aiData = await openaiResponse.json();
-    console.log('✅ OpenAI API response received');
-    
-    if (!aiData.choices || !aiData.choices[0] || !aiData.choices[0].message) {
-      console.error('❌ Unexpected OpenAI response structure:', JSON.stringify(aiData, null, 2));
-      throw new Error('Unexpected response format from OpenAI API');
-    }
-    
-    const aiResponse = aiData.choices[0].message.content;
-    
-    if (!aiResponse) {
-      console.error('❌ Empty response from OpenAI');
-      throw new Error('Empty response from OpenAI API');
-    }
-    
-    console.log('✅ AI response generated successfully');
+      // Save user message to storage
+      chatStorage.addMessage(currentConversationId, 'user', message);
 
-    // Save assistant response to storage
-    const savedMessage = chatStorage.addMessage(currentConversationId, 'assistant', aiResponse);
-
-    res.json({
-      success: true,
-      conversationId: currentConversationId,
-      messageId: savedMessage.id,
-      response: aiResponse,
-    });
-  } catch (error) {
-    console.error('❌ Error processing chat message:', error);
-    console.error('❌ Error stack:', error.stack);
-    const origin = req.headers.origin;
-    setCORSHeaders(res, origin);
-    
-    // Return error response but also save a helpful message to the conversation
-    const errorMessage = error.message || 'Failed to process message';
-    const userFriendlyMessage = 'I apologize, but I encountered an error processing your request. Please try again in a moment.';
-    
-    // Try to save error message to conversation if we have a conversation ID
-    try {
-      const convId = req.body?.conversationId || currentConversationId;
-      if (convId) {
-        chatStorage.addMessage(convId, 'assistant', userFriendlyMessage);
+      // Send email notification for new conversations
+      if (isNewConversation) {
+        try {
+          const { sendChatNotificationEmail } = require('./emailService');
+          if (sendChatNotificationEmail) {
+            await sendChatNotificationEmail({
+              conversationId: currentConversationId,
+              userMessage: message,
+              timestamp: new Date().toISOString(),
+            });
+          }
+        } catch (emailError) {
+          console.error('Failed to send chat notification email:', emailError);
+          // Don't fail the request if email fails
+        }
       }
-    } catch (saveError) {
-      console.error('❌ Failed to save error message:', saveError);
+
+      // Check if conversation needs human attention
+      const needsHuman = chatStorage.needsHumanAttention(currentConversationId);
+      if (needsHuman && conversation.handoff_status === 'bot') {
+        // Auto-escalate to human (optional - can be disabled)
+        // For now, just flag it but continue with bot response
+        console.log(`⚠️ Conversation ${currentConversationId} may need human attention`);
+      }
+
+      // Get conversation history
+      const conversationMessages = chatStorage.getMessages(currentConversationId);
+      const conversationHistory = conversationMessages
+        .slice(-20) // Last 20 messages for context
+        .map(msg => ({
+          role: msg.role,
+          content: msg.content,
+        }));
+
+      // Prepare messages for OpenAI
+      const messages = [
+        { role: 'system', content: CHATBOT_SYSTEM_PROMPT },
+        ...conversationHistory,
+        { role: 'user', content: message },
+      ];
+
+      // Call OpenAI API
+      if (!OPENAI_API_KEY) {
+        console.warn('⚠️ OpenAI API key not configured. Using fallback response.');
+        return res.json({
+          success: true,
+          conversationId: currentConversationId,
+          messageId: crypto.randomUUID(),
+          response: 'I apologize, but the AI service is currently being configured. Please contact us at info@lagentry.com for assistance, or visit our website to learn more about Lagentry.',
+        });
+      }
+
+      console.log('Calling OpenAI API...');
+      const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: messages,
+          temperature: 0.7,
+          max_tokens: 500,
+        }),
+      });
+
+      if (!openaiResponse.ok) {
+        const errorData = await openaiResponse.text();
+        console.error('❌ OpenAI API error response:', openaiResponse.status, openaiResponse.statusText);
+        console.error('❌ Error details:', errorData);
+
+        // Try to parse error for better message
+        let errorMessage = 'Failed to get AI response';
+        let errorCode = null;
+        let isQuotaError = false;
+
+        try {
+          const errorJson = JSON.parse(errorData);
+          errorMessage = errorJson.error?.message || errorMessage;
+          errorCode = errorJson.error?.code || null;
+          isQuotaError = openaiResponse.status === 429 ||
+            errorCode === 'insufficient_quota' ||
+            errorMessage.toLowerCase().includes('quota') ||
+            errorMessage.toLowerCase().includes('billing');
+          console.error('❌ Parsed error:', errorMessage);
+          console.error('❌ Error code:', errorCode);
+        } catch (e) {
+          console.error('❌ Could not parse error response');
+        }
+
+        // Handle quota errors gracefully with a fallback response
+        if (isQuotaError) {
+          console.warn('⚠️ OpenAI quota exceeded. Using fallback response.');
+          const fallbackResponse = `I apologize, but I'm currently experiencing high demand. Please feel free to reach out to us directly at info@lagentry.com, or visit our website to learn more about Lagentry's AI employees for MENA.`;
+
+          // Save fallback response to conversation
+          const savedMessage = chatStorage.addMessage(currentConversationId, 'assistant', fallbackResponse);
+
+          return res.json({
+            success: true,
+            conversationId: currentConversationId,
+            messageId: savedMessage.id,
+            response: fallbackResponse,
+          });
+        }
+
+        throw new Error(`OpenAI API error: ${errorMessage}`);
+      }
+
+      const aiData = await openaiResponse.json();
+      console.log('✅ OpenAI API response received');
+
+      if (!aiData.choices || !aiData.choices[0] || !aiData.choices[0].message) {
+        console.error('❌ Unexpected OpenAI response structure:', JSON.stringify(aiData, null, 2));
+        throw new Error('Unexpected response format from OpenAI API');
+      }
+
+      const aiResponse = aiData.choices[0].message.content;
+
+      if (!aiResponse) {
+        console.error('❌ Empty response from OpenAI');
+        throw new Error('Empty response from OpenAI API');
+      }
+
+      console.log('✅ AI response generated successfully');
+
+      // Save assistant response to storage
+      const savedMessage = chatStorage.addMessage(currentConversationId, 'assistant', aiResponse);
+
+      res.json({
+        success: true,
+        conversationId: currentConversationId,
+        messageId: savedMessage.id,
+        response: aiResponse,
+      });
+    } catch (error) {
+      console.error('❌ Error processing chat message:', error);
+      console.error('❌ Error stack:', error.stack);
+      const origin = req.headers.origin;
+      setCORSHeaders(res, origin);
+
+      // Return error response but also save a helpful message to the conversation
+      const errorMessage = error.message || 'Failed to process message';
+      const userFriendlyMessage = 'I apologize, but I encountered an error processing your request. Please try again in a moment.';
+
+      // Try to save error message to conversation if we have a conversation ID
+      try {
+        const convId = req.body?.conversationId || currentConversationId;
+        if (convId) {
+          chatStorage.addMessage(convId, 'assistant', userFriendlyMessage);
+        }
+      } catch (saveError) {
+        console.error('❌ Failed to save error message:', saveError);
+      }
+
+      res.status(500).json({
+        success: false,
+        error: userFriendlyMessage,
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined,
+      });
     }
-    
-    res.status(500).json({
-      success: false,
-      error: userFriendlyMessage,
-      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined,
-    });
-  }
-});
+  });
 
 // Get conversation history
 app.get('/api/chat/conversation/:conversationId', async (req, res) => {
@@ -3589,7 +3603,7 @@ app.get('/api/admin/chats', async (req, res) => {
     setCORSHeaders(res, origin);
 
     const conversations = chatStorage.getAllConversations();
-    
+
     // Add handoff status and needs attention flag
     const conversationsWithStatus = conversations.map(conv => {
       const fullConv = chatStorage.conversations.get(conv.id);
@@ -3668,7 +3682,7 @@ app.post('/api/admin/chat/:conversationId/takeover', async (req, res) => {
     const { adminEmail } = req.body;
 
     const conversation = chatStorage.takeOver(conversationId, adminEmail || 'admin');
-    
+
     // Add system message indicating human takeover
     chatStorage.addMessage(conversationId, 'system', 'A human agent has joined the conversation.');
 
@@ -3697,7 +3711,7 @@ app.post('/api/admin/chat/:conversationId/release', async (req, res) => {
     const { conversationId } = req.params;
 
     const conversation = chatStorage.releaseToBot(conversationId);
-    
+
     // Add system message indicating bot is back
     chatStorage.addMessage(conversationId, 'system', 'The conversation has been returned to the AI assistant.');
 
@@ -3796,7 +3810,7 @@ if (process.env.VERCEL || process.env.NOW) {
     console.log('  - Customer Support (Zara):', FIXED_ASSISTANT_IDS['customer-support']);
     console.log('  - Lead Qualification (Layla):', FIXED_ASSISTANT_IDS['lead-qualification']);
     console.log('  - Real Estate (Ahmed):', FIXED_ASSISTANT_IDS['real-estate']);
-    
+
     // Chatbot status
     if (OPENAI_API_KEY) {
       console.log('✅ Chatbot is ready and will use OpenAI API');
@@ -3804,7 +3818,7 @@ if (process.env.VERCEL || process.env.NOW) {
       console.log('⚠️  Chatbot will use fallback responses (OpenAI API key not configured)');
     }
   });
-  
+
   // Export app for compatibility
   module.exports = app;
 }
