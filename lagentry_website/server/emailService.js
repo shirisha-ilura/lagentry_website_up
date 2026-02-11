@@ -2,20 +2,20 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 // Email configuration from environment variables
-const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.gmail.com';
-const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 587;
-const EMAIL_USE_TLS = process.env.EMAIL_USE_TLS === 'true' || process.env.EMAIL_USE_TLS === true;
+const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.hostinger.com';
+const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 465;
+const EMAIL_SECURE = process.env.EMAIL_SECURE !== undefined ? process.env.EMAIL_SECURE === 'true' : (EMAIL_PORT === 465);
 const EMAIL_USER = process.env.EMAIL_USER || process.env.EMAIL_FROM;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD || process.env.EMAIL_PASS;
 const EMAIL_FROM = process.env.EMAIL_FROM || EMAIL_USER || 'info@lagentry.com';
-const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || 'Zoya – Founder, Lagentry';
+const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || 'Lagentry';
 const COMPANY_EMAIL = process.env.COMPANY_EMAIL || 'info@lagentry.com';
 
 // Debug: Log email configuration status (without exposing passwords)
 console.log('📧 Email Configuration Status:');
 console.log('  EMAIL_HOST:', EMAIL_HOST);
 console.log('  EMAIL_PORT:', EMAIL_PORT);
-console.log('  EMAIL_USE_TLS:', EMAIL_USE_TLS);
+console.log('  EMAIL_SECURE:', EMAIL_SECURE);
 console.log('  EMAIL_USER:', EMAIL_USER ? `${EMAIL_USER.substring(0, 3)}***` : 'NOT SET');
 console.log('  EMAIL_PASS:', EMAIL_PASS ? '***SET***' : 'NOT SET');
 console.log('  EMAIL_FROM:', EMAIL_FROM);
@@ -43,15 +43,15 @@ function getTransporter() {
     transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: EMAIL_PORT,
-      secure: EMAIL_PORT === 465, // true for 465, false for other ports
-      requireTLS: EMAIL_USE_TLS || EMAIL_PORT === 587, // Use TLS for port 587 or if explicitly set
+      secure: EMAIL_SECURE,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
       tls: {
         // Do not fail on invalid certs
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        minVersion: 'TLSv1.2'
       }
     });
   }
@@ -69,7 +69,7 @@ function formatDateForICal(date) {
   if (!date) return '';
   const d = date instanceof Date ? date : new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   // Convert to UTC and format as YYYYMMDDTHHMMSSZ
   const year = d.getUTCFullYear();
   const month = String(d.getUTCMonth() + 1).padStart(2, '0');
@@ -77,7 +77,7 @@ function formatDateForICal(date) {
   const hours = String(d.getUTCHours()).padStart(2, '0');
   const minutes = String(d.getUTCMinutes()).padStart(2, '0');
   const seconds = String(d.getUTCSeconds()).padStart(2, '0');
-  
+
   return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
 }
 
@@ -97,7 +97,7 @@ function generateICalInvite({ title, description, location, start, end, organize
   const endFormatted = formatDateForICal(end);
   const now = formatDateForICal(new Date());
   const uid = `lagentry-demo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}@lagentry.com`;
-  
+
   const icalContent = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -124,22 +124,22 @@ function generateICalInvite({ title, description, location, start, end, organize
     'END:VEVENT',
     'END:VCALENDAR'
   ].join('\r\n');
-  
+
   return icalContent;
 }
 
 // Helper function to format date and time
 function formatDateTime(dateTimeString) {
   if (!dateTimeString) return 'Date TBD';
-  
+
   try {
     let date;
-    
+
     // Handle different date formats
     if (typeof dateTimeString === 'string') {
       // Try parsing as ISO string first
       date = new Date(dateTimeString);
-      
+
       // If invalid, try other formats
       if (isNaN(date.getTime())) {
         // Try parsing as date + time separately
@@ -153,13 +153,13 @@ function formatDateTime(dateTimeString) {
     } else {
       date = new Date(dateTimeString);
     }
-    
+
     // Check if date is valid
     if (isNaN(date.getTime())) {
       console.warn('Invalid date provided:', dateTimeString);
       return 'Date TBD';
     }
-    
+
     // Format the date
     return date.toLocaleString('en-US', {
       weekday: 'long',
@@ -391,7 +391,7 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
     `${getPublicBaseUrl()}/images/email/waitlist-hero.png`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -448,7 +448,7 @@ CEO, Lagentry
     console.log('   From:', EMAIL_FROM);
     console.log('   Subject:', mailOptions.subject);
     console.log('   First Name:', firstName || 'N/A');
-    
+
     const info = await transporter.sendMail(mailOptions);
     console.log('✅ Waitlist confirmation email sent successfully!');
     console.log('   Message ID:', info.messageId);
@@ -490,7 +490,7 @@ async function sendNewsletterWelcomeEmail({ email, name }) {
     `${getPublicBaseUrl()}/images/email/newsletter-hero.png`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -563,7 +563,7 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
 
   const firstName = getFirstName(name);
   const formattedDateTime = formatDateTime(dateTime);
-  
+
   // Parse dateTime to get start and end dates for calendar invite
   let startDate, endDate;
   try {
@@ -574,7 +574,7 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
     } else {
       startDate = new Date(dateTime);
     }
-    
+
     if (isNaN(startDate.getTime())) {
       console.warn('⚠️ Invalid dateTime provided for calendar invite:', dateTime);
       startDate = null;
@@ -594,11 +594,11 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
     startDate = null;
     endDate = null;
   }
-  
+
   // Use provided reschedule and cancel links, or generate them if not provided
   let finalRescheduleLink = rescheduleLink;
   let finalCancelLink = cancelLink;
-  
+
   // Only generate links if they weren't provided
   if (!finalRescheduleLink || !finalCancelLink) {
     let backendUrl = process.env.BACKEND_URL || process.env.SERVER_URL;
@@ -618,7 +618,7 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
     finalRescheduleLink = finalRescheduleLink || `${backendUrl}/reschedule-demo?email=${encodeURIComponent(email)}`;
     finalCancelLink = finalCancelLink || `${backendUrl}/cancel-demo?email=${encodeURIComponent(email)}`;
   }
-  
+
   // Debug: Log the links being used
   console.log('🔗 Reschedule/Cancel Links:', {
     finalRescheduleLink: finalRescheduleLink,
@@ -643,14 +643,14 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
         attendeeEmail: email,
         attendeeName: name || firstName || 'Guest'
       });
-      
+
       attachments.push({
         filename: 'lagentry-demo.ics',
         content: icalContent,
         contentType: 'text/calendar; charset=utf-8; method=REQUEST',
         contentDisposition: 'attachment'
       });
-      
+
       console.log('✅ Calendar invite generated and attached to email');
       console.log('   Filename: lagentry-demo.ics');
       console.log('   Content length:', icalContent.length, 'bytes');
@@ -667,7 +667,7 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
   }
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -747,7 +747,7 @@ async function sendDemoInternalNotification({ name, email, phone, company, compa
   const formattedDateTime = formatDateTime(dateTime);
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: COMPANY_EMAIL,
     replyTo: email, // Reply-to set to user's email
     subject: `New Demo Booking: ${name} - ${formattedDateTime}`,
@@ -807,7 +807,7 @@ async function sendDemoRescheduledEmail({ email, name, dateTime, meetingLink }) 
   const formattedDateTime = formatDateTime(dateTime);
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -867,7 +867,7 @@ async function sendDemoCancelledEmail({ email, name }) {
   const bookAgainLink = `${baseUrl}/book-demo`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -917,12 +917,12 @@ async function sendChatNotificationEmail({ conversationId, userMessage, timestam
   }
 
   const adminEmail = COMPANY_EMAIL;
-  const chatUrl = process.env.FRONTEND_URL 
+  const chatUrl = process.env.FRONTEND_URL
     ? `${process.env.FRONTEND_URL}/admin/chats`
     : `http://localhost:3000/admin/chats`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_FROM}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: adminEmail,
     replyTo: EMAIL_FROM,
     subject: `New Chat Conversation - Lagentry Website`,

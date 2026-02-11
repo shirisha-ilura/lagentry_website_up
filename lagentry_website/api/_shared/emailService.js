@@ -1,10 +1,11 @@
 const nodemailer = require("nodemailer");
 
 const EMAIL_HOST = process.env.EMAIL_HOST || "smtp.hostinger.com";
-const EMAIL_PORT = 587;
+const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 465;
+const EMAIL_SECURE = process.env.EMAIL_SECURE !== undefined ? process.env.EMAIL_SECURE === 'true' : (EMAIL_PORT === 465);
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD;
-const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "Zoya – Founder, Lagentry";
+const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "Lagentry";
 const COMPANY_EMAIL = process.env.COMPANY_EMAIL || EMAIL_USER;
 const BASE_URL = process.env.FRONTEND_URL || "https://lagentry.com";
 
@@ -14,18 +15,26 @@ function getTransporter() {
   if (transporter) return transporter;
 
   if (!EMAIL_USER || !EMAIL_PASS) {
+    console.error("❌ EMAIL_USER or EMAIL_PASSWORD missing");
     throw new Error("Missing EMAIL_USER or EMAIL_PASSWORD");
   }
+
+  console.log(`📧 Creating SMTP Transporter: ${EMAIL_HOST}:${EMAIL_PORT} (secure: ${EMAIL_SECURE})`);
+  console.log(`📧 Authenticating as: ${EMAIL_USER ? EMAIL_USER.substring(0, 3) + '...' : 'NONE'}`);
 
   transporter = nodemailer.createTransport({
     host: EMAIL_HOST,
     port: EMAIL_PORT,
-    secure: false,
+    secure: EMAIL_SECURE,
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS,
     },
-    tls: { rejectUnauthorized: false },
+    tls: {
+      rejectUnauthorized: false,
+      // Hostinger often requires this for certain environments
+      minVersion: 'TLSv1.2'
+    },
   });
 
   return transporter;
@@ -130,65 +139,59 @@ function buildBrandedEmailTemplate({
 
                   <tr>
                     <td style="padding:28px 28px 10px 28px;">
-                      ${
-                        eyebrow
-                          ? `<div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${accentColor}; margin-bottom:8px;">${eyebrow}</div>`
-                          : ""
-                      }
+                      ${eyebrow
+      ? `<div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${accentColor}; margin-bottom:8px;">${eyebrow}</div>`
+      : ""
+    }
                       <div class="hero-title" style="font-size:28px; line-height:1.25; font-weight:700; color:#F9FAFB; margin:0 0 12px 0;">
                         ${title}
                       </div>
-                      ${
-                        highlightText
-                          ? `<div style="margin:0 0 14px 0; font-size:13px; color:#E5E7EB;">
+                      ${highlightText
+      ? `<div style="margin:0 0 14px 0; font-size:13px; color:#E5E7EB;">
                           <span style="display:inline-block; padding:4px 10px; border-radius:999px; background-color:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.45); font-size:12px;">
                             ⭐ ${highlightText}
                           </span>
                         </div>`
-                          : ""
-                      }
-                      ${
-                        greeting
-                          ? `<p style="margin:0 0 10px 0; font-size:14px; line-height:1.6; color:#E5E7EB;">${greeting}</p>`
-                          : ""
-                      }
+      : ""
+    }
+                      ${greeting
+      ? `<p style="margin:0 0 10px 0; font-size:14px; line-height:1.6; color:#E5E7EB;">${greeting}</p>`
+      : ""
+    }
                       <div style="font-size:14px; line-height:1.7; color:#E5E7EB; margin:0 0 4px 0;">
                         ${bodyHtml}
                       </div>
                     </td>
                   </tr>
 
-                  ${
-                    (primaryCtaLabel && primaryCtaUrl) ||
-                    (secondaryCtaLabel && secondaryCtaUrl)
-                      ? `<tr>
+                  ${(primaryCtaLabel && primaryCtaUrl) ||
+      (secondaryCtaLabel && secondaryCtaUrl)
+      ? `<tr>
                     <td align="center" style="padding:4px 28px 24px 28px;">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="cta-container" style="width:100%;">
                         <tr>
-                          ${
-                            primaryCtaLabel && primaryCtaUrl
-                              ? `<td align="center" class="cta-cell" style="padding:0 6px 8px 0; width:auto;">
+                          ${primaryCtaLabel && primaryCtaUrl
+        ? `<td align="center" class="cta-cell" style="padding:0 6px 8px 0; width:auto;">
                             <a href="${primaryCtaUrl}" class="cta-primary" style="background-color:${accentColor}; color:#0B1020 !important; text-decoration:none; padding:11px 22px; border-radius:999px; font-size:13px; font-weight:600; display:inline-block; border:none;">
                               ✨ ${primaryCtaLabel}
                             </a>
                           </td>`
-                              : ""
-                          }
-                          ${
-                            secondaryCtaLabel && secondaryCtaUrl
-                              ? `<td align="center" class="cta-cell" style="padding:0 0 8px 6px; width:auto;">
+        : ""
+      }
+                          ${secondaryCtaLabel && secondaryCtaUrl
+        ? `<td align="center" class="cta-cell" style="padding:0 0 8px 6px; width:auto;">
                             <a href="${secondaryCtaUrl}" class="cta-secondary" style="background-color:transparent; color:#E5E7EB !important; text-decoration:none; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:500; display:inline-block; border:1px solid rgba(148,163,184,0.55);">
                               ${secondaryCtaLabel}
                             </a>
                           </td>`
-                              : ""
-                          }
+        : ""
+      }
                         </tr>
                       </table>
                     </td>
                   </tr>`
-                      : ""
-                  }
+      : ""
+    }
 
                   <tr>
                     <td style="padding:0 28px 26px 28px;">
@@ -401,7 +404,7 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
   });
 
   return sendMailSafe({
-    from: `"Lagentry" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     subject: "You’re on the Lagentry Waitlist",
     html,
