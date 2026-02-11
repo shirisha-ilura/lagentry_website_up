@@ -227,6 +227,7 @@ try {
     ]
   }
 };
+}
 const {
   sendWaitlistConfirmationEmail,
   sendNewsletterWelcomeEmail,
