@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
 
 const EMAIL_HOST = process.env.EMAIL_HOST || "smtp.hostinger.com";
-const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 465;
-const EMAIL_SECURE = process.env.EMAIL_SECURE !== undefined ? process.env.EMAIL_SECURE === 'true' : (EMAIL_PORT === 465);
+const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 587;
+const EMAIL_SECURE = process.env.EMAIL_SECURE === 'true' || process.env.EMAIL_SECURE === true || (EMAIL_PORT === 465);
+const EMAIL_USE_TLS = process.env.EMAIL_USE_TLS === 'true' || process.env.EMAIL_USE_TLS === true;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD;
 const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "Lagentry";
@@ -19,13 +20,14 @@ function getTransporter() {
     throw new Error("Missing EMAIL_USER or EMAIL_PASSWORD");
   }
 
-  console.log(`📧 Creating SMTP Transporter: ${EMAIL_HOST}:${EMAIL_PORT} (secure: ${EMAIL_SECURE})`);
+  console.log(`📧 Creating SMTP Transporter: ${EMAIL_HOST}:${EMAIL_PORT} (secure: ${EMAIL_SECURE}, useTLS: ${EMAIL_USE_TLS})`);
   console.log(`📧 Authenticating as: ${EMAIL_USER ? EMAIL_USER.substring(0, 3) + '...' : 'NONE'}`);
 
   transporter = nodemailer.createTransport({
     host: EMAIL_HOST,
     port: EMAIL_PORT,
     secure: EMAIL_SECURE,
+    requireTLS: EMAIL_USE_TLS || EMAIL_PORT === 587,
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASS,

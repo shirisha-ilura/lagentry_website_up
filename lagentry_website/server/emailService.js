@@ -3,8 +3,9 @@ const nodemailer = require('nodemailer');
 
 // Email configuration from environment variables
 const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.hostinger.com';
-const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 465;
-const EMAIL_SECURE = process.env.EMAIL_SECURE !== undefined ? process.env.EMAIL_SECURE === 'true' : (EMAIL_PORT === 465);
+const EMAIL_PORT = parseInt(process.env.EMAIL_PORT) || 587;
+const EMAIL_SECURE = process.env.EMAIL_SECURE === 'true' || process.env.EMAIL_SECURE === true || (EMAIL_PORT === 465);
+const EMAIL_USE_TLS = process.env.EMAIL_USE_TLS === 'true' || process.env.EMAIL_USE_TLS === true;
 const EMAIL_USER = process.env.EMAIL_USER || process.env.EMAIL_FROM;
 const EMAIL_PASS = process.env.EMAIL_PASSWORD || process.env.EMAIL_PASS;
 const EMAIL_FROM = process.env.EMAIL_FROM || EMAIL_USER || 'info@lagentry.com';
@@ -44,6 +45,7 @@ function getTransporter() {
       host: EMAIL_HOST,
       port: EMAIL_PORT,
       secure: EMAIL_SECURE,
+      requireTLS: EMAIL_USE_TLS || EMAIL_PORT === 587,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
