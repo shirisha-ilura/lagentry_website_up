@@ -91,7 +91,7 @@ const tiers: Tier[] = [
     id: 'growth-100',
     title: 'Growth',
     subtitle: 'Best for businesses scaling operations with multiple AI Employees',
-    price: '$100',
+    price: '$200',
     per: '/ month',
     badge: '',
     features: [
@@ -146,10 +146,10 @@ const Pricing: React.FC = () => {
 
     // Paid plans go to Stripe checkout
     setLoadingPlan(tier.id);
-    
+
     try {
       // Use the correct API endpoint
-      const apiUrl = process.env.REACT_APP_BACKEND_URL 
+      const apiUrl = process.env.REACT_APP_BACKEND_URL
         ? `${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session`
         : '/api/create-checkout-session';
 
@@ -193,7 +193,7 @@ const Pricing: React.FC = () => {
       <div className="pricing-header">
         <h1 className="pricing-title">Unlimited Users. Only Pay For Actions.</h1>
         <p className="pricing-subtitle">Scale your business with AI Employees designed for every stage of growth</p>
-        
+
         {/* Billing Toggle */}
         <div className="billing-toggle-container">
           <div className="billing-toggle">
@@ -215,11 +215,11 @@ const Pricing: React.FC = () => {
           )}
         </div>
       </div>
-      
+
       <div className="pricing-grid pricing-grid-4">
         {tiers.map((tier, index) => (
-          <div 
-            key={tier.id} 
+          <div
+            key={tier.id}
             className={`pricing-card`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL || ''}/images/pricingbackgroundimage.png)`,
@@ -230,19 +230,19 @@ const Pricing: React.FC = () => {
           >
             <div className="card-halo" />
             <div className="stars-overlay" />
-            
+
             <div className="card-inner">
               <div className="card-header">
                 <h3 className="plan-title">{tier.title}</h3>
                 <p className="plan-subtitle">{tier.subtitle}</p>
-                
+
                 <div className="plan-price">
                   <span className="price-main">{getPrice(tier)}</span>
                   <span className="price-per">{getPerText(tier)}</span>
                 </div>
-                
-                <button 
-                  className="cta-button" 
+
+                <button
+                  className="cta-button"
                   onClick={() => handleGetStarted(tier)}
                   disabled={loadingPlan === tier.id}
                 >
