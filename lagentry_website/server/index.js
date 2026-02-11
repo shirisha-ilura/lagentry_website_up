@@ -3360,9 +3360,15 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Explicit OPTIONS handling for chat endpoint (fixes 405 on Vercel)
+app.options('/api/chat/message', (req, res) => {
+  const origin = req.headers.origin;
+  setCORSHeaders(res, origin);
+  res.status(204).end();
+});
+
 // Legacy chat endpoint - handle messages with full conversation + handoff
-app.post(
-  ['/api/chat/message', '/api/chat/message/'],
+app.post('/api/chat/message',
   async (req, res) => {
 
     let currentConversationId = null;
