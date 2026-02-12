@@ -153,6 +153,7 @@ const Pricing: React.FC = () => {
         ? `${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session`
         : '/api/create-checkout-session';
 
+      console.log('🚀 API URL:', apiUrl);
       console.log('Creating checkout session for plan:', tier.id, 'Yearly:', isYearly);
 
       const response = await fetch(apiUrl, {
@@ -165,6 +166,9 @@ const Pricing: React.FC = () => {
           isYearly,
         }),
       });
+
+      console.log('📡 Response status:', response.status);
+      console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
