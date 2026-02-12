@@ -1013,13 +1013,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Price IDs mapping (these need to be created in Stripe Dashboard)
-const PRICE_IDS = {
-  'hobby-20-monthly': process.env.STRIPE_PRICE_ID_HOBBY_MONTHLY || 'price_hobby_monthly',
-  'hobby-20-yearly': process.env.STRIPE_PRICE_ID_HOBBY_YEARLY || 'price_hobby_yearly',
-  'startup-80-monthly': process.env.STRIPE_PRICE_ID_STARTUP_MONTHLY || 'price_startup_monthly',
-  'startup-80-yearly': process.env.STRIPE_PRICE_ID_STARTUP_YEARLY || 'price_startup_yearly',
-  'growth-100-monthly': process.env.STRIPE_PRICE_ID_GROWTH_MONTHLY || 'price_growth_monthly',
-  'growth-100-yearly': process.env.STRIPE_PRICE_ID_GROWTH_YEARLY || 'price_growth_yearly',
+// Product IDs mapping (from Stripe Dashboard or .env)
+const PRODUCT_IDS = {
+  'hobby-20': process.env.STRIPE_PRODUCT_ID_HOBBY || 'prod_TxcJtZEyPA6dAD',
+  'startup-80': process.env.STRIPE_PRODUCT_ID_STARTUP || 'prod_TxcLGi35KmdqUh',
+  'growth-100': process.env.STRIPE_PRODUCT_ID_GROWTH || 'prod_TxcM6LSDsyxmEL',
 };
 
 // Stripe Checkout Endpoint
@@ -1046,22 +1044,54 @@ app.post('/api/create-checkout-session', async (req, res) => {
       });
     }
 
-    // Get the price ID based on plan and billing period
-    const priceKey = `${planId}-${isYearly ? 'yearly' : 'monthly'}`;
-    const priceId = PRICE_IDS[priceKey];
+    // Map plan ID to Product ID
+    // The planId from frontend might optionally have suffix but we key it by base plan name usually
+    // Let's handle the specific IDs sent from frontend: 'hobby-20', 'startup-80', 'growth-100'
+    // If incoming planId is like 'hobby-20', we use it directly.
+    const productId = PRODUCT_IDS[planId];
 
-    if (!priceId) {
+    if (!productId) {
+      console.error(`❌ Invalid plan ID: ${planId}`);
       return res.status(400).json({
         success: false,
         error: `Invalid plan: ${planId}`,
       });
     }
 
+    console.log(`🔍 Fetching prices for product: ${productId} (${planId}), Interval: ${isYearly ? 'year' : 'month'}`);
+
+    // Fetch prices for the product
+    const prices = await stripe.prices.list({
+      product: productId,
+      active: true,
+      limit: 10, // Should be enough to find the right interval
+    });
+
+    // Find the price matching the interval
+    const price = prices.data.find(p => {
+      // Check recurring interval
+      if (p.type === 'recurring' && p.recurring) {
+        return p.recurring.interval === (isYearly ? 'year' : 'month');
+      }
+      return false;
+    });
+
+    if (!price) {
+      console.error(`❌ No matching price found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`);
+      return res.status(400).json({
+        success: false,
+        error: `Price not found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`,
+      });
+    }
+
+    const priceId = price.id;
+    console.log(`✅ Found price: ${priceId}`);
+
     // Get base URL for success/cancel URLs
     const baseUrl = process.env.FRONTEND_URL ||
       (origin ? new URL(origin).origin : 'https://lagentry.com');
 
-    console.log(`💳 Creating Stripe session for ${priceKey} (${priceId})`);
+    console.log(`💳 Creating Stripe session for ${planId} (${priceId})`);
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -1079,6 +1109,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
       metadata: {
         planId,
         isYearly: isYearly ? 'true' : 'false',
+        productId,
       },
     });
 
