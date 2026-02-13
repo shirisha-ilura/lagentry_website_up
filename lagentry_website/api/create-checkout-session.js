@@ -28,9 +28,9 @@ function setCORSHeaders(res, origin) {
 const PRICE_IDS = {
   'hobby-20-monthly': process.env.STRIPE_PRICE_ID_HOBBY || 'price_hobby_monthly',
   'hobby-20-yearly': process.env.STRIPE_PRICE_ID_HOBBY_YEARLY || 'price_hobby_yearly',
-  'startup-80-monthly': process.env.STRIPE_PRICE_ID_STARTUP_MONTHLY || 'price_startup_monthly',
+  'startup-80-monthly': process.env.STRIPE_PRICE_ID_STARTUP || 'price_startup_monthly',
   'startup-80-yearly': process.env.STRIPE_PRICE_ID_STARTUP_YEARLY || 'price_startup_yearly',
-  'growth-100-monthly': process.env.STRIPE_PRICE_ID_GROWTH_MONTHLY || 'price_growth_monthly',
+  'growth-100-monthly': process.env.STRIPE_PRICE_ID_GROWTH || 'price_growth_monthly',
   'growth-100-yearly': process.env.STRIPE_PRICE_ID_GROWTH_YEARLY || 'price_growth_yearly',
 };
 
