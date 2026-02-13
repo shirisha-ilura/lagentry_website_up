@@ -18,7 +18,7 @@ function setCORSHeaders(res, origin) {
   } else {
     res.setHeader('Access-Control-Allow-Origin', '*');
   }
-  
+
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -26,7 +26,7 @@ function setCORSHeaders(res, origin) {
 
 // Price IDs mapping (these need to be created in Stripe Dashboard)
 const PRICE_IDS = {
-  'hobby-20-monthly': process.env.STRIPE_PRICE_ID_HOBBY_MONTHLY || 'price_hobby_monthly',
+  'hobby-20-monthly': process.env.STRIPE_PRICE_ID_HOBBY || 'price_hobby_monthly',
   'hobby-20-yearly': process.env.STRIPE_PRICE_ID_HOBBY_YEARLY || 'price_hobby_yearly',
   'startup-80-monthly': process.env.STRIPE_PRICE_ID_STARTUP_MONTHLY || 'price_startup_monthly',
   'startup-80-yearly': process.env.STRIPE_PRICE_ID_STARTUP_YEARLY || 'price_startup_yearly',
@@ -80,8 +80,8 @@ module.exports = async (req, res) => {
     }
 
     // Get base URL for success/cancel URLs
-    const baseUrl = process.env.FRONTEND_URL || 
-                   (origin ? new URL(origin).origin : 'https://lagentry.com');
+    const baseUrl = process.env.FRONTEND_URL ||
+      (origin ? new URL(origin).origin : 'https://lagentry.com');
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -113,7 +113,7 @@ module.exports = async (req, res) => {
     console.error('❌ Error creating Stripe checkout session:', error);
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);
-    
+
     return res.status(500).json({
       success: false,
       error: error.message || 'Failed to create checkout session',
