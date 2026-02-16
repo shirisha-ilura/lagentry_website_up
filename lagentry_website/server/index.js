@@ -1020,6 +1020,13 @@ const PRODUCT_IDS = {
   'growth-100': process.env.STRIPE_PRODUCT_ID_GROWTH || 'prod_TxcM6LSDsyxmEL',
 };
 
+// Price IDs mapping (from .env)
+const PRICE_IDS = {
+  'hobby-20': process.env.STRIPE_PRICE_ID_HOBBY,
+  'startup-80': process.env.STRIPE_PRICE_ID_STARTUP,
+  'growth-100': process.env.STRIPE_PRICE_ID_GROWTH,
+};
+
 // Stripe Checkout Endpoint
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
@@ -1058,34 +1065,41 @@ app.post('/api/create-checkout-session', async (req, res) => {
       });
     }
 
-    console.log(`🔍 Fetching prices for product: ${productId} (${planId}), Interval: ${isYearly ? 'year' : 'month'}`);
+    let priceId = PRICE_IDS[planId];
 
-    // Fetch prices for the product
-    const prices = await stripe.prices.list({
-      product: productId,
-      active: true,
-      limit: 10, // Should be enough to find the right interval
-    });
+    // If we have a price ID in .env and it's not a yearly request, use it directly
+    // (Assuming .env price IDs are for monthly plans)
+    if (priceId && !isYearly) {
+      console.log(`✅ Using explicit monthly Price ID from .env: ${priceId}`);
+    } else {
+      console.log(`🔍 ${priceId && isYearly ? 'Yearly plan requested, ' : ''}Looking up price dynamically for ${planId} (${productId})`);
 
-    // Find the price matching the interval
-    const price = prices.data.find(p => {
-      // Check recurring interval
-      if (p.type === 'recurring' && p.recurring) {
-        return p.recurring.interval === (isYearly ? 'year' : 'month');
-      }
-      return false;
-    });
-
-    if (!price) {
-      console.error(`❌ No matching price found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`);
-      return res.status(400).json({
-        success: false,
-        error: `Price not found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`,
+      // Fetch prices for the product
+      const prices = await stripe.prices.list({
+        product: productId,
+        active: true,
+        limit: 10,
       });
-    }
 
-    const priceId = price.id;
-    console.log(`✅ Found price: ${priceId}`);
+      // Find the price matching the interval
+      const price = prices.data.find(p => {
+        if (p.type === 'recurring' && p.recurring) {
+          return p.recurring.interval === (isYearly ? 'year' : 'month');
+        }
+        return false;
+      });
+
+      if (!price) {
+        console.error(`❌ No matching price found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`);
+        return res.status(400).json({
+          success: false,
+          error: `Price not found for ${planId} (${isYearly ? 'yearly' : 'monthly'})`,
+        });
+      }
+
+      priceId = price.id;
+      console.log(`✅ Found dynamic price ID: ${priceId}`);
+    }
 
     // Get base URL for success/cancel URLs
     const baseUrl = process.env.FRONTEND_URL ||
