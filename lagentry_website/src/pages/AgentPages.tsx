@@ -1,6 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AgentPages.css';
 import Footer from '../components/Footer';
+
+// Custom SVG Icon Components to avoid dependency issues
+const Zap = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+);
+const Shield = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+);
+const Globe = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+);
+const Clock = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+);
+const MousePointer = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path><path d="m13 13 6 6"></path></svg>
+);
+const BarChart = ({ size = 24 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+);
 
 // Animation hook for counting numbers
 const useCountUp = (end: number, duration: number = 2500, startOnMount: boolean = true) => {
@@ -32,16 +53,16 @@ const useCountUp = (end: number, duration: number = 2500, startOnMount: boolean 
     if (!hasStarted) return;
 
     let startTime: number | null = null;
-    
+
     const animate = (currentTime: number) => {
       if (startTime === null) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      
+
       // Smooth ease-out function for consistent animation with progress bars
       const smoothProgress = 1 - Math.pow(1 - progress, 2);
-      
+
       setCount(end * smoothProgress);
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
@@ -87,11 +108,11 @@ const useProgressAnimation = (targetWidth: number, duration: number = 4000) => {
       if (startTime === null) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
       // Very smooth ease-in-out for gradual movement
-      const smoothProgress = progress < 0.5 
-        ? 2 * progress * progress 
+      const smoothProgress = progress < 0.5
+        ? 2 * progress * progress
         : 1 - Math.pow(-2 * progress + 2, 3) / 2;
       setWidth(targetWidth * smoothProgress);
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
@@ -140,11 +161,11 @@ const AnimatedBar: React.FC<{ height: number; delay: number }> = ({ height, dela
       if (startTime === null) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
       // Very smooth ease-in-out for gradual movement
-      const smoothProgress = progress < 0.5 
-        ? 2 * progress * progress 
+      const smoothProgress = progress < 0.5
+        ? 2 * progress * progress
         : 1 - Math.pow(-2 * progress + 2, 3) / 2;
       setAnimatedHeight(height * smoothProgress);
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
@@ -164,6 +185,21 @@ type Feature = {
   description: string;
 };
 
+type Highlight = {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+};
+
+type CTAConfig = {
+  heading: string;
+  subtext: string;
+  primaryButtonText: string;
+  secondaryButtonText?: string;
+  primaryPath?: string;
+  secondaryPath?: string;
+};
+
 type AgentConfig = {
   id: string;
   title: string;
@@ -171,6 +207,10 @@ type AgentConfig = {
   overview: string;
   videoSrc: string;
   features: Feature[];
+  highlights?: Highlight[];
+  cta?: CTAConfig;
+  seoTitle?: string;
+  seoDescription?: string;
 };
 
 interface AgentPageProps {
@@ -178,15 +218,15 @@ interface AgentPageProps {
 }
 
 // Animated Number Component
-const AnimatedNumber: React.FC<{ value: number | string; suffix?: string; prefix?: string; duration?: number }> = ({ 
-  value, 
-  suffix = '', 
-  prefix = '', 
-  duration = 2000 
+const AnimatedNumber: React.FC<{ value: number | string; suffix?: string; prefix?: string; duration?: number }> = ({
+  value,
+  suffix = '',
+  prefix = '',
+  duration = 2000
 }) => {
   const numValue = typeof value === 'string' ? parseFloat(value.replace(/[^0-9.]/g, '')) : value;
   const { count, elementRef } = useCountUp(numValue, duration);
-  
+
   const formatValue = () => {
     if (typeof value === 'string' && value.includes('%')) {
       return `${Math.round(count)}%`;
@@ -204,47 +244,47 @@ const AnimatedNumber: React.FC<{ value: number | string; suffix?: string; prefix
 };
 
 // Animated Progress Bar Component
-const AnimatedProgressBar: React.FC<{ 
-  targetWidth: number; 
-  duration?: number; 
-  className?: string; 
+const AnimatedProgressBar: React.FC<{
+  targetWidth: number;
+  duration?: number;
+  className?: string;
   showValue?: boolean;
   valueClassName?: string;
   barClassName?: string;
-}> = ({ 
-  targetWidth, 
+}> = ({
+  targetWidth,
   duration = 2500,
   className = '',
   showValue = true,
   valueClassName = 'hr-chart-value',
   barClassName = 'hr-chart-bar'
 }) => {
-  const { width, elementRef } = useProgressAnimation(targetWidth, duration);
-  
-  return (
-    <>
-      <div className={`${barClassName} ${className}`} ref={elementRef} style={{ width: `${width}%` }}></div>
-      {showValue && <span className={valueClassName}>{Math.round(width)}%</span>}
-    </>
-  );
-};
+    const { width, elementRef } = useProgressAnimation(targetWidth, duration);
+
+    return (
+      <>
+        <div className={`${barClassName} ${className}`} ref={elementRef} style={{ width: `${width}%` }}></div>
+        {showValue && <span className={valueClassName}>{Math.round(width)}%</span>}
+      </>
+    );
+  };
 
 // Animated Progress Fill Component (for bars that need just the fill, not the container)
-const AnimatedProgressFill: React.FC<{ 
-  targetWidth: number; 
-  duration?: number; 
+const AnimatedProgressFill: React.FC<{
+  targetWidth: number;
+  duration?: number;
   className?: string;
-}> = ({ 
-  targetWidth, 
+}> = ({
+  targetWidth,
   duration = 4000,
   className = ''
 }) => {
-  const { width, elementRef } = useProgressAnimation(targetWidth, duration);
-  
-  return (
-    <div className={className} ref={elementRef} style={{ width: `${width}%` }}></div>
-  );
-};
+    const { width, elementRef } = useProgressAnimation(targetWidth, duration);
+
+    return (
+      <div className={className} ref={elementRef} style={{ width: `${width}%` }}></div>
+    );
+  };
 
 // Enhanced HR Card Component with interactive elements
 interface EnhancedHRCardProps {
@@ -580,7 +620,7 @@ interface EnhancedGTMSalesCardProps {
 
 const EnhancedGTMSalesCard: React.FC<EnhancedGTMSalesCardProps> = ({ title, subtitle, type }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Animation hooks - only use for analytics type
   const pipelineValue = type === 'analytics' ? useCountUp(2.4, 2000) : { count: 2.4, elementRef: { current: null } };
   const winRate = type === 'analytics' ? useCountUp(34, 2000) : { count: 34, elementRef: { current: null } };
@@ -1890,306 +1930,127 @@ const EnhancedRealEstateCard: React.FC<EnhancedRealEstateCardProps> = ({ title, 
   );
 };
 
-// Enhanced Healthcare Card Component
-interface EnhancedHealthcareCardProps {
+// --- Enhanced Voice Calling Card Component ---
+interface EnhancedVoiceCallingCardProps {
   title: string;
   subtitle: string;
-  type: 'intake' | 'triage' | 'scheduling' | 'lab' | 'wellness' | 'coordination';
+  type: 'real-estate' | 'appointment' | 'support' | 'dealership' | 'marketing' | 'collections';
 }
 
-const EnhancedHealthcareCard: React.FC<EnhancedHealthcareCardProps> = ({ title, subtitle, type }) => {
+const EnhancedVoiceCallingCard: React.FC<EnhancedVoiceCallingCardProps> = ({ title, subtitle, type }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const renderCardContent = () => {
     switch (type) {
-      case 'intake':
+      case 'real-estate':
         return (
           <>
-            <div className="health-intake-stats">
-              <div className="health-stat-large">
-                <div className="health-stat-number"><AnimatedNumber value={3247} /></div>
-                <div className="health-stat-desc">Patients Intake</div>
+            <div className="voice-stats-grid">
+              <div className="voice-stat-item">
+                <div className="voice-stat-value"><AnimatedNumber value={840} /></div>
+                <div className="voice-stat-label">Leads Qualified</div>
               </div>
-              <div className="health-stat-large">
-                <div className="health-stat-number"><AnimatedNumber value={96} suffix="%" /></div>
-                <div className="health-stat-desc">Data Accuracy</div>
-              </div>
-            </div>
-            {/* Area Chart for Patient Intake */}
-            <div className="health-area-chart">
-              <div className="health-area-title">Daily Patient Intake</div>
-              <div className="health-area-container">
-                <AnimatedBar height={55} delay={0} />
-                <AnimatedBar height={68} delay={100} />
-                <AnimatedBar height={72} delay={200} />
-                <AnimatedBar height={65} delay={300} />
-                <AnimatedBar height={80} delay={400} />
-                <AnimatedBar height={88} delay={500} />
-                <AnimatedBar height={92} delay={600} />
+              <div className="voice-stat-item">
+                <div className="voice-stat-value"><AnimatedNumber value={92} suffix="%" /></div>
+                <div className="voice-stat-label">Multilingual Accuracy</div>
               </div>
             </div>
-            <div className="health-intake-chart">
-              <div className="health-chart-item">
-                <div className="health-chart-label">Symptom Collection</div>
-                <div className="health-chart-bar-container">
-                  <AnimatedProgressBar targetWidth={94} barClassName="health-chart-bar" valueClassName="health-chart-value" />
-                </div>
+            <div className="voice-progress-container">
+              <div className="voice-progress-row">
+                <span>Property Matching</span>
+                <AnimatedProgressBar targetWidth={88} />
               </div>
-              <div className="health-chart-item">
-                <div className="health-chart-label">Context Gathering</div>
-                <div className="health-chart-bar-container">
-                  <AnimatedProgressBar targetWidth={91} barClassName="health-chart-bar" valueClassName="health-chart-value" />
-                </div>
+              <div className="voice-progress-row">
+                <span>CRM Auto-Update</span>
+                <AnimatedProgressBar targetWidth={100} />
               </div>
-              <div className="health-chart-item">
-                <div className="health-chart-label">Medical History</div>
-                <div className="health-chart-bar-container">
-                  <AnimatedProgressBar targetWidth={88} barClassName="health-chart-bar" valueClassName="health-chart-value" />
-                </div>
-              </div>
-            </div>
-            {/* Visual Icon */}
-            <div className="health-trend-indicator">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">Intake quality improved by 38%</span>
             </div>
           </>
         );
-      case 'triage':
+      case 'appointment':
         return (
           <>
-            <div className="health-triage-metrics">
-              <div className="health-metric-box">
-                <div className="health-metric-icon"></div>
-                <div className="health-metric-info">
-                  <div className="health-metric-number">2,156</div>
-                  <div className="health-metric-label">Cases Routed</div>
-                </div>
+            <div className="voice-metrics-box">
+              <div className="voice-metric">
+                <div className="voice-metric-num"><AnimatedNumber value={1250} /></div>
+                <div className="voice-metric-text">Bookings Handled</div>
               </div>
-              <div className="health-metric-box">
-                <div className="health-metric-icon"></div>
-                <div className="health-metric-info">
-                  <div className="health-metric-number">100%</div>
-                  <div className="health-metric-label">Safety Rate</div>
-                </div>
+              <div className="voice-metric">
+                <div className="voice-metric-num"><AnimatedNumber value={0} suffix="%" /></div>
+                <div className="voice-metric-text">Manual Effort</div>
               </div>
             </div>
-            <div className="health-triage-breakdown">
-              <div className="health-breakdown-item">
-                <div className="health-breakdown-label">Routing Accuracy</div>
-                <div className="health-breakdown-bar">
-                  <div className="health-breakdown-fill" style={{ width: '97%' }}></div>
-                </div>
-                <span className="health-breakdown-value">97%</span>
-              </div>
-              <div className="health-breakdown-item">
-                <div className="health-breakdown-label">Safety Compliance</div>
-                <div className="health-breakdown-bar">
-                  <div className="health-breakdown-fill" style={{ width: '100%' }}></div>
-                </div>
-                <span className="health-breakdown-value">100%</span>
-              </div>
-              <div className="health-breakdown-item">
-                <div className="health-breakdown-label">Response Time</div>
-                <div className="health-breakdown-bar">
-                  <div className="health-breakdown-fill" style={{ width: '92%' }}></div>
-                </div>
-                <span className="health-breakdown-value">92%</span>
-              </div>
-            </div>
-            <div className="health-trend-indicator positive">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">All cases routed safely</span>
+            <div className="voice-feature-tags">
+              <span>Reminders</span>
+              <span>Confirmations</span>
+              <span>Rescheduling</span>
             </div>
           </>
         );
-      case 'scheduling':
+      case 'support':
         return (
           <>
-            <div className="health-scheduling-stats">
-              <div className="health-stat-card">
-                <div className="health-stat-value">4,892</div>
-                <div className="health-stat-label">Appointments Booked</div>
+            <div className="voice-support-stats">
+              <div className="voice-circle-stat">
+                <div className="voice-circle-val">85%</div>
+                <div className="voice-circle-label">Auto-Resolved</div>
               </div>
-              <div className="health-stat-card">
-                <div className="health-stat-value">91%</div>
-                <div className="health-stat-label">Confirmation Rate</div>
+              <div className="voice-list">
+                <div className="voice-list-item">✓ FAQ Handling</div>
+                <div className="voice-list-item">✓ Issue Troubleshooting</div>
+                <div className="voice-list-item">✓ Smart Escalation</div>
               </div>
-            </div>
-            <div className="health-scheduling-progress">
-              <div className="health-progress-item">
-                <div className="health-progress-label">Booking Efficiency</div>
-                <div className="health-progress-track">
-                  <div className="health-progress-fill" style={{ width: '95%' }}></div>
-                </div>
-                <span className="health-progress-percent">95%</span>
-              </div>
-              <div className="health-progress-item">
-                <div className="health-progress-label">Reminder Delivery</div>
-                <div className="health-progress-track">
-                  <div className="health-progress-fill" style={{ width: '98%' }}></div>
-                </div>
-                <span className="health-progress-percent">98%</span>
-              </div>
-              <div className="health-progress-item">
-                <div className="health-progress-label">Follow-up Scheduling</div>
-                <div className="health-progress-track">
-                  <div className="health-progress-fill" style={{ width: '89%' }}></div>
-                </div>
-                <span className="health-progress-percent">89%</span>
-              </div>
-            </div>
-            <div className="health-trend-indicator">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">Scheduling efficiency up 42%</span>
             </div>
           </>
         );
-      case 'lab':
+      case 'dealership':
         return (
           <>
-            <div className="health-lab-stats">
-              <div className="health-stat-box">
-                <div className="health-stat-icon"></div>
-                <div className="health-stat-details">
-                  <div className="health-stat-big">1,456</div>
-                  <div className="health-stat-small">Results Explained</div>
-                </div>
+            <div className="voice-sales-metrics">
+              <div className="voice-sales-row">
+                <span>Test Drives Scheduled</span>
+                <span className="voice-sales-val"><AnimatedNumber value={156} /></span>
               </div>
-              <div className="health-stat-box">
-                <div className="health-stat-icon"></div>
-                <div className="health-stat-details">
-                  <div className="health-stat-big">93%</div>
-                  <div className="health-stat-small">Understanding Rate</div>
-                </div>
+              <div className="voice-sales-row">
+                <span>Lead Engagement</span>
+                <span className="voice-sales-val">94%</span>
               </div>
-            </div>
-            <div className="health-lab-features">
-              <div className="health-feature-tag">Simple Language</div>
-              <div className="health-feature-tag">Patient-Friendly</div>
-              <div className="health-feature-tag">Clear Explanations</div>
-            </div>
-            <div className="health-lab-breakdown">
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Clarity Score</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '93%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">93%</span>
+              <div className="voice-sales-bar">
+                <AnimatedProgressFill targetWidth={94} className="voice-fill-blue" />
               </div>
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Comprehension Rate</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '91%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">91%</span>
-              </div>
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Patient Satisfaction</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '89%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">89%</span>
-              </div>
-            </div>
-            <div className="health-trend-indicator positive">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">Patient understanding up 34%</span>
             </div>
           </>
         );
-      case 'wellness':
+      case 'marketing':
         return (
           <>
-            <div className="health-wellness-stats">
-              <div className="health-overview-item">
-                <div className="health-overview-number">2,347</div>
-                <div className="health-overview-label">Plans Generated</div>
+            <div className="voice-campaign-dashboard">
+              <div className="voice-dash-item">
+                <div className="voice-dash-val"><AnimatedNumber value={5000} /></div>
+                <div className="voice-dash-label">Daily Outbound</div>
               </div>
-              <div className="health-overview-item">
-                <div className="health-overview-number">87%</div>
-                <div className="health-overview-label">Adherence Rate</div>
-              </div>
-            </div>
-            <div className="health-wellness-scores">
-              <div className="health-score-item">
-                <div className="health-score-label">Personalization</div>
-                <div className="health-score-bar">
-                  <div className="health-score-fill" style={{ width: '92%' }}></div>
-                </div>
-                <span className="health-score-value">92%</span>
-              </div>
-              <div className="health-score-item">
-                <div className="health-score-label">Adherence Tracking</div>
-                <div className="health-score-bar">
-                  <div className="health-score-fill" style={{ width: '87%' }}></div>
-                </div>
-                <span className="health-score-value">87%</span>
-              </div>
-              <div className="health-score-item">
-                <div className="health-score-label">Outcome Improvement</div>
-                <div className="health-score-bar">
-                  <div className="health-score-fill" style={{ width: '84%' }}></div>
-                </div>
-                <span className="health-score-value">84%</span>
+              <div className="voice-dash-item">
+                <div className="voice-dash-val"><AnimatedNumber value={64} suffix="%" /></div>
+                <div className="voice-dash-label">High Intent Leads</div>
               </div>
             </div>
-            <div className="health-trend-indicator">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">Wellness outcomes improved by 29%</span>
+            <div className="voice-trend-line">
+              <span className="voice-trend-up">↑ 42% Campaign ROI</span>
             </div>
           </>
         );
-      case 'coordination':
+      case 'collections':
         return (
           <>
-            <div className="health-coordination-stats">
-              <div className="health-stat-box">
-                <div className="health-stat-icon"></div>
-                <div className="health-stat-details">
-                  <div className="health-stat-big">1,892</div>
-                  <div className="health-stat-small">Cases Coordinated</div>
-                </div>
+            <div className="voice-collections-status">
+              <div className="voice-status-card">
+                <div className="voice-status-num"><AnimatedNumber value={89} suffix="%" /></div>
+                <div className="voice-status-label">Commitment Rate</div>
               </div>
-              <div className="health-stat-box">
-                <div className="health-stat-icon"></div>
-                <div className="health-stat-details">
-                  <div className="health-stat-big">96%</div>
-                  <div className="health-stat-small">Communication Rate</div>
-                </div>
+              <div className="voice-reminder-list">
+                <div className="voice-reminder-item">Payment Verified</div>
+                <div className="voice-reminder-item">Auto-Followup</div>
               </div>
-            </div>
-            <div className="health-coordination-features">
-              <div className="health-feature-tag">Care Summaries</div>
-              <div className="health-feature-tag">Insurance Info</div>
-              <div className="health-feature-tag">Team Communication</div>
-            </div>
-            <div className="health-coordination-breakdown">
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Summary Quality</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '95%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">95%</span>
-              </div>
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Information Accuracy</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '98%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">98%</span>
-              </div>
-              <div className="health-breakdown-row">
-                <span className="health-breakdown-name">Coordination Efficiency</span>
-                <div className="health-breakdown-line">
-                  <div className="health-breakdown-progress" style={{ width: '91%' }}></div>
-                </div>
-                <span className="health-breakdown-percent">91%</span>
-              </div>
-            </div>
-            <div className="health-trend-indicator positive">
-              <span className="health-trend-arrow">↑</span>
-              <span className="health-trend-text">Care coordination improved by 36%</span>
             </div>
           </>
         );
@@ -2220,20 +2081,41 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
   const isCFOFinancePage = config.id === 'cfo-finance';
   const isCustomerSupportPage = config.id === 'customer-support';
   const isRealEstatePage = config.id === 'real-estate';
-  const isHealthcarePage = config.id === 'healthcare';
-  
+  const isVoiceCallingPage = config.id === 'voice-calling';
+
   // Get page-specific class name
   const pageClassName = isHRRecruitmentPage ? 'hr-recruitment-page' :
     isGTMSalesPage ? 'gtm-sales-page' :
-    isCFOFinancePage ? 'cfo-finance-page' :
-    isCustomerSupportPage ? 'customer-support-page' :
-    isRealEstatePage ? 'real-estate-page' :
-    isHealthcarePage ? 'healthcare-page' : '';
-  
-  // Debug logging
+      isCFOFinancePage ? 'cfo-finance-page' :
+        isCustomerSupportPage ? 'customer-support-page' :
+          isRealEstatePage ? 'real-estate-page' :
+            isVoiceCallingPage ? 'voice-calling-page' : '';
+
+  const navigate = useNavigate();
+
+  // Update SEO metadata
   useEffect(() => {
+    if (config.seoTitle) {
+      document.title = config.seoTitle;
+    } else {
+      document.title = `${config.title} | Lagentry`;
+    }
+
+    // Update meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+
+    if (config.seoDescription) {
+      metaDescription.setAttribute('content', config.seoDescription);
+    }
+
+    // Debug logging
     console.log('AgentPageTemplate rendered with config.id:', config.id);
-  }, [config.id]);
+  }, [config]);
 
   return (
     <div className={`agent-page ${pageClassName}`}>
@@ -2256,17 +2138,17 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
           />
           {/* Image overlay on video - for all agent pages */}
           <div className="agent-image-overlay">
-            <img 
+            <img
               src={
-                isGTMSalesPage ? "/images/GTM-dashboard.jpeg" : 
-                isCFOFinancePage ? "/images/CFO-dashboard.png" : 
-                isCustomerSupportPage ? "/images/Customer-dashboard.png" : 
-                isRealEstatePage ? "/images/Property-dashboard.png" : 
-                isHealthcarePage ? "/images/Customer-dashboard.png" : 
-                isHRRecruitmentPage ? "/images/HR-dashboard.png" : 
-                "/images/HR-dashboard.png"
-              } 
-              alt={`${config.title}`} 
+                isGTMSalesPage ? "/images/GTM-dashboard.jpeg" :
+                  isCFOFinancePage ? "/images/CFO-dashboard.png" :
+                    isCustomerSupportPage ? "/images/Customer-dashboard.png" :
+                      isRealEstatePage ? "/images/Property-dashboard.png" :
+                        isVoiceCallingPage ? "/images/Customer-dashboard.png" :
+                          isHRRecruitmentPage ? "/images/HR-dashboard.png" :
+                            "/images/HR-dashboard.png"
+              }
+              alt={`${config.title}`}
               className="agent-overlay-image"
             />
           </div>
@@ -2462,58 +2344,39 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
                 type="renewals"
               />
             </>
-          ) : isHealthcarePage ? (
-            // Customer Support Cards (replacing Healthcare)
+          ) : isVoiceCallingPage ? (
+            // Voice Calling Agent Cards
             <>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">1️⃣ AI Ticket Automation</h3>
-                <p className="agent-feature-subtitle">Automatically create, categorize, and resolve tickets across support channels.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">🎫</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">2️⃣ Multi-Channel Support</h3>
-                <p className="agent-feature-subtitle">WhatsApp, Email, Live Chat, Voice, Social Media — unified in one dashboard.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">📱</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">3️⃣ CRM & Tool Integrations</h3>
-                <p className="agent-feature-subtitle">Connect with Jira, Zendesk, HubSpot, Salesforce, Slack, Linear.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">🔗</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">4️⃣ Smart Escalations</h3>
-                <p className="agent-feature-subtitle">Auto-route complex cases to human agents with full conversation context.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">⬆️</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">5️⃣ 24/7 AI Resolution</h3>
-                <p className="agent-feature-subtitle">Reduce response times from hours to seconds.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">⚡</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">6️⃣ Multilingual Support</h3>
-                <p className="agent-feature-subtitle">Arabic + English + custom languages.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">🌍</div>
-                </div>
-              </article>
-              <article className="agent-feature-card hr-dashboard-style">
-                <h3 className="agent-feature-title">7️⃣ Easy Embed</h3>
-                <p className="agent-feature-subtitle">Deploy on your website in minutes.</p>
-                <div className="hr-card-content-wrapper">
-                  <div className="agent-feature-icon">🚀</div>
-                </div>
-              </article>
+              <EnhancedVoiceCallingCard
+                title="Real Estate Follow-Up"
+                subtitle="Qualify leads, book viewings, and update CRM instantly."
+                type="real-estate"
+              />
+              <EnhancedVoiceCallingCard
+                title="Appointment Scheduling"
+                subtitle="Set, confirm, and reschedule bookings with zero manual work."
+                type="appointment"
+              />
+              <EnhancedVoiceCallingCard
+                title="Customer Support Hotline"
+                subtitle="Resolve 80% of calls instantly with human-like AI voice."
+                type="support"
+              />
+              <EnhancedVoiceCallingCard
+                title="Dealership Sales"
+                subtitle="Book test drives and follow up with car buyers 24/7."
+                type="dealership"
+              />
+              <EnhancedVoiceCallingCard
+                title="Campaign Marketing"
+                subtitle="Launch thousands of outbound calls with personalized outreach."
+                type="marketing"
+              />
+              <EnhancedVoiceCallingCard
+                title="Collections & Reminders"
+                subtitle="Friendly, automated calls for payments and renewals."
+                type="collections"
+              />
             </>
           ) : (
             // Fallback for any other pages
@@ -2529,6 +2392,53 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
           )}
         </div>
       </section>
+
+      {/* Feature Highlights Section */}
+      {config.highlights && config.highlights.length > 0 && (
+        <section className="agent-highlights-section">
+          <div className="agent-highlights-header">
+            <h2>Core Capabilities</h2>
+          </div>
+          <div className="agent-highlights-grid">
+            {config.highlights.map((highlight, index) => (
+              <div key={index} className="agent-highlight-card">
+                <div className="highlight-icon-wrapper">
+                  {highlight.icon}
+                </div>
+                <h3 className="highlight-title">{highlight.title}</h3>
+                <p className="highlight-description">{highlight.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      {config.cta && (
+        <section className="agent-cta-section">
+          <div className="agent-cta-container">
+            <h2 className="agent-cta-heading">{config.cta.heading}</h2>
+            <p className="agent-cta-subtext">{config.cta.subtext}</p>
+            <div className="agent-cta-buttons">
+              <button
+                className="agent-cta-primary-btn"
+                onClick={() => navigate(config.cta?.primaryPath || '/waitlist')}
+              >
+                {config.cta.primaryButtonText}
+              </button>
+              {config.cta.secondaryButtonText && (
+                <button
+                  className="agent-cta-secondary-btn"
+                  onClick={() => navigate(config.cta?.secondaryPath || '/book-demo')}
+                >
+                  {config.cta.secondaryButtonText}
+                </button>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       <Footer />
     </div>
   );
@@ -2580,6 +2490,29 @@ const gtmSalesConfig: AgentConfig = {
       description: 'Crystal‑clear pipeline insights, call logs, and performance reports.',
     },
   ],
+  highlights: [
+    {
+      icon: <Zap size={24} />,
+      title: 'Automated Outreach',
+      description: 'Scale your sales pipeline with autonomous prospecting.'
+    },
+    {
+      icon: <MousePointer size={24} />,
+      title: 'Lead Intelligence',
+      description: 'Deep profiling and intent scoring for every prospect.'
+    },
+    {
+      icon: <BarChart size={24} />,
+      title: 'Revenue Growth',
+      description: 'Optimize conversion rates with data-driven sales strategies.'
+    }
+  ],
+  cta: {
+    heading: 'Scale Your Sales Engine Today',
+    subtext: 'Deploy your autonomous SDR and start closing more deals on autopilot.',
+    primaryButtonText: 'Launch Sales Agent',
+    secondaryButtonText: 'Book a Demo'
+  }
 };
 
 const hrRecruitmentConfig: AgentConfig = {
@@ -2621,6 +2554,29 @@ const hrRecruitmentConfig: AgentConfig = {
       description: 'Delivers transcripts, insights, and hiring recommendations.',
     },
   ],
+  highlights: [
+    {
+      icon: <Zap size={24} />,
+      title: 'Rapid Sourcing',
+      description: 'Find top talent across multiple platforms in seconds.'
+    },
+    {
+      icon: <Shield size={24} />,
+      title: 'Unbiased Screening',
+      description: 'Objective candidate evaluation based strictly on skill-matching.'
+    },
+    {
+      icon: <Clock size={24} />,
+      title: '24/7 Recruitment',
+      description: 'Engage and interview candidates at any time, in any time zone.'
+    }
+  ],
+  cta: {
+    heading: 'Automate Your Hiring Today',
+    subtext: 'Streamline your recruitment lifecycle and hire better talent, faster.',
+    primaryButtonText: 'Launch HR Agent',
+    secondaryButtonText: 'Book a Demo'
+  }
 };
 
 const cfoFinanceConfig: AgentConfig = {
@@ -2662,6 +2618,29 @@ const cfoFinanceConfig: AgentConfig = {
       description: 'Receive clean, investor‑ready summaries on demand.',
     },
   ],
+  highlights: [
+    {
+      icon: <BarChart size={24} />,
+      title: 'Strategic Insights',
+      description: 'Transform raw data into actionable financial strategies.'
+    },
+    {
+      icon: <Shield size={24} />,
+      title: 'Risk Mitigation',
+      description: 'Identify and address financial anomalies before they become issues.'
+    },
+    {
+      icon: <Clock size={24} />,
+      title: 'Real-time Reporting',
+      description: 'Instant access to P&L, balance sheets, and cashflow forecasts.'
+    }
+  ],
+  cta: {
+    heading: 'Optimize Your Finance Operations',
+    subtext: 'Get enterprise-grade financial intelligence at a fraction of the cost.',
+    primaryButtonText: 'Launch CFO Agent',
+    secondaryButtonText: 'Book a Demo'
+  }
 };
 
 const customerSupportConfig: AgentConfig = {
@@ -2703,6 +2682,29 @@ const customerSupportConfig: AgentConfig = {
       description: 'Monitor response time, CSAT, volume, and trends.',
     },
   ],
+  highlights: [
+    {
+      icon: <Clock size={24} />,
+      title: 'Instant Support',
+      description: 'Zero wait times with AI-powered resolutions 24/7.'
+    },
+    {
+      icon: <Globe size={24} />,
+      title: 'Global Reaching',
+      description: 'Support your customers in 20+ languages natively.'
+    },
+    {
+      icon: <Zap size={24} />,
+      title: 'Knowledge Integration',
+      description: 'Seamlessly learns from your existing documentation and FAQs.'
+    }
+  ],
+  cta: {
+    heading: 'Transform Your Customer Experience',
+    subtext: 'Deliver faster, smarter, and more personalized support at scale.',
+    primaryButtonText: 'Launch Support Agent',
+    secondaryButtonText: 'Book a Demo'
+  }
 };
 
 const realEstateConfig: AgentConfig = {
@@ -2744,52 +2746,97 @@ const realEstateConfig: AgentConfig = {
       description: 'Automate renewals, offers, and client nurturing.',
     },
   ],
+  highlights: [
+    {
+      icon: <MousePointer size={24} />,
+      title: 'Smart Matching',
+      description: 'Connect tenants and buyers to their perfect properties instantly.'
+    },
+    {
+      icon: <Clock size={24} />,
+      title: 'Auto-Scheduling',
+      description: 'Zero manual work for booking and confirming viewings.'
+    },
+    {
+      icon: <BarChart size={24} />,
+      title: 'Portfolio Optimization',
+      description: 'Keep your occupancy rates high with proactive renewals.'
+    }
+  ],
+  cta: {
+    heading: 'Automate Your Property Portfolio',
+    subtext: 'Manage leads, viewings, and maintenance on autopilot.',
+    primaryButtonText: 'Launch Real Estate Agent',
+    secondaryButtonText: 'Book a Demo'
+  }
 };
 
-const healthcareConfig: AgentConfig = {
-  id: 'healthcare',
-  title: 'Customer Support AI Employee',
-  eyebrow: 'Customer Support Agent',
+const voiceCallingConfig: AgentConfig = {
+  id: 'voice-calling',
+  title: 'Voice Calling AI Agent',
+  eyebrow: 'Voice Calling Agent',
   overview:
-    'Automate tickets, resolve customer queries, and manage multi-channel conversations with a fully autonomous AI support agent.',
-  videoSrc: '/sal.mp4',
+    'Launch Intelligent Voice Agents that call, qualify, and convert. Human‑level conversations in any language, running 24/7 to scale your outbound and inbound operations.',
+  videoSrc: '/sales.mp4',
   features: [
     {
       icon: '',
-      title: 'AI Ticket Automation',
-      description: 'Automatically create, categorize, and resolve tickets across support channels.',
-    },
-    {
-      icon: '',
-      title: 'Multi-Channel Support',
-      description: 'WhatsApp, Email, Live Chat, Voice, Social Media — unified in one dashboard.',
-    },
-    {
-      icon: '',
-      title: 'CRM & Tool Integrations',
-      description: 'Connect with Jira, Zendesk, HubSpot, Salesforce, Slack, Linear.',
-    },
-    {
-      icon: '',
-      title: 'Smart Escalations',
-      description: 'Auto-route complex cases to human agents with full conversation context.',
-    },
-    {
-      icon: '',
-      title: '24/7 AI Resolution',
-      description: 'Reduce response times from hours to seconds.',
+      title: 'Human-Like Voice',
+      description: 'Zero latency, natural emotional intelligence, and custom voice cloning.',
     },
     {
       icon: '',
       title: 'Multilingual Support',
-      description: 'Arabic + English + custom languages.',
+      description: 'Arabic, English, and 20+ languages supported with perfect accents.',
     },
     {
       icon: '',
-      title: 'Easy Embed',
-      description: 'Deploy on your website in minutes.',
+      title: 'Direct CRM Sync',
+      description: 'Automatically updates HubSpot, Salesforce, or your custom CRM.',
+    },
+    {
+      icon: '',
+      title: 'Smart Scheduling',
+      description: 'Directly hooks into your calendar to book meetings during the call.',
+    },
+    {
+      icon: '',
+      title: 'Instant Scaling',
+      description: 'Make 1,000 calls simultaneously without hiring a single person.',
+    },
+    {
+      icon: '',
+      title: 'Compliance-Ready',
+      description: 'Full recording, transcription, and PDPL/GDPR data security.',
     },
   ],
+  highlights: [
+    {
+      icon: <Clock size={24} />,
+      title: 'Zero Latency',
+      description: 'Sub-second response times for natural, fluid conversations.'
+    },
+    {
+      icon: <Globe size={24} />,
+      title: 'Multilingual',
+      description: 'Arabic, English, and 20+ languages with perfect accents.'
+    },
+    {
+      icon: <Zap size={24} />,
+      title: 'Instant Integration',
+      description: 'Connect to your CRM and calendar in just a few clicks.'
+    }
+  ],
+  cta: {
+    heading: 'Build Your AI Voice Workforce Today',
+    subtext: 'Create, deploy, and scale voice agents without writing a single line of code.',
+    primaryButtonText: 'Launch Voice Agent',
+    secondaryButtonText: 'Book a Demo',
+    primaryPath: '/waitlist',
+    secondaryPath: '/book-demo'
+  },
+  seoTitle: 'Voice Calling AI Agent | Lagentry',
+  seoDescription: 'Deploy AI voice agents for sales, support, scheduling, and more.'
 };
 
 // --- Page components wired into the router ---
@@ -2822,8 +2869,8 @@ export const RealEstateAgentPage: React.FC = () => (
   <AgentPageTemplate config={realEstateConfig} />
 );
 
-export const HealthcareAgentPage: React.FC = () => (
-  <AgentPageTemplate config={healthcareConfig} />
+export const VoiceCallingAgentPage: React.FC = () => (
+  <AgentPageTemplate config={voiceCallingConfig} />
 );
 
 

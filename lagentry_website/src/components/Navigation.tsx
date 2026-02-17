@@ -92,40 +92,40 @@ const Navigation: React.FC = () => {
   return (
     <nav className={`navigation ${isScrolled ? 'scrolled' : ''} ${isVisible ? 'visible' : ''}`}>
       <div className="nav-container">
-                {/* Logo with purple hexagonal icon */}
-          <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                  <div className="logo-icon">
-                    <img 
-                      src={logoPath}
-                      alt="Lagentry Logo" 
-                      className="logo-icon-image"
-                      style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
-                      onLoad={() => console.log('Logo loaded successfully:', logoPath)}
-                      onError={(e) => {
-                        console.error('Logo image failed to load:', e.currentTarget.src);
-                        const target = e.currentTarget;
-                        const attempts = target.getAttribute('data-attempts') || '0';
-                        const attemptNum = parseInt(attempts);
-                        const baseUrl = process.env.PUBLIC_URL || '';
-                        
-                        if (attemptNum === 0) {
-                          target.setAttribute('data-attempts', '1');
-                          // Try without PUBLIC_URL
-                          target.src = "/images/lagentry-Logo.png";
-                        } else if (attemptNum === 1) {
-                          target.setAttribute('data-attempts', '2');
-                          // Try alternative logo
-                          target.src = `${baseUrl}/images/lagentry-logo.png`;
-                        } else {
-                          console.error('Logo failed to load after all attempts');
-                        }
-                      }}
-                    />
-                  </div>
-          </div>
+        {/* Logo with purple hexagonal icon */}
+        <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <div className="logo-icon">
+            <img
+              src={logoPath}
+              alt="Lagentry Logo"
+              className="logo-icon-image"
+              style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
+              onLoad={() => console.log('Logo loaded successfully:', logoPath)}
+              onError={(e) => {
+                console.error('Logo image failed to load:', e.currentTarget.src);
+                const target = e.currentTarget;
+                const attempts = target.getAttribute('data-attempts') || '0';
+                const attemptNum = parseInt(attempts);
+                const baseUrl = process.env.PUBLIC_URL || '';
 
-          {/* Desktop Navigation Menu */}
-          <div className="nav-menu desktop-menu">
+                if (attemptNum === 0) {
+                  target.setAttribute('data-attempts', '1');
+                  // Try without PUBLIC_URL
+                  target.src = "/images/lagentry-Logo.png";
+                } else if (attemptNum === 1) {
+                  target.setAttribute('data-attempts', '2');
+                  // Try alternative logo
+                  target.src = `${baseUrl}/images/lagentry-logo.png`;
+                } else {
+                  console.error('Logo failed to load after all attempts');
+                }
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Desktop Navigation Menu */}
+        <div className="nav-menu desktop-menu">
           <div
             className="nav-item nav-item-agents"
             style={{ cursor: 'default', position: 'relative' }}
@@ -133,7 +133,7 @@ const Navigation: React.FC = () => {
             onMouseLeave={handleAgentsMouseLeave}
           >
             <span>Agents</span>
-            <div 
+            <div
               className={`agents-dropdown ${isAgentsOpen ? 'open' : ''}`}
               onClick={(e) => e.stopPropagation()}
             >
@@ -203,6 +203,19 @@ const Navigation: React.FC = () => {
                     </div>
                   </div>
                 </button>
+                <button type="button" onClick={(e) => handleAgentItemClick('/agents/voice-calling', e)}>
+                  <div className="agents-dropdown-pill">
+                    <div className="agents-dropdown-blob">
+                      <img src="/images/ChatGPT_Image_Oct_22__2025_at_02_45_40_PM-removebg-preview.png" alt="Voice Calling Agent" className="agents-dropdown-image" />
+                    </div>
+                    <div className="agents-dropdown-copy">
+                      <span className="agents-dropdown-title">Voice Calling Agent</span>
+                      <span className="agents-dropdown-subtitle">
+                        Launch Intelligent Voice Agents that call and qualify.
+                      </span>
+                    </div>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -244,6 +257,7 @@ const Navigation: React.FC = () => {
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/cfo-finance', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>CFO & Finance</div>
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/customer-support', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Customer Support</div>
                 <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/real-estate', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Real Estate</div>
+                <div className="mobile-nav-subitem" onClick={(e) => { handleAgentItemClick('/agents/voice-calling', e); setIsMobileMenuOpen(false); setIsMobileAgentsOpen(false); }}>Voice Calling</div>
               </div>
             )}
           </div>

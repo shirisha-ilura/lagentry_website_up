@@ -37,7 +37,7 @@ const agents = [
         color: 'pink',
         hashtags: ['#Real-Time Booking', '#Lead Qualification'],
         buttonColor: buttonColors.pink,
-        voiceId: 'cgSgspJ2msm6clMCkdW9',
+        voiceId: 'jqcCZkN6Knx8BJ5TBdYR',
         prompt: `You are a professional Lead Qualification agent for Lagentry, an AI automation platform. Note: Pronounce 'Lagentry' as 'Laejentry' (with a soft 'g' like 'j'). [enthusiastic] Your role is to qualify potential customers and understand their business needs. [warm, friendly] Always speak with confidence and show genuine interest in helping potential clients. [pause] Use natural pauses in your speech to sound more human and engaging. [excited] When discussing solutions, express enthusiasm about how Lagentry can help transform their business. [empathetic] Listen carefully to their pain points and respond with understanding. [confident] Be persuasive but never pushy - let them know you're here to help them succeed.`
     },
     {
@@ -250,10 +250,10 @@ const VoiceAgentsPreview: React.FC = () => {
                 console.error('Call error:', error);
                 console.error('Error type:', typeof error);
                 console.error('Error keys:', error ? Object.keys(error) : 'no keys');
-                
+
                 // Try to extract error message from Response object
                 let errorMessage = 'Call error occurred. Please try again.';
-                
+
                 if (error && error instanceof Response) {
                     try {
                         const errorData = await error.json();
@@ -297,7 +297,7 @@ const VoiceAgentsPreview: React.FC = () => {
                         }
                     }
                 }
-                
+
                 console.error('Final error message:', errorMessage);
                 alert(errorMessage);
                 setCallState('ended');
@@ -339,9 +339,9 @@ const VoiceAgentsPreview: React.FC = () => {
                 if (status.status === 'ended' && status.endedReason) {
                     console.error('Call ended reason:', status.endedReason);
                     setCallState('ended');
-                    
+
                     let errorMessage = 'Call ended unexpectedly.';
-                    
+
                     if (status.endedReason === 'silence-timed-out') {
                         errorMessage = 'Call ended due to no audio detected. Please check your microphone and try again.';
                     } else if (status.endedReason === 'meeting-ended' || status.endedReason?.includes('Meeting has ended')) {
@@ -351,7 +351,7 @@ const VoiceAgentsPreview: React.FC = () => {
                     } else if (status.endedReason) {
                         errorMessage = `Call ended: ${status.endedReason}`;
                     }
-                    
+
                     alert(errorMessage);
                     vapiCallRef.current = null;
                 }
@@ -360,13 +360,13 @@ const VoiceAgentsPreview: React.FC = () => {
             // Start WebRTC call
             console.log('Starting VAPI call with agent ID:', data.agentId);
             console.log('VAPI instance:', vapi);
-            
+
             // Prepare variables for the call (including customer_name)
             const callVariables = data.variables || {};
             if (formData.name && formData.name.trim()) {
                 callVariables.customer_name = formData.name.trim();
             }
-            
+
             try {
                 // Try VAPI start with just the assistantId as a string (most common format)
                 console.log('Attempting to start VAPI call with assistantId:', data.agentId);
@@ -376,11 +376,11 @@ const VoiceAgentsPreview: React.FC = () => {
                 console.error('Error starting VAPI call:', startError);
                 console.error('Start error type:', typeof startError);
                 console.error('Start error details:', startError);
-                
+
                 setCallState('ended');
-                
+
                 let startErrorMessage = 'Failed to start the call. Please try again.';
-                
+
                 // Try to extract error from Response object
                 if (startError && startError instanceof Response) {
                     try {
@@ -395,7 +395,7 @@ const VoiceAgentsPreview: React.FC = () => {
                 } else if (typeof startError === 'string') {
                     startErrorMessage = startError;
                 }
-                
+
                 console.error('Final start error message:', startErrorMessage);
                 alert(`Unable to start call: ${startErrorMessage}`);
                 vapiCallRef.current = null;
@@ -413,7 +413,7 @@ const VoiceAgentsPreview: React.FC = () => {
             setCallState('ended');
 
             let errorMessage = 'Unknown error occurred.';
-            
+
             // Properly extract error message
             if (error) {
                 if (typeof error === 'string') {

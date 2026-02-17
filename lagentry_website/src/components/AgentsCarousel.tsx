@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Member {
   name: string;
@@ -7,6 +8,7 @@ interface Member {
   bio: string;
   ig: string;
   tw: string;
+  path: string;
 }
 
 interface CarouselProps {
@@ -16,6 +18,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ members }) => {
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate();
   const orbitRef = useRef<HTMLDivElement>(null);
   const thumbRefs = useRef<HTMLDivElement[]>([]);
   const autoPlayIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -195,7 +198,7 @@ const Carousel: React.FC<CarouselProps> = ({ members }) => {
         <div className="name fade-in">{currentMember.name}</div>
         <div className="role fade-in">{currentMember.role}</div>
         <p className="bio fade-in">{currentMember.bio}</p>
-        <button className="cta">Explore Agent</button>
+        <button className="cta" onClick={() => navigate(currentMember.path)}>Explore Agent</button>
       </div>
     </>
   );

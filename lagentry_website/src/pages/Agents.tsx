@@ -9,6 +9,7 @@ interface Member {
   bio: string;
   ig: string;
   tw: string;
+  path: string;
 }
 
 const members: Member[] = [
@@ -18,7 +19,8 @@ const members: Member[] = [
     image: '/images/1.png',
     bio: 'Expert in budget analysis, financial forecasting, cost optimization, and ROI tracking. I help businesses make strategic financial decisions and optimize their financial performance.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/cfo-finance'
   },
   {
     name: 'HR',
@@ -26,7 +28,8 @@ const members: Member[] = [
     image: '/images/2.png',
     bio: 'Specialized in recruitment, employee onboarding, performance reviews, and payroll management. I streamline HR processes and enhance employee experience throughout their journey.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/hr-recruitment'
   },
   {
     name: 'Finance',
@@ -34,7 +37,8 @@ const members: Member[] = [
     image: '/images/3.png',
     bio: 'Handles KYC/KYB verification, invoice processing, tax returns, and audit management. I ensure compliance and streamline financial operations for businesses.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/cfo-finance'
   },
   {
     name: 'Customer Support',
@@ -42,7 +46,8 @@ const members: Member[] = [
     image: '/images/4.png',
     bio: 'Provides round-the-clock customer service with live chat, ticket management, FAQ automation, and customer satisfaction tracking. I ensure your customers always get the help they need.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/customer-support'
   },
   {
     name: 'Competitor Analysis',
@@ -50,7 +55,8 @@ const members: Member[] = [
     image: '/images/5.png',
     bio: 'Expert in market research, competitor tracking, price analysis, and trend monitoring. I help you stay ahead of the competition with actionable insights.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/gtm-sales'
   },
   {
     name: 'Voice Calling',
@@ -58,7 +64,8 @@ const members: Member[] = [
     image: '/images/6.png',
     bio: 'Specialized in voice recognition, call routing, transcription, and sentiment analysis. I transform voice interactions into seamless, intelligent communication experiences.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/voice-calling'
   },
   {
     name: 'Property Management',
@@ -66,7 +73,8 @@ const members: Member[] = [
     image: '/images/7.png',
     bio: 'Manages tenant relationships, maintenance tracking, rent collection, and property analytics. I automate property management tasks and optimize real estate operations.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/real-estate'
   },
   {
     name: 'Sales',
@@ -74,7 +82,8 @@ const members: Member[] = [
     image: '/images/8.png',
     bio: 'Handles lead generation, sales pipeline management, CRM integration, and follow-up automation. I help you close more deals and grow your revenue efficiently.',
     ig: 'https://instagram.com/',
-    tw: 'https://x.com/'
+    tw: 'https://x.com/',
+    path: '/agents/gtm-sales'
   }
 ];
 

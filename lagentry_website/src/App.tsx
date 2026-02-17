@@ -26,7 +26,7 @@ import {
   CFOFinanceAgentPage,
   CustomerSupportAgentPage,
   RealEstateAgentPage,
-  HealthcareAgentPage,
+  VoiceCallingAgentPage,
 } from './pages/AgentPages';
 import { hasIntroCompleted } from './introState';
 import Chatbot from './components/Chatbot';
@@ -80,7 +80,7 @@ const App: React.FC = () => {
           <Route path="/agents/cfo-finance" element={<CFOFinanceAgentPage />} />
           <Route path="/agents/customer-support" element={<CustomerSupportAgentPage />} />
           <Route path="/agents/real-estate" element={<RealEstateAgentPage />} />
-          <Route path="/agents/healthcare" element={<HealthcareAgentPage />} />
+          <Route path="/agents/voice-calling" element={<VoiceCallingAgentPage />} />
           <Route path="/features" element={<Features />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/book-demo" element={<BookDemo />} />
@@ -88,13 +88,13 @@ const App: React.FC = () => {
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/connections" element={<ConnectionsPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route 
-            path="/admin/chats" 
+          <Route
+            path="/admin/chats"
             element={
               <ProtectedRoute>
                 <AdminChats />
               </ProtectedRoute>
-            } 
+            }
           />
         </Routes>
         <Chatbot />

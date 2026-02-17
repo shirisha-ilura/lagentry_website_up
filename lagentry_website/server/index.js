@@ -908,7 +908,7 @@ Every conversation should end with clarity, reassurance, and real help.`;
 const AGENT_CONFIGS = {
   'lead-qualification': {
     name: 'Layla - Lead Qualification',
-    voiceId: 'cgSgspJ2msm6clMCkdW9',
+    voiceId: 'jqcCZkN6Knx8BJ5TBdYR',
     model: 'gpt-4o-mini',
     firstMessage: 'Hey, I\'m Layla from Lagentry. What are you exploring today?',
     systemPrompt: LEAD_QUALIFICATION_PROMPT

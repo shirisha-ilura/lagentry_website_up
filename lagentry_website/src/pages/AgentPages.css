@@ -1823,7 +1823,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page,
   .customer-support-page,
   .real-estate-page,
-  .healthcare-page {
+  .voice-calling-page {
     padding-top: 70px !important;
   }
 
@@ -1833,7 +1833,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-title,
   .customer-support-page .agent-hero-title,
   .real-estate-page .agent-hero-title,
-  .healthcare-page .agent-hero-title {
+  .voice-calling-page .agent-hero-title {
     font-size: 1.5rem !important;
     line-height: 1.2 !important;
     white-space: normal !important;
@@ -1846,7 +1846,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-overview,
   .customer-support-page .agent-hero-overview,
   .real-estate-page .agent-hero-overview,
-  .healthcare-page .agent-hero-overview {
+  .voice-calling-page .agent-hero-overview {
     font-size: 0.875rem !important;
     line-height: 1.5 !important;
   }
@@ -1867,7 +1867,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero,
   .customer-support-page .agent-hero,
   .real-estate-page .agent-hero,
-  .healthcare-page .agent-hero {
+  .voice-calling-page .agent-hero {
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -1882,7 +1882,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-inner,
   .customer-support-page .agent-hero-inner,
   .real-estate-page .agent-hero-inner,
-  .healthcare-page .agent-hero-inner {
+  .voice-calling-page .agent-hero-inner {
     max-width: 100% !important;
     margin: 0 auto !important;
     text-align: left !important;
@@ -1893,7 +1893,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-video-frame,
   .customer-support-page .agent-video-frame,
   .real-estate-page .agent-video-frame,
-  .healthcare-page .agent-video-frame {
+  .voice-calling-page .agent-video-frame {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1906,7 +1906,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-image-overlay,
   .customer-support-page .agent-image-overlay,
   .real-estate-page .agent-image-overlay,
-  .healthcare-page .agent-image-overlay {
+  .voice-calling-page .agent-image-overlay {
     position: relative !important;
     top: auto !important;
     bottom: auto !important;
@@ -1925,7 +1925,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-overlay-image,
   .customer-support-page .agent-overlay-image,
   .real-estate-page .agent-overlay-image,
-  .healthcare-page .agent-overlay-image {
+  .voice-calling-page .agent-overlay-image {
     position: relative !important;
     width: 100% !important;
     height: auto !important;
@@ -1939,7 +1939,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero,
   .customer-support-page .agent-hero,
   .real-estate-page .agent-hero,
-  .healthcare-page .agent-hero {
+  .voice-calling-page .agent-hero {
     top: 18% !important;
     transform: none !important;
     left: 5% !important;
@@ -2158,7 +2158,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero,
   .customer-support-page .agent-hero,
   .real-estate-page .agent-hero,
-  .healthcare-page .agent-hero {
+  .voice-calling-page .agent-hero {
     position: relative;
     top: auto;
     left: auto;
@@ -2175,7 +2175,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-inner,
   .customer-support-page .agent-hero-inner,
   .real-estate-page .agent-hero-inner,
-  .healthcare-page .agent-hero-inner {
+  .voice-calling-page .agent-hero-inner {
     text-align: left !important;
     width: 100%;
   }
@@ -2186,7 +2186,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-title,
   .customer-support-page .agent-hero-title,
   .real-estate-page .agent-hero-title,
-  .healthcare-page .agent-hero-title {
+  .voice-calling-page .agent-hero-title {
     text-align: left !important;
   }
 
@@ -2196,7 +2196,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-overview,
   .customer-support-page .agent-hero-overview,
   .real-estate-page .agent-hero-overview,
-  .healthcare-page .agent-hero-overview {
+  .voice-calling-page .agent-hero-overview {
     text-align: left !important;
   }
 
@@ -2293,7 +2293,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page,
   .customer-support-page,
   .real-estate-page,
-  .healthcare-page {
+  .voice-calling-page {
     padding-top: 64px !important;
   }
 
@@ -2303,7 +2303,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-title,
   .customer-support-page .agent-hero-title,
   .real-estate-page .agent-hero-title,
-  .healthcare-page .agent-hero-title {
+  .voice-calling-page .agent-hero-title {
     font-size: 1.35rem !important;
   }
 
@@ -2312,7 +2312,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-overview,
   .customer-support-page .agent-hero-overview,
   .real-estate-page .agent-hero-overview,
-  .healthcare-page .agent-hero-overview {
+  .voice-calling-page .agent-hero-overview {
     font-size: 0.8rem !important;
   }
 
@@ -2413,7 +2413,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero,
   .customer-support-page .agent-hero,
   .real-estate-page .agent-hero,
-  .healthcare-page .agent-hero {
+  .voice-calling-page .agent-hero {
     padding: 2.5rem 1rem 1.5rem;
     text-align: left !important;
   }
@@ -2424,7 +2424,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-inner,
   .customer-support-page .agent-hero-inner,
   .real-estate-page .agent-hero-inner,
-  .healthcare-page .agent-hero-inner {
+  .voice-calling-page .agent-hero-inner {
     text-align: left !important;
     width: 100%;
   }
@@ -2435,7 +2435,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-title,
   .customer-support-page .agent-hero-title,
   .real-estate-page .agent-hero-title,
-  .healthcare-page .agent-hero-title {
+  .voice-calling-page .agent-hero-title {
     text-align: left !important;
   }
 
@@ -2445,7 +2445,7 @@ body.hr-recruitment-active .agent-features-grid {
   .cfo-finance-page .agent-hero-overview,
   .customer-support-page .agent-hero-overview,
   .real-estate-page .agent-hero-overview,
-  .healthcare-page .agent-hero-overview {
+  .voice-calling-page .agent-hero-overview {
     text-align: left !important;
   }
 
@@ -2527,7 +2527,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page,
 .customer-support-page,
 .real-estate-page,
-.healthcare-page {
+.voice-calling-page {
   padding-top: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -2550,7 +2550,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-video-section,
 .customer-support-page .agent-video-section,
 .real-estate-page .agent-video-section,
-.healthcare-page .agent-video-section {
+.voice-calling-page .agent-video-section {
   padding: 0 !important;
   background: transparent !important;
   position: relative !important;
@@ -2565,7 +2565,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-video-frame,
 .customer-support-page .agent-video-frame,
 .real-estate-page .agent-video-frame,
-.healthcare-page .agent-video-frame {
+.voice-calling-page .agent-video-frame {
   margin: 0 !important;
   padding: 0 !important;
   border-radius: 0 !important;
@@ -2579,7 +2579,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-video-frame video,
 .customer-support-page .agent-video-frame video,
 .real-estate-page .agent-video-frame video,
-.healthcare-page .agent-video-frame video {
+.voice-calling-page .agent-video-frame video {
   width: 100% !important;
   height: auto !important;
   max-width: 100% !important;
@@ -2597,12 +2597,12 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-video-frame video:not(:first-of-type),
 .customer-support-page .agent-video-frame video:not(:first-of-type),
 .real-estate-page .agent-video-frame video:not(:first-of-type),
-.healthcare-page .agent-video-frame video:not(:first-of-type),
+.voice-calling-page .agent-video-frame video:not(:first-of-type),
 .gtm-sales-page .agent-video-frame video:nth-of-type(n+2),
 .cfo-finance-page .agent-video-frame video:nth-of-type(n+2),
 .customer-support-page .agent-video-frame video:nth-of-type(n+2),
 .real-estate-page .agent-video-frame video:nth-of-type(n+2),
-.healthcare-page .agent-video-frame video:nth-of-type(n+2) {
+.voice-calling-page .agent-video-frame video:nth-of-type(n+2) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -2614,7 +2614,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero,
 .customer-support-page .agent-hero,
 .real-estate-page .agent-hero,
-.healthcare-page .agent-hero {
+.voice-calling-page .agent-hero {
   position: absolute;
   top: 30%;
   left: 5%;
@@ -2633,7 +2633,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero::before,
 .customer-support-page .agent-hero::before,
 .real-estate-page .agent-hero::before,
-.healthcare-page .agent-hero::before {
+.voice-calling-page .agent-hero::before {
   display: none;
 }
 
@@ -2641,7 +2641,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero-inner,
 .customer-support-page .agent-hero-inner,
 .real-estate-page .agent-hero-inner,
-.healthcare-page .agent-hero-inner {
+.voice-calling-page .agent-hero-inner {
   pointer-events: auto;
   position: relative;
   z-index: 10;
@@ -2655,7 +2655,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero-title,
 .customer-support-page .agent-hero-title,
 .real-estate-page .agent-hero-title,
-.healthcare-page .agent-hero-title {
+.voice-calling-page .agent-hero-title {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;
@@ -2674,7 +2674,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero-eyebrow,
 .customer-support-page .agent-hero-eyebrow,
 .real-estate-page .agent-hero-eyebrow,
-.healthcare-page .agent-hero-eyebrow {
+.voice-calling-page .agent-hero-eyebrow {
   display: none !important;
 }
 
@@ -2682,7 +2682,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-hero-overview,
 .customer-support-page .agent-hero-overview,
 .real-estate-page .agent-hero-overview,
-.healthcare-page .agent-hero-overview {
+.voice-calling-page .agent-hero-overview {
   color: #ffffff !important;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   font-size: 1.1rem !important;
@@ -2696,7 +2696,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-image-overlay,
 .customer-support-page .agent-image-overlay,
 .real-estate-page .agent-image-overlay,
-.healthcare-page .agent-image-overlay {
+.voice-calling-page .agent-image-overlay {
   position: absolute;
   bottom: 0%;
   left: 50%;
@@ -2722,7 +2722,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-overlay-image,
 .customer-support-page .agent-overlay-image,
 .real-estate-page .agent-overlay-image,
-.healthcare-page .agent-overlay-image {
+.voice-calling-page .agent-overlay-image {
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -2743,7 +2743,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-features-section,
 .customer-support-page .agent-features-section,
 .real-estate-page .agent-features-section,
-.healthcare-page .agent-features-section {
+.voice-calling-page .agent-features-section {
   background: #000000;
   margin-top: 0;
   padding: 6rem 8vw 8rem;
@@ -2758,7 +2758,7 @@ body.hr-recruitment-active .agent-features-grid {
 .cfo-finance-page .agent-features-header,
 .customer-support-page .agent-features-header,
 .real-estate-page .agent-features-header,
-.healthcare-page .agent-features-header {
+.voice-calling-page .agent-features-header {
   max-width: 900px;
   margin: 0 auto 4rem;
   text-align: center;
@@ -3087,4 +3087,376 @@ body.hr-recruitment-active .agent-features-grid {
   justify-content: center;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Voice Calling Agent Card Styles */
+.voice-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.voice-stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.voice-stat-value {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.voice-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.voice-progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.voice-progress-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.voice-progress-row span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.voice-metrics-box {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.voice-metric {
+  text-align: center;
+}
+
+.voice-metric-num {
+  font-family: 'Geist', sans-serif !important;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.voice-metric-text {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.voice-feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.voice-feature-tags span {
+  padding: 0.4rem 0.8rem;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: rgba(139, 92, 246, 0.9);
+}
+
+.voice-support-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.voice-circle-stat {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgba(139, 92, 246, 0.3);
+  border-top-color: rgba(139, 92, 246, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.voice-circle-val {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.voice-circle-label {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.voice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.voice-list-item {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.voice-sales-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.voice-sales-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.voice-sales-row span:first-child {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.voice-sales-val {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.voice-sales-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.voice-fill-blue {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.voice-campaign-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.voice-dash-item {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.voice-dash-val {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.voice-dash-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.voice-trend-line {
+  text-align: center;
+}
+
+.voice-trend-up {
+  color: #10b981;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.voice-collections-status {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.voice-status-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+}
+
+.voice-status-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ef4444;
+}
+
+.voice-status-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.voice-reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.voice-reminder-item {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-left: 3px solid #ef4444;
+}
+
+/* Feature Highlights Section */
+.agent-highlights-section {
+  padding: 80px 5%;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.agent-highlights-header {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.agent-highlights-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.agent-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.agent-highlight-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.agent-highlight-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #a855f7;
+  transform: translateY(-5px);
+}
+
+.highlight-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  background: rgba(168, 85, 247, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #a855f7;
+}
+
+.highlight-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.highlight-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.agent-cta-section {
+  padding: 100px 5%;
+  background: radial-gradient(circle at center, rgba(168, 85, 247, 0.15) 0%, #000000 70%);
+  text-align: center;
+}
+
+.agent-cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.agent-cta-heading {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.agent-cta-subtext {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.agent-cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.agent-cta-primary-btn {
+  background: #ffffff;
+  color: #000000;
+  padding: 16px 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agent-cta-primary-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.agent-cta-secondary-btn {
+  background: transparent;
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agent-cta-secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #ffffff;
 }
