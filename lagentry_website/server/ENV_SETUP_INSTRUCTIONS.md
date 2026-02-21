@@ -97,7 +97,7 @@ EMAIL_PASSWORD=your-sendgrid-api-key
 2. **Check file name**: It must be exactly `.env` (not `.env.txt` or `env`)
 3. **Check format**: No spaces around `=` sign
    - ✅ Correct: `EMAIL_USER=info@lagentry.com`
-   - ❌ Wrong: `EMAIL_USER = info@legendary.ai`
+   - ❌ Wrong: `EMAIL_USER = info@lagentry.com` (Wait, I'll just change the domain to lagentry)
 4. **Restart server**: Environment variables are loaded when server starts
 
 ### Issue: "Invalid login" error

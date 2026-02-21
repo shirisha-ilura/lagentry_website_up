@@ -78,7 +78,27 @@ module.exports = async (req, res) => {
       token,
       bookingDate,
       bookingTime,
+      agentName: agentOfInterest,
+      userRequirement: message,
     });
+
+    // 3) Send admin notification
+    try {
+      const { sendDemoAdminNotification } = require("./_shared/emailService");
+      await sendDemoAdminNotification({
+        name,
+        email,
+        phone,
+        bookingDate,
+        bookingTime,
+        company,
+        companySize,
+        agentOfInterest,
+        message,
+      });
+    } catch (adminErr) {
+      console.error("❌ Failed to send demo admin notification:", adminErr);
+    }
 
     return res.json({
       success: true,

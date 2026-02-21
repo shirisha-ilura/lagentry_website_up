@@ -51,6 +51,106 @@ function getPublicBaseUrl() {
   return (BASE_URL || "https://lagentry.com").replace(/\/+$/, "");
 }
 
+// Helper function to format date for iCal (UTC format)
+function formatDateForICal(date) {
+  if (!date) return '';
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return '';
+
+  // Convert to UTC and format as YYYYMMDDTHHMMSSZ
+  const year = d.getUTCFullYear();
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  const hours = String(d.getUTCHours()).padStart(2, '0');
+  const minutes = String(d.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(d.getUTCSeconds()).padStart(2, '0');
+
+  return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+}
+
+// Helper function to escape text for iCal
+function escapeICalText(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\n/g, '\\n');
+}
+
+// Helper function to generate iCal calendar invite
+function generateICalInvite({ title, description, location, start, end, organizerEmail, organizerName, attendeeEmail, attendeeName }) {
+  const startFormatted = formatDateForICal(start);
+  const endFormatted = formatDateForICal(end);
+  const now = formatDateForICal(new Date());
+  const uid = `lagentry-demo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}@lagentry.com`;
+
+  const icalContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Lagentry//Demo Booking//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:REQUEST',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${now}`,
+    `DTSTART:${startFormatted}`,
+    `DTEND:${endFormatted}`,
+    `SUMMARY:${escapeICalText(title)}`,
+    `DESCRIPTION:${escapeICalText(description)}`,
+    `LOCATION:${escapeICalText(location)}`,
+    `ORGANIZER;CN=${escapeICalText(organizerName)}:MAILTO:${organizerEmail}`,
+    `ATTENDEE;CN=${escapeICalText(attendeeName)};RSVP=TRUE:MAILTO:${attendeeEmail}`,
+    'STATUS:CONFIRMED',
+    'SEQUENCE:0',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT15M',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:Reminder: ${escapeICalText(title)}`,
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  return icalContent;
+}
+
+// Helper function to format date and time for display
+function formatDateTime(dateTimeString) {
+  if (!dateTimeString) return 'Date TBD';
+
+  try {
+    let date;
+    if (typeof dateTimeString === 'string') {
+      let cleanString = dateTimeString.replace(/\s+at\s+/i, ' ').trim();
+      date = new Date(cleanString);
+      if (isNaN(date.getTime())) {
+        date = new Date(dateTimeString);
+      }
+    } else if (dateTimeString instanceof Date) {
+      date = dateTimeString;
+    } else {
+      date = new Date(dateTimeString);
+    }
+
+    if (isNaN(date.getTime())) {
+      return 'Date TBD';
+    }
+
+    return date.toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+  } catch (error) {
+    return 'Date TBD';
+  }
+}
+
 /**
  * Shared HTML layout for user-facing emails (waitlist, newsletter, demo, etc.)
  * Uses table-based structure and inline styles for good email client support.
@@ -245,39 +345,6 @@ async function sendMailSafe(options) {
   }
 }
 
-/* ---------------- CALENDAR (.ics) ---------------- */
-
-function generateICS({ name, email, bookingDate, bookingTime }) {
-  if (!bookingDate || !bookingTime) return null;
-
-  const start = new Date(`${bookingDate}T${bookingTime}:00`);
-  if (isNaN(start.getTime())) return null;
-
-  const end = new Date(start.getTime() + 30 * 60 * 1000);
-
-  function formatDate(d) {
-    return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-  }
-
-  return `
-BEGIN:VCALENDAR
-VERSION:2.0
-CALSCALE:GREGORIAN
-METHOD:REQUEST
-BEGIN:VEVENT
-UID:${Date.now()}@lagentry.com
-DTSTAMP:${formatDate(new Date())}
-DTSTART:${formatDate(start)}
-DTEND:${formatDate(end)}
-SUMMARY:Lagentry Demo Session
-DESCRIPTION:Your Lagentry demo is confirmed.
-ORGANIZER;CN=Lagentry:MAILTO:${EMAIL_USER}
-ATTENDEE;CN=${name};RSVP=TRUE:MAILTO:${email}
-END:VEVENT
-END:VCALENDAR
-`.trim();
-}
-
 /* =========================================================
    DEMO BOOKING - USER EMAIL
 ========================================================= */
@@ -288,59 +355,85 @@ async function sendDemoConfirmationEmail({
   token,
   bookingDate,
   bookingTime,
+  agentName,
+  userRequirement,
+  rescheduleLink: providedRescheduleLink,
+  cancelLink: providedCancelLink,
 }) {
-  const rescheduleLink = `${BASE_URL}/reschedule?token=${token}`;
-  const cancelLink = `${BASE_URL}/cancel?token=${token}`;
+  const firstNameStr = firstName(name);
 
-  const html = `
-  <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-    <p>Hi ${firstName(name)},</p>
+  // Parse dates for calendar invite
+  let startDate, endDate;
+  try {
+    startDate = new Date(`${bookingDate}T${bookingTime}:00`);
+    if (isNaN(startDate.getTime())) {
+      // Fallback if bookingDate is already an ISO string or similar
+      startDate = new Date(bookingDate);
+    }
 
-    <p><strong>Your Lagentry demo is successfully confirmed.</strong></p>
+    if (!isNaN(startDate.getTime())) {
+      endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // 1 hour
+    }
+  } catch (e) {
+    console.warn("Failed to parse dates for iCal", e);
+  }
 
-    <p>
-      During the session, we will walk you through how Lagentry AI agents operate in real production environments, beyond typical demos and buzzwords.
-    </p>
+  const rescheduleLink = providedRescheduleLink || `${BASE_URL}/reschedule?token=${token}`;
+  const cancelLink = providedCancelLink || `${BASE_URL}/cancel?token=${token}`;
+  const formattedDateTime = formatDateTime(startDate || bookingDate);
 
-    <p>
-      You will find the session added to your calendar via the attached invite.
-    </p>
-
-    <p>
-      You may manage your booking anytime here:
-      <br/>
-      <a href="${rescheduleLink}">Reschedule Demo</a> | 
-      <a href="${cancelLink}">Cancel Demo</a>
-    </p>
-
-    <p>
-      We look forward to speaking with you.
-    </p>
-
-    <p>
-      Warm regards,<br/>
-      <strong>Zoya</strong><br/>
-      Founder & CEO<br/>
-      Lagentry
-    </p>
-  </div>
-  `;
-
-  const icsContent = generateICS({ name, email, bookingDate, bookingTime });
+  const html = buildBrandedEmailTemplate({
+    preheader: "Your Lagentry demo is confirmed. Calendar invite is attached.",
+    eyebrow: "DEMO CONFIRMED",
+    title: "Your Lagentry demo is locked in ✅",
+    greeting: `Hi ${name || firstNameStr || 'there'},`,
+    highlightText: formattedDateTime ? `You’re meeting with us on ${formattedDateTime}.` : "Your demo is scheduled and ready.",
+    heroImageUrl: `${getPublicBaseUrl()}/images/email/demo-hero.png`,
+    bodyHtml: `
+      <p style="margin:0 0 10px 0;">Your session is confirmed. In this demo, we’ll walk through how Lagentry’s <strong>AI employees</strong> plug into real workflows — not just chat widgets.</p>
+      <p style="margin:0 0 10px 0;">
+        ⭐ Live walkthrough of agents like <strong>${agentName || 'Lead Qualification & Support'}</strong><br/>
+        ⭐ How teams in MENA are using them in production<br/>
+        ${userRequirement ? `⭐ A quick deep-dive on what you shared: <em>${userRequirement}</em><br/>` : ''}
+      </p>
+      <p style="margin:0 0 10px 0;">All the exact meeting details are in the attached calendar invite.</p>
+      <p style="margin:0;">If the timing stops working, you can move or cancel your slot in one click below.</p>
+    `,
+    primaryCtaLabel: "🔄 Reschedule demo",
+    primaryCtaUrl: rescheduleLink,
+    secondaryCtaLabel: "❌ Cancel demo",
+    secondaryCtaUrl: cancelLink,
+    footerNote: "If these links don’t work for any reason, just reply to this email and we’ll adjust your booking manually.",
+    accentColor: "#8B5CF6"
+  });
 
   const mailOptions = {
-    from: `"Lagentry" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
     to: email,
     subject: "Your Lagentry Demo is Confirmed",
     html,
   };
 
-  if (icsContent) {
-    mailOptions.alternatives = [
+  if (startDate && endDate) {
+    const icsContent = generateICalInvite({
+      title: 'Lagentry Demo',
+      description: `Demo session with Lagentry. ${agentName ? `Agent of Interest: ${agentName}.` : ''} ${userRequirement ? `Notes: ${userRequirement}` : ''}`,
+      location: 'Online',
+      start: startDate,
+      end: endDate,
+      organizerEmail: EMAIL_USER,
+      organizerName: EMAIL_FROM_NAME,
+      attendeeEmail: email,
+      attendeeName: name || firstNameStr || 'Guest'
+    });
+
+    mailOptions.attachments = [
       {
-        contentType: "text/calendar; charset=utf-8; method=REQUEST",
+        filename: 'lagentry-demo.ics',
         content: icsContent,
-      },
+        contentType: 'text/calendar; charset=utf-8; method=REQUEST',
+        contentDisposition: 'attachment'
+      }
     ];
   }
 
@@ -353,14 +446,20 @@ async function sendDemoConfirmationEmail({
 
 async function sendDemoAdminNotification(data) {
   const html = `
-  <div style="font-family: Arial, sans-serif;">
-    <h3>New Demo Booking</h3>
-    <p><strong>Name:</strong> ${data.name}</p>
-    <p><strong>Email:</strong> ${data.email}</p>
-    <p><strong>Date:</strong> ${data.bookingDate}</p>
-    <p><strong>Time:</strong> ${data.bookingTime}</p>
-    <p><strong>Source:</strong> Website Booking Form</p>
-  </div>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <h2 style="color: #333;">New Demo Booking</h2>
+      
+      <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone || 'N/A'}</p>
+        <p><strong>Company:</strong> ${data.company || 'N/A'}</p>
+        <p><strong>Company Size:</strong> ${data.companySize || 'N/A'}</p>
+        <p><strong>Date & Time:</strong> ${data.bookingDate} ${data.bookingTime}</p>
+        <p><strong>Agent of Interest:</strong> ${data.agentName || data.agentOfInterest || 'General'}</p>
+        ${data.userRequirement || data.message ? `<p><strong>User Requirements:</strong> ${data.userRequirement || data.message}</p>` : ''}
+      </div>
+    </div>
   `;
 
   return sendMailSafe({

@@ -235,7 +235,9 @@ const {
   sendDemoConfirmationEmail,
   sendDemoInternalNotification,
   sendDemoRescheduledEmail,
-  sendDemoCancelledEmail
+  sendDemoCancelledEmail,
+  sendChatNotificationEmail,
+  COMPANY_EMAIL
 } = require('./emailService');
 
 const app = express();
@@ -1771,8 +1773,25 @@ app.post('/api/book-demo', async (req, res) => {
 
         // Generate meeting link (always do this, even if DB failed)
         const meetingDate = new Date(bookingDate);
-        const [hours, minutes] = bookingTime.split(':');
-        meetingDate.setHours(parseInt(hours), parseInt(minutes || '0'), 0);
+
+        // Robustly parse time (handles '14:00', '02:00 PM', '2 PM', etc.)
+        let hours = 0, minutes = 0;
+        const timeStr = bookingTime.trim().toUpperCase();
+        const isPM = timeStr.includes('PM');
+        const isAM = timeStr.includes('AM');
+
+        // Remove AM/PM for simple numeric parsing
+        const numericTime = timeStr.replace(/[AP]M/g, '').trim();
+        const timeParts = numericTime.split(':');
+
+        hours = parseInt(timeParts[0], 10) || 0;
+        minutes = parseInt(timeParts[1], 10) || 0;
+
+        // Convert to 24-hour format if AM/PM is present
+        if (isPM && hours < 12) hours += 12;
+        if (isAM && hours === 12) hours = 0;
+
+        meetingDate.setHours(hours, minutes, 0);
         const endDate = new Date(meetingDate);
         endDate.setHours(endDate.getHours() + 1); // 1 hour meeting
 
@@ -1887,8 +1906,25 @@ app.post('/api/book-demo', async (req, res) => {
 
     // Generate meeting link
     const meetingDate = new Date(bookingDate);
-    const [hours, minutes] = bookingTime.split(':');
-    meetingDate.setHours(parseInt(hours), parseInt(minutes || '0'), 0);
+
+    // Robustly parse time (handles '14:00', '02:00 PM', '2 PM', etc.)
+    let hours = 0, minutes = 0;
+    const timeStr = bookingTime.trim().toUpperCase();
+    const isPM = timeStr.includes('PM');
+    const isAM = timeStr.includes('AM');
+
+    // Remove AM/PM for simple numeric parsing
+    const numericTime = timeStr.replace(/[AP]M/g, '').trim();
+    const timeParts = numericTime.split(':');
+
+    hours = parseInt(timeParts[0], 10) || 0;
+    minutes = parseInt(timeParts[1], 10) || 0;
+
+    // Convert to 24-hour format if AM/PM is present
+    if (isPM && hours < 12) hours += 12;
+    if (isAM && hours === 12) hours = 0;
+
+    meetingDate.setHours(hours, minutes, 0);
     const endDate = new Date(meetingDate);
     endDate.setHours(endDate.getHours() + 1); // 1 hour meeting
 
@@ -1960,6 +1996,7 @@ app.post('/api/book-demo', async (req, res) => {
       message: 'Demo booking received successfully'
     });
   } catch (error) {
+    console.error('SERVER_ERROR_DEBUG:', error);
     console.error('Error processing demo booking:', error);
     const origin = req.headers.origin;
     setCORSHeaders(res, origin);

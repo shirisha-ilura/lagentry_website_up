@@ -139,16 +139,15 @@ function formatDateTime(dateTimeString) {
 
     // Handle different date formats
     if (typeof dateTimeString === 'string') {
-      // Try parsing as ISO string first
-      date = new Date(dateTimeString);
+      // Clean up common formatted strings (e.g., "February 18, 2026 at 02:00 PM")
+      let cleanString = dateTimeString.replace(/\s+at\s+/i, ' ').trim();
 
-      // If invalid, try other formats
+      // Try parsing the cleaned string
+      date = new Date(cleanString);
+
+      // If invalid, try parsing as ISO string
       if (isNaN(date.getTime())) {
-        // Try parsing as date + time separately
-        const parts = dateTimeString.split('T');
-        if (parts.length > 1) {
-          date = new Date(dateTimeString);
-        }
+        date = new Date(dateTimeString);
       }
     } else if (dateTimeString instanceof Date) {
       date = dateTimeString;
@@ -157,6 +156,17 @@ function formatDateTime(dateTimeString) {
     }
 
     // Check if date is valid
+    if (isNaN(date.getTime())) {
+      console.warn('Invalid date string provided, trying manual fallback for:', dateTimeString);
+      // Fallback for "February 18, 2026 02:00 PM" if new Date() failed
+      const parts = dateTimeString.split(/[\s,]+/);
+      if (parts.length >= 3) {
+        // Very basic attempt to parse "Month Day Year Time"
+        date = new Date(dateTimeString.replace(' at ', ' '));
+      }
+    }
+
+    // Final check
     if (isNaN(date.getTime())) {
       console.warn('Invalid date provided:', dateTimeString);
       return 'Date TBD';
@@ -393,7 +403,7 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
     `${getPublicBaseUrl()}/images/email/waitlist-hero.png`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -492,7 +502,7 @@ async function sendNewsletterWelcomeEmail({ email, name }) {
     `${getPublicBaseUrl()}/images/email/newsletter-hero.png`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -572,7 +582,14 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
     if (dateTime instanceof Date) {
       startDate = new Date(dateTime);
     } else if (typeof dateTime === 'string') {
-      startDate = new Date(dateTime);
+      // Clean up string like "February 18, 2026 at 02:00 PM"
+      const cleanString = dateTime.replace(/\s+at\s+/i, ' ').trim();
+      startDate = new Date(cleanString);
+
+      // If still invalid, try original
+      if (isNaN(startDate.getTime())) {
+        startDate = new Date(dateTime);
+      }
     } else {
       startDate = new Date(dateTime);
     }
@@ -669,7 +686,7 @@ async function sendDemoConfirmationEmail({ email, name, dateTime, meetingLink, a
   }
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -749,7 +766,7 @@ async function sendDemoInternalNotification({ name, email, phone, company, compa
   const formattedDateTime = formatDateTime(dateTime);
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: COMPANY_EMAIL,
     replyTo: email, // Reply-to set to user's email
     subject: `New Demo Booking: ${name} - ${formattedDateTime}`,
@@ -809,7 +826,7 @@ async function sendDemoRescheduledEmail({ email, name, dateTime, meetingLink }) 
   const formattedDateTime = formatDateTime(dateTime);
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -869,7 +886,7 @@ async function sendDemoCancelledEmail({ email, name }) {
   const bookAgainLink = `${baseUrl}/book-demo`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: email,
     bcc: COMPANY_EMAIL, // BCC company email so it appears in sent box
     replyTo: EMAIL_FROM,
@@ -924,7 +941,7 @@ async function sendChatNotificationEmail({ conversationId, userMessage, timestam
     : `http://localhost:3000/admin/chats`;
 
   const mailOptions = {
-    from: `"${EMAIL_FROM_NAME}" <${EMAIL_USER}>`,
+    from: `"${EMAIL_FROM_NAME.replace(/"/g, '')}" <${EMAIL_USER}>`,
     to: adminEmail,
     replyTo: EMAIL_FROM,
     subject: `New Chat Conversation - Lagentry Website`,
@@ -981,6 +998,7 @@ You can reply directly from the admin panel. The bot will stop responding once y
 }
 
 module.exports = {
+  COMPANY_EMAIL,
   sendWaitlistConfirmationEmail,
   sendNewsletterWelcomeEmail,
   sendDemoConfirmationEmail,

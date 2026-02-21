@@ -1,0 +1,99 @@
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ???? add secrets lifecycle management: https://dotenvx.com/ops
+???? Email Configuration Status:
+  EMAIL_HOST: smtp.hostinger.com
+  EMAIL_PORT: 587
+  EMAIL_SECURE: false
+  EMAIL_USER: NOT SET
+  EMAIL_PASS: NOT SET
+  EMAIL_FROM: info@lagentry.com
+  COMPANY_EMAIL: info@lagentry.com
+Testing business logic...
+COMPANY_EMAIL: info@lagentry.com
+--- DEBUG INFO ---
+Original bookingDate: 2026-02-17T18:30:00.000Z
+Original bookingTime: 02:00 PM
+Original bookingDateTime: February 18, 2026 at 02:00 PM
+Calculated hours: 14
+Calculated minutes: 0
+Parsed meetingDate (ISO): 2026-02-18T08:30:00.000Z
+Parsed endDate (ISO): 2026-02-18T09:30:00.000Z
+------------------
+Attempting to call sendDemoConfirmationEmail...
+node : ??? Email 
+credentials not 
+configured. Emails 
+will not be sent.
+At line:1 char:1
++ node server/debug_b
+ooking.js > 
+debug_output_2.txt 
+2>&1
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (??? Ema   
+ il crede...ll no    
+t be sent.:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+Please add these to 
+your server/.env 
+file:
+  EMAIL_USER=your-ema
+il@gmail.com
+  EMAIL_PASSWORD=your
+-gmail-app-password
+  EMAIL_FROM=info@lag
+entry.com
+  
+EMAIL_FROM_NAME=Zoya 
+??? Founder, Lagentry
+  COMPANY_EMAIL=info@
+lagentry.com
+
+For Gmail: Enable 
+2FA and generate an 
+App Password at:
+https://myaccount.goo
+gle.com/apppasswords
+Email transporter 
+not configured. 
+Skipping demo 
+confirmation email.
+Result 1: { success: false, error: 'Email not configured' }
+Attempting to call sendDemoInternalNotification...
+??? Email 
+credentials not 
+configured. Emails 
+will not be sent.
+Please add these to 
+your server/.env 
+file:
+  EMAIL_USER=your-ema
+il@gmail.com
+  EMAIL_PASSWORD=your
+-gmail-app-password
+  EMAIL_FROM=info@lag
+entry.com
+  
+EMAIL_FROM_NAME=Zoya 
+??? Founder, Lagentry
+  COMPANY_EMAIL=info@
+lagentry.com
+
+For Gmail: Enable 
+2FA and generate an 
+App Password at:
+https://myaccount.goo
+gle.com/apppasswords
+Email transporter 
+not configured. 
+Skipping internal 
+notification email.
+Result 2: { success: false, error: 'Email not configured' }
