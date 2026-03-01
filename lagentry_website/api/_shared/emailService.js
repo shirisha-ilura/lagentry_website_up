@@ -302,7 +302,7 @@ function buildBrandedEmailTemplate({
                           <td style="font-size:11px; color:#9CA3AF; line-height:1.6;">
                             <div style="margin-bottom:6px;">
                               <strong style="color:#E5E7EB;">Zoya</strong><br />
-                              CEO, Lagentry
+                              Founder, Lagentry
                             </div>
                             ${footerNote || ""}
                           </td>
@@ -497,8 +497,6 @@ async function sendWaitlistConfirmationEmail({ email, name }) {
     `,
     primaryCtaLabel: "View what Lagentry can do",
     primaryCtaUrl: `${getPublicBaseUrl()}/#how-it-works`,
-    secondaryCtaLabel: "Book a live demo",
-    secondaryCtaUrl: `${getPublicBaseUrl()}/book-demo`,
     footerNote:
       "No spam. Just sharp, operator-level updates on what’s actually working with AI in MENA.",
     accentColor: "#F97316",
