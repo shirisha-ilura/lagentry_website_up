@@ -81,9 +81,9 @@ const FeatureCards: React.FC<FeatureCardsProps> = ({ theme = 'dark' }) => {
     <section className={`feature-cards-section ${theme === 'light' ? 'light-theme' : ''}`}>
       <div className="feature-cards-container">
         <div className="feature-cards-header">
-          <h2 className="feature-cards-title">Why Book a Demo?</h2>
+          <h2 className="feature-cards-title">Why Join Lagentry?</h2>
           <p className="feature-cards-subtitle">
-            Discover how Legentry transforms your business operations
+            Discover how Lagentry transforms your business operations
           </p>
         </div>
 

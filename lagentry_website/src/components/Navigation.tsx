@@ -226,8 +226,8 @@ const Navigation: React.FC = () => {
 
         {/* Desktop Right Side Button */}
         <div className="nav-actions desktop-actions">
-          <button className="demo-button" onClick={() => navigate('/book-demo')}>
-            Book a Demo
+          <button className="demo-button" onClick={() => navigate('/waitlist')}>
+            Join the Waitlist
           </button>
         </div>
 
@@ -265,8 +265,8 @@ const Navigation: React.FC = () => {
           <div className="mobile-nav-item" onClick={() => { navigate('/pricing'); setIsMobileMenuOpen(false); }} style={{ cursor: 'pointer' }}>Pricing</div>
           <div className="mobile-nav-item" onClick={() => { handleContactClick(); setIsMobileMenuOpen(false); }} style={{ cursor: 'pointer' }}>Contact Us</div>
           <div className="mobile-nav-item">
-            <button className="mobile-demo-button" onClick={() => { navigate('/book-demo'); setIsMobileMenuOpen(false); }}>
-              Book a Demo
+            <button className="mobile-demo-button" onClick={() => { navigate('/waitlist'); setIsMobileMenuOpen(false); }}>
+              Join the Waitlist
             </button>
           </div>
         </div>

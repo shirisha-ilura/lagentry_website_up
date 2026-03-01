@@ -2429,7 +2429,7 @@ const AgentPageTemplate: React.FC<AgentPageProps> = ({ config }) => {
               {config.cta.secondaryButtonText && (
                 <button
                   className="agent-cta-secondary-btn"
-                  onClick={() => navigate(config.cta?.secondaryPath || '/book-demo')}
+                  onClick={() => navigate(config.cta?.secondaryPath || '/waitlist')}
                 >
                   {config.cta.secondaryButtonText}
                 </button>
@@ -2511,7 +2511,7 @@ const gtmSalesConfig: AgentConfig = {
     heading: 'Scale Your Sales Engine Today',
     subtext: 'Deploy your autonomous SDR and start closing more deals on autopilot.',
     primaryButtonText: 'Launch Sales Agent',
-    secondaryButtonText: 'Book a Demo'
+    secondaryButtonText: 'Join the Waitlist'
   }
 };
 
@@ -2575,7 +2575,7 @@ const hrRecruitmentConfig: AgentConfig = {
     heading: 'Automate Your Hiring Today',
     subtext: 'Streamline your recruitment lifecycle and hire better talent, faster.',
     primaryButtonText: 'Launch HR Agent',
-    secondaryButtonText: 'Book a Demo'
+    secondaryButtonText: 'Join the Waitlist'
   }
 };
 
@@ -2639,7 +2639,7 @@ const cfoFinanceConfig: AgentConfig = {
     heading: 'Optimize Your Finance Operations',
     subtext: 'Get enterprise-grade financial intelligence at a fraction of the cost.',
     primaryButtonText: 'Launch CFO Agent',
-    secondaryButtonText: 'Book a Demo'
+    secondaryButtonText: 'Join the Waitlist'
   }
 };
 
@@ -2703,7 +2703,7 @@ const customerSupportConfig: AgentConfig = {
     heading: 'Transform Your Customer Experience',
     subtext: 'Deliver faster, smarter, and more personalized support at scale.',
     primaryButtonText: 'Launch Support Agent',
-    secondaryButtonText: 'Book a Demo'
+    secondaryButtonText: 'Join the Waitlist'
   }
 };
 
@@ -2767,7 +2767,7 @@ const realEstateConfig: AgentConfig = {
     heading: 'Automate Your Property Portfolio',
     subtext: 'Manage leads, viewings, and maintenance on autopilot.',
     primaryButtonText: 'Launch Real Estate Agent',
-    secondaryButtonText: 'Book a Demo'
+    secondaryButtonText: 'Join the Waitlist'
   }
 };
 
@@ -2831,9 +2831,9 @@ const voiceCallingConfig: AgentConfig = {
     heading: 'Build Your AI Voice Workforce Today',
     subtext: 'Create, deploy, and scale voice agents without writing a single line of code.',
     primaryButtonText: 'Launch Voice Agent',
-    secondaryButtonText: 'Book a Demo',
+    secondaryButtonText: 'Join the Waitlist',
     primaryPath: '/waitlist',
-    secondaryPath: '/book-demo'
+    secondaryPath: '/waitlist'
   },
   seoTitle: 'Voice Calling AI Agent | Lagentry',
   seoDescription: 'Deploy AI voice agents for sales, support, scheduling, and more.'
