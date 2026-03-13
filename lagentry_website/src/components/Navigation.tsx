@@ -100,9 +100,7 @@ const Navigation: React.FC = () => {
               alt="Lagentry Logo"
               className="logo-icon-image"
               style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
-              onLoad={() => console.log('Logo loaded successfully:', logoPath)}
               onError={(e) => {
-                console.error('Logo image failed to load:', e.currentTarget.src);
                 const target = e.currentTarget;
                 const attempts = target.getAttribute('data-attempts') || '0';
                 const attemptNum = parseInt(attempts);
@@ -116,8 +114,6 @@ const Navigation: React.FC = () => {
                   target.setAttribute('data-attempts', '2');
                   // Try alternative logo
                   target.src = `${baseUrl}/images/lagentry-logo.png`;
-                } else {
-                  console.error('Logo failed to load after all attempts');
                 }
               }}
             />

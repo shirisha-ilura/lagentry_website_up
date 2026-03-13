@@ -81,7 +81,6 @@ const VoiceAgentsPreview: React.FC = () => {
         // Check immediately first
         if (window.Vapi) {
             vapiSDKLoadedRef.current = true;
-            console.log('VAPI SDK already loaded from index.html');
             return;
         }
 
@@ -90,19 +89,12 @@ const VoiceAgentsPreview: React.FC = () => {
             if (window.Vapi) {
                 vapiSDKLoadedRef.current = true;
                 clearInterval(checkSDK);
-                console.log('VAPI SDK loaded from index.html');
             }
         }, 100);
 
         // Timeout after 5 seconds
         setTimeout(() => {
             clearInterval(checkSDK);
-            if (!vapiSDKLoadedRef.current && !window.Vapi) {
-                // Only log in development to avoid console spam
-                if (process.env.NODE_ENV === 'development') {
-                    console.warn('VAPI SDK not found after 5 seconds. Make sure the VAPI script is loaded in index.html.');
-                }
-            }
         }, 5000);
 
         return () => {
@@ -135,7 +127,6 @@ const VoiceAgentsPreview: React.FC = () => {
         try {
             await initiateVoiceCall();
         } catch (error) {
-            console.error('Error starting call:', error);
             setCallState('ended');
         }
     };
@@ -164,7 +155,6 @@ const VoiceAgentsPreview: React.FC = () => {
 
             // Use relative path if no backend URL is set (will use Vercel serverless function)
             const apiUrl = backendUrl ? `${backendUrl}/api/start-voice-call` : '/api/start-voice-call';
-            console.log('Calling backend API:', apiUrl, 'isDevelopment:', isDevelopment);
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -179,8 +169,6 @@ const VoiceAgentsPreview: React.FC = () => {
                     agentType: selectedAgent.id
                 }),
             });
-
-            console.log('Response status:', response.status, response.statusText);
 
             if (!response.ok) {
                 // Try to read error message from response
@@ -199,11 +187,9 @@ const VoiceAgentsPreview: React.FC = () => {
             }
 
             const data = await response.json();
-            console.log('Voice call started:', data);
 
             // Wait for VAPI SDK to load
             if (!vapiSDKLoadedRef.current) {
-                console.log('Waiting for VAPI SDK to load...');
                 await new Promise((resolve, reject) => {
                     let attempts = 0;
                     const maxAttempts = 50;
@@ -212,7 +198,6 @@ const VoiceAgentsPreview: React.FC = () => {
                         if (window.Vapi) {
                             vapiSDKLoadedRef.current = true;
                             clearInterval(checkSDK);
-                            console.log('VAPI SDK is now available');
                             resolve(true);
                         } else if (attempts >= maxAttempts) {
                             clearInterval(checkSDK);
@@ -226,38 +211,28 @@ const VoiceAgentsPreview: React.FC = () => {
                 throw new Error('VAPI SDK not loaded. Please refresh the page and try again.');
             }
 
-            console.log('Initializing VAPI with agent ID:', data.agentId);
-
             const publicApiKey = data.publicApiKey || 'a40eb25c-29c0-44c6-a381-24d7587f572b';
-            console.log('Using public API key for VAPI initialization');
 
             const vapi = new window.Vapi(publicApiKey);
             vapiCallRef.current = vapi;
 
             // Set up event listeners
             vapi.on('call-start', () => {
-                console.log('Call has started');
                 setCallState('connected');
             });
 
-            vapi.on('call-end', (data: any) => {
-                console.log('Call ended', data);
+            vapi.on('call-end', () => {
                 setCallState('ended');
                 vapiCallRef.current = null;
             });
 
             vapi.on('error', async (error: any) => {
-                console.error('Call error:', error);
-                console.error('Error type:', typeof error);
-                console.error('Error keys:', error ? Object.keys(error) : 'no keys');
-
                 // Try to extract error message from Response object
                 let errorMessage = 'Call error occurred. Please try again.';
 
                 if (error && error instanceof Response) {
                     try {
                         const errorData = await error.json();
-                        console.error('Error response data:', errorData);
                         errorMessage = errorData.message || errorData.error || `HTTP ${error.status}: ${error.statusText}`;
                     } catch (e) {
                         errorMessage = `HTTP ${error.status}: ${error.statusText}`;
@@ -297,47 +272,13 @@ const VoiceAgentsPreview: React.FC = () => {
                         }
                     }
                 }
-
-                console.error('Final error message:', errorMessage);
                 alert(errorMessage);
                 setCallState('ended');
                 vapiCallRef.current = null;
             });
 
-            vapi.on('user-speech-start', () => {
-                console.log('User started speaking');
-            });
-
-            vapi.on('user-speech-end', () => {
-                console.log('User finished speaking');
-            });
-
-            vapi.on('speech-start', () => {
-                console.log('AI agent started speaking');
-            });
-
-            vapi.on('speech-end', () => {
-                console.log('AI agent finished speaking');
-            });
-
-            vapi.on('message', (message: any) => {
-                console.log('Message received:', message);
-                if (message.type === 'transcript') {
-                    console.log(`${message.role}: ${message.transcript}`);
-                    if (message.role === 'user') {
-                        console.log('✅ User microphone is working! User said:', message.transcript);
-                    }
-                }
-            });
-
-            vapi.on('customer-joined', () => {
-                console.log('✅ Customer (user) joined the call - microphone should be active');
-            });
-
             vapi.on('status-update', (status: any) => {
-                console.log('Status update:', status);
                 if (status.status === 'ended' && status.endedReason) {
-                    console.error('Call ended reason:', status.endedReason);
                     setCallState('ended');
 
                     let errorMessage = 'Call ended unexpectedly.';
@@ -358,9 +299,6 @@ const VoiceAgentsPreview: React.FC = () => {
             });
 
             // Start WebRTC call
-            console.log('Starting VAPI call with agent ID:', data.agentId);
-            console.log('VAPI instance:', vapi);
-
             // Prepare variables for the call (including customer_name)
             const callVariables = data.variables || {};
             if (formData.name && formData.name.trim()) {
@@ -369,14 +307,8 @@ const VoiceAgentsPreview: React.FC = () => {
 
             try {
                 // Try VAPI start with just the assistantId as a string (most common format)
-                console.log('Attempting to start VAPI call with assistantId:', data.agentId);
                 await vapi.start(data.agentId);
-                console.log('VAPI call initiated successfully with assistant ID:', data.agentId);
             } catch (startError: any) {
-                console.error('Error starting VAPI call:', startError);
-                console.error('Start error type:', typeof startError);
-                console.error('Start error details:', startError);
-
                 setCallState('ended');
 
                 let startErrorMessage = 'Failed to start the call. Please try again.';
@@ -385,7 +317,6 @@ const VoiceAgentsPreview: React.FC = () => {
                 if (startError && startError instanceof Response) {
                     try {
                         const errorData = await startError.json();
-                        console.error('Start error response data:', errorData);
                         startErrorMessage = errorData.message || errorData.error || `HTTP ${startError.status}: ${startError.statusText}`;
                     } catch (e) {
                         startErrorMessage = `HTTP ${startError.status}: ${startError.statusText}`;
@@ -396,20 +327,12 @@ const VoiceAgentsPreview: React.FC = () => {
                     startErrorMessage = startError;
                 }
 
-                console.error('Final start error message:', startErrorMessage);
                 alert(`Unable to start call: ${startErrorMessage}`);
                 vapiCallRef.current = null;
                 return;
             }
 
         } catch (error: any) {
-            console.error('Voice call error:', error);
-            console.error('Error details:', {
-                message: error?.message,
-                stack: error?.stack,
-                name: error?.name,
-                error: error
-            });
             setCallState('ended');
 
             let errorMessage = 'Unknown error occurred.';
@@ -445,7 +368,6 @@ const VoiceAgentsPreview: React.FC = () => {
             // Show user-friendly error messages
             if (errorMessage.includes('Backend URL not configured') || errorMessage.includes('Backend service is not configured')) {
                 // This should not happen in production if env var is set correctly
-                console.error('Configuration error:', errorMessage);
                 alert('Service configuration error. Please contact support.');
             } else if (errorMessage.includes('Failed to fetch') || (error instanceof TypeError && error?.message?.includes('Failed to fetch'))) {
                 const isDev = process.env.NODE_ENV === 'development';
@@ -457,7 +379,6 @@ const VoiceAgentsPreview: React.FC = () => {
                 }
             } else {
                 // For other errors, show a user-friendly message (limit length to avoid issues)
-                console.error('Call failed:', errorMessage);
                 const displayMessage = errorMessage.length > 200 ? errorMessage.substring(0, 200) + '...' : errorMessage;
                 alert(`Unable to start call: ${displayMessage}`);
             }
@@ -478,7 +399,6 @@ const VoiceAgentsPreview: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        console.log('Input change:', name, value);
         setFormData(prev => ({
             ...prev,
             [name]: value

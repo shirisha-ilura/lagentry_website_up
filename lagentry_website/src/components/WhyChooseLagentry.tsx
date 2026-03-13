@@ -45,16 +45,6 @@ const WhyChooseLagentry: React.FC = () => {
                                 crossOrigin="anonymous"
                                 onError={(e) => {
                                     const video = e.currentTarget;
-                                    // Only log detailed errors in development
-                                    if (process.env.NODE_ENV === 'development') {
-                                        console.error('sal video error:', e);
-                                        console.error('Video src:', video.src);
-                                        console.error('Video error code:', video.error?.code);
-                                        console.error('Video error message:', video.error?.message);
-                                    } else {
-                                        // In production, just log a warning
-                                        console.warn('Video failed to load:', video.src);
-                                    }
                                     // Try alternative paths
                                     const alternatives = [
                                         '/sal.mp4',
@@ -67,14 +57,11 @@ const WhyChooseLagentry: React.FC = () => {
                                             const newSrc = alternatives[currentIndex];
                                             const currentSrc = video.src.replace(window.location.origin, '');
                                             if (currentSrc !== newSrc && !video.src.includes(newSrc)) {
-                                                console.log(`Trying alternative path: ${newSrc}`);
                                                 video.src = newSrc;
                                                 video.load();
                                             }
                                             currentIndex++;
                                         } else if (video.error) {
-                                            console.error('sal.mp4 video not found. Please ensure the file exists in public folder.');
-                                            console.error('Current video src:', video.src);
                                             video.style.display = 'none';
                                         }
                                     };
@@ -113,16 +100,6 @@ const WhyChooseLagentry: React.FC = () => {
                                 onError={(e) => {
                                     const video = e.currentTarget;
                                     if (video && video.error) {
-                                        // Only log detailed errors in development
-                                        if (process.env.NODE_ENV === 'development') {
-                                            console.error('clone video error:', e);
-                                            console.error('Video src:', video.src);
-                                            console.error('Video error code:', video.error.code);
-                                            console.error('Video error message:', video.error.message);
-                                        } else {
-                                            // In production, just log a warning
-                                            console.warn('Video failed to load:', video.src);
-                                        }
                                         // Try alternative paths/formats as fallback (mp4 only - no MOV)
                                         const alternatives = [
                                             '/clone.mp4',
@@ -136,14 +113,11 @@ const WhyChooseLagentry: React.FC = () => {
                                                 // Check if src is different (handle both relative and absolute URLs)
                                                 const currentSrc = video.src.replace(window.location.origin, '');
                                                 if (currentSrc !== newSrc && !video.src.includes(newSrc)) {
-                                                    console.log(`Trying alternative path: ${newSrc}`);
                                                     video.src = newSrc;
                                                     video.load();
                                                 }
                                                 currentIndex++;
                                             } else if (video.error) {
-                                                console.error('clone.mp4 video not found. Please ensure clone.mp4 exists in public folder.');
-                                                console.error('Current video src:', video.src);
                                                 // Hide video on persistent error
                                                 video.style.display = 'none';
                                             }

@@ -4,7 +4,7 @@ import './AgentDemoCards.css';
 import realVoiceDemo from '../realvoicedemo.mp3';
 // Sales video path - file should be in public folder
 // Use absolute path for Netlify deployment compatibility
-const salesVideo = '/sales-agent-updated.mp4';
+const salesVideo = '/sales.mp4';
 import agentBg from './agentbg2.png';
 // Video paths - files should be in public folder
 // Files are in: public/AICFO.MP4, public/HRvc.mp4, public/vim1.mp4, public/vim2.mp4, public/Healthcare-agent.mp4
@@ -182,12 +182,7 @@ const AgentDemoCards: React.FC = () => {
           const video = entry.target as HTMLVideoElement;
           const cardId = video.dataset.cardId || (video === aiCFOVideoRef.current ? 'ai-cfo-agent' : '');
           if (entry.isIntersecting) {
-            video.play().catch((error) => {
-              // Only log if it's not a common browser restriction error
-              if (error.name !== 'NotAllowedError' && error.name !== 'NotSupportedError') {
-                console.warn('Video autoplay prevented:', error.name);
-              }
-            });
+            video.play().catch(() => undefined);
             setPlayingCards(prev => ({ ...prev, [cardId]: true }));
           } else {
             video.pause();
@@ -233,9 +228,7 @@ const AgentDemoCards: React.FC = () => {
           });
           audio.play().then(() => {
             setAudioPlaying(prev => ({ ...prev, [cardId]: true }));
-          }).catch((error) => {
-            console.error('Error playing audio:', error);
-          });
+          }).catch(() => undefined);
         } else {
           audio.pause();
           setAudioPlaying(prev => ({ ...prev, [cardId]: false }));
@@ -306,13 +299,11 @@ const AgentDemoCards: React.FC = () => {
                               style={{ display: 'block', opacity: 1 }}
                               onCanPlay={(e) => {
                                 const video = e.currentTarget;
-                                console.log('AICFO video can play - ready to play');
                                 video.style.display = 'block';
                                 video.style.opacity = '1';
                               }}
                               onLoadedData={(e) => {
                                 const video = e.currentTarget;
-                                console.log('AICFO video data loaded successfully');
                                 video.style.display = 'block';
                               }}
                               onPlay={() => setPlayingCards(prev => ({ ...prev, 'ai-cfo-agent': true }))}
@@ -336,28 +327,11 @@ const AgentDemoCards: React.FC = () => {
                                       const contentLength = response.headers.get('Content-Length');
                                       const fileSize = contentLength ? parseInt(contentLength, 10) : 0;
 
-                                      console.error('AICFO Video Error Details:', {
-                                        errorCode,
-                                        errorMessage,
-                                        videoSrc: video.src,
-                                        fileSize: fileSize,
-                                        fileSizeMB: (fileSize / (1024 * 1024)).toFixed(2),
-                                        networkState: video.networkState,
-                                        readyState: video.readyState,
-                                        canPlayType: video.canPlayType('video/mp4'),
-                                        httpStatus: response.status,
-                                        contentType: response.headers.get('Content-Type')
-                                      });
-
                                       // If file size is suspiciously small (< 1KB), it's likely corrupted or wrong file
                                       if (fileSize < 1024) {
-                                        console.error('CRITICAL: Video file is too small (' + fileSize + ' bytes). File is corrupted or not uploaded correctly.');
-                                        console.error('Please verify AICFO.MP4 exists in public folder and is a valid video file.');
-
                                         // Try to reload the video with cache busting
                                         const cacheBuster = '?t=' + Date.now();
                                         const newSrc = video.src.split('?')[0] + cacheBuster;
-                                        console.log('Attempting to reload with cache busting:', newSrc);
                                         video.src = newSrc;
                                         video.load();
                                         return;
@@ -365,8 +339,6 @@ const AgentDemoCards: React.FC = () => {
 
                                       // If file size is OK but still error, try different loading strategies
                                       if (errorCode === 4 && fileSize > 1024) {
-                                        console.error('Video format issue. Attempting alternative loading methods...');
-
                                         // Strategy 1: Try loading as blob
                                         fetch(video.src)
                                           .then(res => {
@@ -378,15 +350,13 @@ const AgentDemoCards: React.FC = () => {
                                           .then(blob => {
                                             if (blob.size > 1024) {
                                               const blobUrl = URL.createObjectURL(blob);
-                                              console.log('Loading video from blob URL');
                                               video.src = blobUrl;
                                               video.load();
                                             } else {
                                               throw new Error('Blob too small');
                                             }
                                           })
-                                          .catch(err => {
-                                            console.error('Blob loading failed:', err);
+                                          .catch(() => {
                                             // Fall back to retry with different path
                                             retryWithAlternatives(video);
                                           });
@@ -394,8 +364,7 @@ const AgentDemoCards: React.FC = () => {
                                         retryWithAlternatives(video);
                                       }
                                     })
-                                    .catch(err => {
-                                      console.error('Cannot check video file:', err);
+                                    .catch(() => {
                                       retryWithAlternatives(video);
                                     });
 
@@ -420,7 +389,6 @@ const AgentDemoCards: React.FC = () => {
                                         const newSrcPath = newSrc.split('?')[0].replace(window.location.origin, '');
 
                                         if (currentSrc !== newSrcPath) {
-                                          console.log(`Retry ${currentIndex + 1}/${maxRetries}: Trying path: ${newSrc}`);
                                           videoElement.src = newSrc;
                                           videoElement.load();
                                         }
@@ -435,10 +403,6 @@ const AgentDemoCards: React.FC = () => {
                                           }, 500);
                                         }
                                       } else if (videoElement.error) {
-                                        console.error('All AICFO video loading attempts failed.');
-                                        console.error('Final video src:', videoElement.src);
-                                        console.error('Error code:', videoElement.error.code);
-
                                         // Show placeholder but keep trying in background
                                         videoElement.style.display = 'none';
                                         const container = videoElement.parentElement;
@@ -456,7 +420,6 @@ const AgentDemoCards: React.FC = () => {
                                               placeholder.remove();
                                               videoElement.style.display = 'block';
                                             } else {
-                                              console.log('Retrying video load...');
                                               videoElement.src = '/AICFO.MP4?retry=' + Date.now();
                                               videoElement.load();
                                             }
@@ -528,13 +491,11 @@ const AgentDemoCards: React.FC = () => {
                               style={{ display: 'block', opacity: 1 }}
                               onCanPlay={(e) => {
                                 const video = e.currentTarget;
-                                console.log('AICFO video can play - ready to play');
                                 video.style.display = 'block';
                                 video.style.opacity = '1';
                               }}
                               onLoadedData={(e) => {
                                 const video = e.currentTarget;
-                                console.log('AICFO video data loaded successfully');
                                 video.style.display = 'block';
                               }}
                               onPlay={() => setPlayingCards(prev => ({ ...prev, 'ai-cfo-agent': true }))}
@@ -558,28 +519,11 @@ const AgentDemoCards: React.FC = () => {
                                       const contentLength = response.headers.get('Content-Length');
                                       const fileSize = contentLength ? parseInt(contentLength, 10) : 0;
 
-                                      console.error('AICFO Video Error Details:', {
-                                        errorCode,
-                                        errorMessage,
-                                        videoSrc: video.src,
-                                        fileSize: fileSize,
-                                        fileSizeMB: (fileSize / (1024 * 1024)).toFixed(2),
-                                        networkState: video.networkState,
-                                        readyState: video.readyState,
-                                        canPlayType: video.canPlayType('video/mp4'),
-                                        httpStatus: response.status,
-                                        contentType: response.headers.get('Content-Type')
-                                      });
-
                                       // If file size is suspiciously small (< 1KB), it's likely corrupted or wrong file
                                       if (fileSize < 1024) {
-                                        console.error('CRITICAL: Video file is too small (' + fileSize + ' bytes). File is corrupted or not uploaded correctly.');
-                                        console.error('Please verify AICFO.MP4 exists in public folder and is a valid video file.');
-
                                         // Try to reload the video with cache busting
                                         const cacheBuster = '?t=' + Date.now();
                                         const newSrc = video.src.split('?')[0] + cacheBuster;
-                                        console.log('Attempting to reload with cache busting:', newSrc);
                                         video.src = newSrc;
                                         video.load();
                                         return;
@@ -587,8 +531,6 @@ const AgentDemoCards: React.FC = () => {
 
                                       // If file size is OK but still error, try different loading strategies
                                       if (errorCode === 4 && fileSize > 1024) {
-                                        console.error('Video format issue. Attempting alternative loading methods...');
-
                                         // Strategy 1: Try loading as blob
                                         fetch(video.src)
                                           .then(res => {
@@ -600,15 +542,13 @@ const AgentDemoCards: React.FC = () => {
                                           .then(blob => {
                                             if (blob.size > 1024) {
                                               const blobUrl = URL.createObjectURL(blob);
-                                              console.log('Loading video from blob URL');
                                               video.src = blobUrl;
                                               video.load();
                                             } else {
                                               throw new Error('Blob too small');
                                             }
                                           })
-                                          .catch(err => {
-                                            console.error('Blob loading failed:', err);
+                                          .catch(() => {
                                             // Fall back to retry with different path
                                             retryWithAlternatives(video);
                                           });
@@ -616,8 +556,7 @@ const AgentDemoCards: React.FC = () => {
                                         retryWithAlternatives(video);
                                       }
                                     })
-                                    .catch(err => {
-                                      console.error('Cannot check video file:', err);
+                                    .catch(() => {
                                       retryWithAlternatives(video);
                                     });
 
@@ -642,7 +581,6 @@ const AgentDemoCards: React.FC = () => {
                                         const newSrcPath = newSrc.split('?')[0].replace(window.location.origin, '');
 
                                         if (currentSrc !== newSrcPath) {
-                                          console.log(`Retry ${currentIndex + 1}/${maxRetries}: Trying path: ${newSrc}`);
                                           videoElement.src = newSrc;
                                           videoElement.load();
                                         }
@@ -657,10 +595,6 @@ const AgentDemoCards: React.FC = () => {
                                           }, 500);
                                         }
                                       } else if (videoElement.error) {
-                                        console.error('All AICFO video loading attempts failed.');
-                                        console.error('Final video src:', videoElement.src);
-                                        console.error('Error code:', videoElement.error.code);
-
                                         // Show placeholder but keep trying in background
                                         videoElement.style.display = 'none';
                                         const container = videoElement.parentElement;
@@ -678,7 +612,6 @@ const AgentDemoCards: React.FC = () => {
                                               placeholder.remove();
                                               videoElement.style.display = 'block';
                                             } else {
-                                              console.log('Retrying video load...');
                                               videoElement.src = '/AICFO.MP4?retry=' + Date.now();
                                               videoElement.load();
                                             }
@@ -753,16 +686,9 @@ const AgentDemoCards: React.FC = () => {
                                 const video = e.currentTarget;
                                 video.style.display = 'block';
                                 video.style.opacity = '1';
-                                console.log(`Video can play for ${agent.id}:`, video.src);
                               }}
                               onError={(e) => {
                                 const video = e.currentTarget;
-                                console.error(`Video error for ${agent.id}:`, {
-                                  src: video.src,
-                                  error: video.error,
-                                  networkState: video.networkState,
-                                  readyState: video.readyState
-                                });
                                 // Try alternative paths
                                 if (agent.id === 'agent-1' && video.src.includes('sales-agent-updated')) {
                                   video.src = '/sales.mp4';
@@ -862,16 +788,9 @@ const AgentDemoCards: React.FC = () => {
                                 const video = e.currentTarget;
                                 video.style.display = 'block';
                                 video.style.opacity = '1';
-                                console.log(`Video can play for ${agent.id}:`, video.src);
                               }}
                               onError={(e) => {
                                 const video = e.currentTarget;
-                                console.error(`Video error for ${agent.id}:`, {
-                                  src: video.src,
-                                  error: video.error,
-                                  networkState: video.networkState,
-                                  readyState: video.readyState
-                                });
                                 // Try alternative paths
                                 if (agent.id === 'agent-1' && video.src.includes('sales-agent-updated')) {
                                   video.src = '/sales.mp4';
